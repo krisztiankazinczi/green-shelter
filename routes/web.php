@@ -19,6 +19,7 @@ Route::group(['middleware' => 'getMenu'], function(){
     });
     
     Route::view('/home', 'pages/home');
+    Route::view('/animals/cats', 'pages/home')->middleware('isAdmin');
     
     Auth::routes();
 });
