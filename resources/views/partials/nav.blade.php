@@ -10,7 +10,7 @@
         @isset($menuItems)
           @foreach ($menuItems as $item)
             @if (isset($item->hasSubMenu))
-              <li class="nav-item dropdown active">
+              <li class="nav-item dropdown {{ Request::is($item->route) || Request::is($item->route . '/*') ? 'active' : '' }}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ $item->name }}
                 </a>
@@ -31,12 +31,12 @@
             @elseif ($item->parent == "")
               @if ($item->role_id > 1)
                 @if (Auth::user() != null && $item->role_id <= Auth::user()->role_id)
-                  <li class="nav-item">
+                  <li class="nav-item {{ Request::path() == $item->route ? 'active' : '' }}">
                     <a class="nav-link" href="/{{$item->route}}">{{ $item->name }}<span class="sr-only">(current)</span></a>
                   </li>
                 @endif
               @else 
-                <li class="nav-item">
+                <li class="nav-item {{ Request::path() == $item->route ? 'active' : '' }}">
                   <a class="nav-link" href="/{{$item->route}}">{{ $item->name }}<span class="sr-only">(current)</span></a>
                 </li>
               @endif
