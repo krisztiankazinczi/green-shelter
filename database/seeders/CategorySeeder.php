@@ -20,7 +20,8 @@ class CategorySeeder extends Seeder
                 'description' => 'Folyamatosan frissítjük az oldalunkat, mégis a személyes látogatást javasoljuk a felelosségteljes kiválasztáshoz.
                 Nagyon szeretnénk, ha a kutyáink sorsa jóra fordulna és szerető családra találnának. A képekre kattintva nagyobb méretben, külön ablakban megtekintheti őket.',
                 'image_uri' => 'images/dog1.jpg',
-                'menu_id' => 3
+                'menu_id' => 3,
+                'text_location' => 'left'
             ],
             [
                 'title' => 'Elveszett kedvencek',
@@ -28,7 +29,8 @@ class CategorySeeder extends Seeder
 
                 Kérjük, ha már nem aktuális, értesítsenek minket!',
                 'image_uri' => 'images/dog2.jpeg',
-                'menu_id' => 5
+                'menu_id' => 5,
+                'text_location' => 'right'
             ],
             [
                 'title' => 'Talált kedvencek',
@@ -36,7 +38,8 @@ class CategorySeeder extends Seeder
 
                 Kérjük, ha már nem aktuális, értesítsenek minket!',
                 'image_uri' => 'images/dog3.jpeg',
-                'menu_id' => 7
+                'menu_id' => 7,
+                'text_location' => 'right'
             ],
         ];
 
@@ -45,7 +48,8 @@ class CategorySeeder extends Seeder
                 'title' => $category['title'],
                 'description' => $category['description'],
                 'image_uri' => $category['image_uri'],
-                'menu_id' => $category['menu_id']
+                'menu_id' => $category['menu_id'],
+                'text_location' => $category['text_location']
             ));
         }
 

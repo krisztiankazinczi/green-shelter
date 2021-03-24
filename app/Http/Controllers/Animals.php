@@ -20,6 +20,7 @@ class Animals extends Controller
         $uri = $request->path();
         $menuItem = Menu::where('route', $uri)->first();
         $category = Category::where('menu_id', $menuItem->id)->first();
-        return View::make('pages/home')->with('category', $category);
+        return View::make('pages/animals')->with('category', $category);
+        // ->with('orientation', 'right');
     }
 }

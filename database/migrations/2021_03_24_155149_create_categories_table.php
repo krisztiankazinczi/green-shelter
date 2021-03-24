@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->string('image_uri');
+            $table->string('text_location', 6);
             $table->timestamps();
         });
 
