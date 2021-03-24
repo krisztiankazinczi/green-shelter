@@ -19,10 +19,10 @@
                     @if ($item->name == $item1->parent)
                       @if ($item1->role_id > 1)
                         @if (Auth::user() != null && $item1->role_id <= Auth::user()->role_id)
-                          <a class="dropdown-item" href={{$item1->route}}>{{ $item1->name }}</a>
+                          <a class="dropdown-item" href="/{{$item1->route}}">{{ $item1->name }}</a>
                         @endif
                       @else 
-                        <a class="dropdown-item" href={{$item1->route}}>{{ $item1->name }}</a>
+                        <a class="dropdown-item" href="/{{$item1->route}}">{{ $item1->name }}</a>
                       @endif    
                     @endif
                   @endforeach
@@ -32,12 +32,12 @@
               @if ($item->role_id > 1)
                 @if (Auth::user() != null && $item->role_id <= Auth::user()->role_id)
                   <li class="nav-item">
-                    <a class="nav-link" href={{$item->route}}>{{ $item->name }}<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/{{$item->route}}">{{ $item->name }}<span class="sr-only">(current)</span></a>
                   </li>
                 @endif
               @else 
                 <li class="nav-item">
-                  <a class="nav-link" href={{$item->route}}>{{ $item->name }}<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="/{{$item->route}}">{{ $item->name }}<span class="sr-only">(current)</span></a>
                 </li>
               @endif
             @endif
