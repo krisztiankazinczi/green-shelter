@@ -1,6 +1,6 @@
-<div class="jumbotron" style="background: url(images/dog1.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 60vh;">
-    <div class="container w-100">
-        <div class="row" style="width: 100%;">
+<div class="jumbotron jumbotron-fluid" style="background: url(images/dog1.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 60vh;">
+    <div class="container">
+        <div class="row">
             <div class="col-md-6">
             </div>
             <div class="col-md-6">

@@ -24,4 +24,9 @@ class Menu extends Model
     {
         return $this->hasOne(Role::class);
     }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class);
+    }
 }
