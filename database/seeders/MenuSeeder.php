@@ -74,6 +74,11 @@ class MenuSeeder extends Seeder
                 'role_id' => '2',
             ],
             [
+                'route' => 'animal-of-week',
+                'name' => 'A hét állata',
+                'role_id' => '1',
+            ],
+            [
                 'route' => 'success-stories',
                 'name' => 'Sikertörténetek',
                 'role_id' => '1',
