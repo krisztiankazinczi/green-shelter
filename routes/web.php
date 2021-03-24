@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Animals;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,9 @@ Route::group(['middleware' => 'getMenu'], function(){
     });
     
     Route::view('/home', 'pages/home');
-    Route::view('/animals/cats', 'pages/home')->middleware('isAdmin');
+    Route::get('/animals/dogs', [Animals::class, 'getDogs']);
+    Route::get('/animals/lost-dogs', [Animals::class, 'getDogs']);
+    Route::get('/animals/found-dogs', [Animals::class, 'getDogs']);
     
     Auth::routes();
 });
