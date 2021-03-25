@@ -9,7 +9,8 @@
       </div>
       <div class="modal-body">
         <div class="d-flex justify-content-center">
-          <img class="img-fluid" style="height: 30rem; max-width: 100%;" src="images/dog2.jpeg" alt="Card image cap">
+          {{-- <img class="img-fluid" style="height: 30rem; max-width: 100%;" src="images/dog2.jpeg" alt="Card image cap"> --}}
+          @include('partials.carousel_modal_animals')
         </div>
         <div class="mt-4">
           <h5>
