@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class AnimalType extends Model
+class Animal extends Model
 {
     use HasFactory;
 
     public $incrementing = false;
     public $keyType = 'string';
-
+    
     public static function boot()
     {
         parent::boot();

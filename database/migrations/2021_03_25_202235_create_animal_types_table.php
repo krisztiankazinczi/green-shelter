@@ -14,7 +14,7 @@ class CreateAnimalTypesTable extends Migration
     public function up()
     {
         Schema::create('animal_types', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->index();
             $table->string('name', 40);
             $table->longText('description');
             $table->timestamps();
