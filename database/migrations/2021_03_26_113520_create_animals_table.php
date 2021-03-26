@@ -15,7 +15,7 @@ class CreateAnimalsTable extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->uuid('id')->index();
-            $table->string('title', 40);
+            $table->string('title', 70);
             $table->longText('description');
             $table->boolean('dog_of_the_week');
             $table->boolean('adopted');
