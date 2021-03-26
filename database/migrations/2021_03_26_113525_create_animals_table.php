@@ -19,7 +19,6 @@ class CreateAnimalsTable extends Migration
             $table->longText('description');
             $table->boolean('dog_of_the_week');
             $table->boolean('adopted');
-            $table->longText('image_ids'); // foreign keys - de a controllerben fogom beallitani, mivel tobb kep idt is akarok tombben jsonna alakitva lementeni
             $table->timestamps();
         });
 

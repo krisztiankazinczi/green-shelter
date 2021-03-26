@@ -19,7 +19,6 @@ class Animal extends Model
         'description',
         'dog_of_the_week',
         'adopted',
-        'image_ids',
         'category_id',
         'user_id',
         'animal_type_id',
@@ -28,8 +27,7 @@ class Animal extends Model
 
     protected $casts = [
         'dog_of_the_week' => 'boolean',
-        'adopted' => 'boolean',
-        'image_ids' => 'array'
+        'adopted' => 'boolean'
     ];
     
     public static function boot()
@@ -60,5 +58,10 @@ class Animal extends Model
     public function user()
     {
         return $this->hasOne(User::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
     }
 }

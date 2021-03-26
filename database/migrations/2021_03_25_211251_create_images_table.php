@@ -19,6 +19,11 @@ class CreateImagesTable extends Migration
             $table->boolean('main');
             $table->timestamps();
         });
+
+        Schema::table('images', function (Blueprint $table) {
+            $table->string('animal_id');
+            $table->foreign('animal_id')->references('id')->on('animals');
+        });
     }
 
     /**

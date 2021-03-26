@@ -23,6 +23,8 @@ class Image extends Model
         'main' => 'boolean'
     ];
 
-    // az animals tablaban nincs valodi kulso kulcskent megadva, ezert nem definialok relationship-et
-    
+    public function animal()
+    {
+        return $this->belongsTo(Animal::class);
+    }    
 }

@@ -23,7 +23,6 @@ class AnimalSeeder extends Seeder
                 Köszönettel:\n\n
                 Dr. Gaál Ágnes\n
                 06304339384',
-                'image_ids' => json_encode(array(1, 2, 3)),
                 'category_id' => 1,
                 'user_id' => 1,
                 'animal_type_id' => '1d75d107-d7ad-4dbb-b450-20c01bd1acd5',
@@ -34,7 +33,6 @@ class AnimalSeeder extends Seeder
                 'description' => 'Tavaly Máriakéméndről tűnt el. Azóta nem tudok sajnos róla semmit.\n
                 \nBuksi névre hallgat. Chippel rendelkezik. Ivartalanított kan.3 éves lesz májusba\n\n
                 elérhetőségem: 06705977263',
-                'image_ids' => json_encode(array(4, 5, 6, 7)),
                 'category_id' => 1,
                 'user_id' => 2,
                 'animal_type_id' => '84101b2e-c7c3-40f0-b8c7-9315e3b62805',
@@ -48,7 +46,6 @@ class AnimalSeeder extends Seeder
                 Kovács Krisztina\n
                 06309987521\n
                 krisztuuka@citromail.hu',
-                'image_ids' => json_encode(array(8, 9)),
                 'category_id' => 1,
                 'user_id' => 3,
                 'animal_type_id' => '0cfe2c0e-1b19-42ad-9531-14aaaf724e93',
@@ -61,7 +58,6 @@ class AnimalSeeder extends Seeder
                 Hohl Bernadett\n
                 06203934625 vagy 06209622373\n
                 detti2310@gmail.com',
-                'image_ids' => json_encode(array(10)),
                 'category_id' => 1,
                 'user_id' => 2,
                 'animal_type_id' => '0cfe2c0e-1b19-42ad-9531-14aaaf724e93',
@@ -75,7 +71,6 @@ class AnimalSeeder extends Seeder
                 Kovács Krisztina\n
                 06309987521\n
                 krisztuuka@citromail.hu',
-                'image_ids' => json_encode(array(11, 12, 13)),
                 'category_id' => 2,
                 'user_id' => 3,
                 'animal_type_id' => '811607b6-2a1a-42dd-8de5-32016c0464bf',
@@ -88,7 +83,6 @@ class AnimalSeeder extends Seeder
                 Hohl Bernadett\n
                 06203934625 vagy 06209622373\n
                 detti2310@gmail.com',
-                'image_ids' => json_encode(array(14, 15, 16)),
                 'category_id' => 2,
                 'user_id' => 4,
                 'animal_type_id' => 'd9c462a8-f10d-4d6c-9ceb-41022444155a',
@@ -101,7 +95,6 @@ class AnimalSeeder extends Seeder
                 Hohl Bernadett\n
                 06203934625 vagy 06209622373\n
                 detti2310@gmail.com',
-                'image_ids' => json_encode(array(17)),
                 'category_id' => 3,
                 'user_id' => 4,
                 'animal_type_id' => '811607b6-2a1a-42dd-8de5-32016c0464bf',
@@ -113,7 +106,6 @@ class AnimalSeeder extends Seeder
             Animal::create(array(
                 'title' => $animal['title'],
                 'description' => $animal['description'],
-                'image_ids' => $animal['image_ids'],
                 'category_id' => $animal['category_id'],
                 'user_id' => $animal['user_id'],
                 'animal_type_id' => $animal['animal_type_id'],
