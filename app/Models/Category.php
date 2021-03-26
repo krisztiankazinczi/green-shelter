@@ -9,6 +9,14 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'image_uri',
+        'text_location',
+        'menu_id',
+    ];
+
     protected $hidden = [
         'created_at',
         'updated_at'
@@ -17,5 +25,10 @@ class Category extends Model
     public function menu()
     {
         return $this->hasOne(Menu::class);
+    }
+
+    public function animal()
+    {
+        return $this->belongsTo(Animal::class);
     }
 }

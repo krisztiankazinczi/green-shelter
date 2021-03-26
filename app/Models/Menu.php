@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
+    
     protected $fillable = [
         'route',
         'name',
@@ -24,8 +25,13 @@ class Menu extends Model
         return $this->hasOne(Role::class);
     }
 
+    public function animal()
+    {
+        return $this->belongsTo(Animal::class);
+    }
+
     public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 }
