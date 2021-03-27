@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Érvénytelen azonosító adatok',
+    'password' => 'Helytelen jelszó',
+    'throttle' => 'Túl sok bejelentkeyési kísérlet. Próbálkozz újra :seconds másodperc múlva.',
 
 ];

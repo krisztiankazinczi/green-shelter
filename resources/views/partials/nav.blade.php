@@ -52,8 +52,8 @@
           </form> 
         @else
           <div class="d-flex">
-            <a class="nav-item nav-link d-block" href="{{ route('login') }}">Login</a>
-            <a class="nav-item nav-link d-block" href="{{ route('register') }}">Signup</a>
+            <a class="nav-item nav-link d-block" href="{{ route('login') }}">Bejelentkezés</a>
+            <a class="nav-item nav-link d-block" href="{{ route('register') }}">Regisztráció</a>
           </div>
         @endauth
       </div>
