@@ -14,16 +14,11 @@ use App\Http\Controllers\AnimalController;
 |
 */
 
-Route::group(['middleware' => 'getMenu'], function(){
-    Route::get('/', function () {
-        return view('welcome');
-    });
-    
+Route::group(['middleware' => 'getMenu'], function(){    
     Route::view('/home', 'pages/home');
-    Route::get('/animals/dogs', [AnimalController::class, 'getAnimals']);
-    Route::get('/animals/lost-dogs', [AnimalController::class, 'getAnimals']);
-    Route::get('/animals/found-dogs', [AnimalController::class, 'getAnimals']);
-    
+    Route::get('/animals/{page}', [AnimalController::class, 'index']);
+    Route::get('/animals/{page}/{id}', [AnimalController::class, 'show']);
+
     Auth::routes();
 });
 

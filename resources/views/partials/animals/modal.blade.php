@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
         <div class="d-flex justify-content-center">
-          @include('partials.carousel_modal_animals', ['images', $images = $animal->images])
+          @include('partials.animals.carousel', ['images', $images = $animal->images])
         </div>
         <div class="mt-4">
           <h5>
@@ -18,9 +18,13 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary">Megtekintés</button>
-        <button type="button" class="btn btn-primary">Szerkesztés</button>
-        <button type="button" class="btn btn-danger">Törlés</button>
+        <a href="/animals/dogs/{{ $animal->id }}">
+          <button type="button" class="btn btn-secondary">Megtekintés</button>
+        </a>
+        @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
+          <button type="button" class="btn btn-primary">Szerkesztés</button>
+          <button type="button" class="btn btn-danger">Törlés</button>
+        @endif
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 @isset($animal)
-  @include('partials.modal_animals', ['animal' => $animal])
+  @include('partials.animals.modal', ['animal' => $animal])
   <div class="card w-75" style="min-width: 17rem; max-width: 25rem;">
     @foreach ($animal->images as $image)
       @if ($image->main)

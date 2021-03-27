@@ -4,7 +4,7 @@
       @foreach ($animals as $animal)
         <div class="col-12 col-sm-6 col-lg-4 mb-4">
           <div class="d-flex justify-content-center h-100">
-            @include('partials.info_card', ['animal' => $animal])
+            @include('partials.animals.info_card', ['animal' => $animal])
           </div>
         </div>
       @endforeach

@@ -17,23 +17,29 @@ class AnimalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function getAnimals(Request $request)
-    {
-        $uri = $request->path();
-        $menuItem = Menu::where('route', $uri)->first();
-        $category = Category::where('menu_id', $menuItem->id)->first();
-        $animals = Animal::with('images')->where('category_id', $category->id)->get();
-        return View::make('pages/animals')->with('category', $category)->with('animals', $animals);
-    }
+    // public function getAnimals(Request $request, $page)
+    // {
+    //     $uri = 'animals/' . $page;
+    //     $menuItem = Menu::where('route', $uri)->first();
+    //     $category = Category::where('menu_id', $menuItem->id)->first();
+    //     $animals = Animal::with('images')->where('category_id', $category->id)->get();
+    //     return View::make('pages/animals')->with('category', $category)->with('animals', $animals);
+    // }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+      * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request, $page)
     {
-        //
+        // $uri = $request->path();
+        $uri = 'animals/' . $page;
+        $menuItem = Menu::where('route', $uri)->first();
+        $category = Category::where('menu_id', $menuItem->id)->first();
+        $animals = Animal::with('images')->where('category_id', $category->id)->get();
+        return View::make('pages/animals')->with('category', $category)->with('animals', $animals);
     }
 
     /**
@@ -60,12 +66,16 @@ class AnimalController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  string  $page
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($page, $id)
     {
-        //
+        $animal = Animal::with('images')->where('id', $id)->first();
+        $menu = Menu::where('id', $animal->menu_id)->first();
+        $animal->{"menu"} = $menu;
+        return View::make('pages/animal')->with('animal', $animal);
     }
 
     /**
