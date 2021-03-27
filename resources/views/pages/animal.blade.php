@@ -13,8 +13,8 @@
     <div class="container-fluid mt-5">
       <div class="row">
         @foreach ($animal->images as $image)
-          <div class="col-12 col-sm-6 col-lg-4 mb-4 {{ $image->main ? 'border border-primary' : '' }}">
-            <img class="card-img-top img-fluid" style="height: 15rem;" src="/images/{{ $image->filename }}" alt={{ $animal->title }}>
+          <div class="col-12 col-sm-6 col-lg-4 mb-4">
+            <img class="card-img-top img-fluid" style="height: 15rem; {{ $image->main ? 'border: 10px solid blue;' : '' }}" src="/images/{{ $image->filename }}" alt={{ $animal->title }}>
           </div>
         @endforeach
       </div>

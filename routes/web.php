@@ -18,6 +18,7 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::view('/home', 'pages/home');
     Route::get('/animals/{page}', [AnimalController::class, 'index']);
     Route::get('/animals/{page}/{id}', [AnimalController::class, 'show']);
+    Route::view('/create', 'pages/create-animal');
 
     Auth::routes();
 });
