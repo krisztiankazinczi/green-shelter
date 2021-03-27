@@ -1,11 +1,19 @@
-@include('partials.modal_animals', ['modal_id' => $modal_id])
-<div class="card w-75" style="min-width: 17rem; max-width: 25rem;">
-  <img class="card-img-top img-fluid" style="height: 15rem;" src="images/dog2.jpeg" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ $modal_id }}">
-      Launch demo modal
-    </button>
+@isset($animal)
+  @include('partials.modal_animals', ['animal' => $animal])
+  <div class="card w-75" style="min-width: 17rem; max-width: 25rem;">
+    @foreach ($animal->images as $image)
+      @if ($image->main)
+        <img class="card-img-top img-fluid" style="height: 15rem;" src="/images/{{ $image->filename }}" alt={{ $animal->title }}>
+      @endif
+    @endforeach
+    <div class="card-body d-flex flex-column justify-content-between">
+      <div>
+        <h5 class="card-title">{{ $animal->title }}</h5>
+        <p class="card-text">{{ substr( $animal->description, 0, 150) . '...' }}</p>
+      </div>
+      <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#{{ $animal->id }}">
+        További Információ
+      </button>
+    </div>
   </div>
-</div>
+@endisset
