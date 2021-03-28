@@ -9,7 +9,7 @@
     <div class="card-body d-flex flex-column justify-content-between">
       <div>
         <h5 class="card-title">{{ $animal->title }}</h5>
-        <p class="card-text">{{ substr( $animal->description, 0, 150) . '...' }}</p>
+        <p class="card-text">{!! substr( $animal->description, 0, 150) . '...' !!}</p>
       </div>
       <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#{{ $animal->id }}">
         További Információ

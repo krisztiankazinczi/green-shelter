@@ -14,7 +14,7 @@
                 <div class="card-header">{{ __('Hirdetés feladása') }}</div>
 
                 <div class="card-body">
-                  <form method="POST" action="{{ route('create.advertisement', $page) }}">
+                  <form method="POST" enctype="multipart/form-data" action="{{ route('create.advertisement', $page) }}">
                     @csrf
                     <div class="form-group row">
                       <label for="title" class="col-md-2 col-form-label text-md-right">{{ __('Cím') }}</label>
@@ -58,6 +58,18 @@
                         </div>
                       </div>
                     @endisset
+
+                    <div class="form-group row">
+                      <label for="images" class="col-md-2 col-form-label text-md-right">{{ __('Képek') }}</label>
+                      <div class="col-md-10">
+                          <input type="file" id="images" name="images[]" multiple>
+                          @error('images')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                          @enderror
+                      </div>
+                    </div>
 
                     <div class="form-group mb-0">
                       <div class="d-flex justify-content-end">

@@ -13,7 +13,7 @@
         </div>
         <div class="mt-4">
           <h5>
-            {{ $animal->description }}
+            {!! $animal->description !!}
           </h5>
         </div>
       </div>

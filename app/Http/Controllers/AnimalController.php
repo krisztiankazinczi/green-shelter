@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 use App\Models\Menu;
 use App\Models\Category;
 use App\Models\Animal;
+use App\Models\Image;
 use App\Models\AnimalType;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Auth;
 
 
 class AnimalController extends Controller
@@ -70,24 +74,57 @@ class AnimalController extends Controller
         $this->validate($request,[
             'title'=>'required',
             'description'=>'required',
-            'animal_type'=>'required'
+            'animal_type'=>'required',
+            // 'images' => 'required|image|max:2048'
         ]);
 
         // Get the relationship ids
         $menu = Menu::where('route', 'animals/' . $page)->first();
         $category = Category::where('menu_id', $menu->id)->first();
         
-        // Create Record
-        Animal::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'animal_type_id' => $request->animal_type,
-            'menu_id' => $menu->id,
-            'category_id' => $category->id,
-            'user_id' => Auth::user()->id
-        ]);
+        // if ($request->hasFile('images')) {
+            $files = $request->images;
+            $images=array();
+            if ($files) {
+                foreach($files as $file){
+                    $extension = $file->extension();
+                    $name = Str::uuid()->toString() . '.' . $extension;
+                    echo $name;
+                    $destination = base_path() . '/public/images';
+                    $file->move($destination ,$name);
+                    $images[] = $name;
+                }
+            }
+                
+            // Create Record
+            DB::transaction(function() use ($request, $images, $menu, $category)
+            {
+                $newAnimal = Animal::create([
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'animal_type_id' => $request->animal_type,
+                    'menu_id' => $menu->id,
+                    'category_id' => $category->id,
+                    'user_id' => Auth::user()->id
+                ]);
+                foreach ($images as $index => $image) {
+                    $data = [
+                        'filename' => $image,
+                        'main' => $index == 0 ? true : false,
+                        'animal_id' => $newAnimal->id
+                    ];
+                    Image::create($data);
+                }
+    
+                // if( !$newUser )
+                // {
+                //     throw new \Exception('User not created for account');
+                // }
+            });
+            
+            return redirect('animals/' . $page)->with('success', 'Sikeresen feladtad a hirdetést, reméljük hamarosan gazdira talál.');
 
-        return redirect('animals/' . $page)->with('success', 'Sikeresen feladtad a hirdetést, reméljük hamarosan gazdira talál.');
+
     }
 
     /**
