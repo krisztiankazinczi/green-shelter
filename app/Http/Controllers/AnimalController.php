@@ -71,59 +71,66 @@ class AnimalController extends Controller
         // szinten nehany dolgot csak adminok tolthetnek fel, azt is checkolni kell!!!!!!!!
 
         // Validate Form Data
-        $this->validate($request,[
+        $rules = [
             'title'=>'required|max:70',
             'description'=>'required',
             'animal_type'=>'required',
             'images' => 'required',
             'images.*' => 'mimes:jpeg,jpg,png,gif|max:2048'
-        ]);
+        ];
+        $customMessages = [
+            'required' => 'A mezőt kötelező kitölteni.',
+            'max' => 'Meghaladtad a maximális karakterhosszt (:max).',
+            'mimes' => 'Csak képeket (jpg, png, jpeg, gif) lehet feltölteni',
+            'images.required' => 'Minimum 1 kép feltöltése kötelező',
+            'images.size' => 'Képfeltöltés nem sikerült, a képek maximális mérete 2MB'
+        ];
+        $this->validate($request, $rules, $customMessages);
 
         // Get the relationship ids
         $menu = Menu::where('route', 'animals/' . $page)->first();
         $category = Category::where('menu_id', $menu->id)->first();
         
-        // if ($request->hasFile('images')) {
-            $files = $request->images;
-            $images=array();
-            if ($files) {
-                foreach($files as $file){
-                    $extension = $file->extension();
-                    $name = Str::uuid()->toString() . '.' . $extension;
-                    echo $name;
-                    $destination = base_path() . '/public/images';
-                    $file->move($destination ,$name);
-                    $images[] = $name;
-                }
+        $files = $request->images;
+        $images=array();
+        if ($files) {
+            foreach($files as $file){
+                $extension = $file->extension();
+                $name = Str::uuid()->toString() . '.' . $extension;
+                echo $name;
+                $destination = base_path() . '/public/images';
+                $file->move($destination ,$name);
+                $images[] = $name;
             }
-                
-            // Create Record
-            DB::transaction(function() use ($request, $images, $menu, $category)
-            {
-                $newAnimal = Animal::create([
-                    'title' => $request->title,
-                    'description' => $request->description,
-                    'animal_type_id' => $request->animal_type,
-                    'menu_id' => $menu->id,
-                    'category_id' => $category->id,
-                    'user_id' => Auth::user()->id
-                ]);
-                foreach ($images as $index => $image) {
-                    $data = [
-                        'filename' => $image,
-                        'main' => $index == 0 ? true : false,
-                        'animal_id' => $newAnimal->id
-                    ];
-                    Image::create($data);
-                }
-    
-                // if( !$newUser )
-                // {
-                //     throw new \Exception('User not created for account');
-                // }
-            });
+        }
             
-            return redirect('animals/' . $page)->with('success', 'Sikeresen feladtad a hirdetést, reméljük hamarosan gazdira talál.');
+        // Create Record
+        DB::transaction(function() use ($request, $images, $menu, $category)
+        {
+            $newAnimal = Animal::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'animal_type_id' => $request->animal_type,
+                'menu_id' => $menu->id,
+                'category_id' => $category->id,
+                'user_id' => Auth::user()->id
+            ]);
+            foreach ($images as $index => $image) {
+                $data = [
+                    'filename' => $image,
+                    'main' => $index == 0 ? true : false,
+                    'animal_id' => $newAnimal->id
+                ];
+                Image::create($data);
+            }
+
+            // if( !$newUser )
+            // {
+            //     throw new \Exception('User not created for account');
+            // }
+        });
+            
+        return redirect('animals/' . $page)->with('success', 'Sikeresen feladtad a hirdetést, reméljük hamarosan gazdira talál.');
 
 
     }

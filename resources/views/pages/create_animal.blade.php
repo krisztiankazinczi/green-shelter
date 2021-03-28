@@ -64,7 +64,7 @@
                       <label for="images" class="col-md-2 col-form-label text-md-right">{{ __('Képek') }}</label>
                       <div class="col-md-10">
                           <input type="file" id="images" name="images[]" multiple>
-                          @error('images.0')
+                          @error('images')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
                               </span>
@@ -77,6 +77,11 @@
                         </div>   
                       </div>
                     </div>
+                    @isset($errors)
+                      @foreach ($errors->all() as $error)
+                          <div>{{ $error }}</div>
+                      @endforeach
+                  @endisset
 
                     <div class="form-group mb-0">
                       <div class="d-flex justify-content-end">
@@ -97,14 +102,13 @@
       CKEDITOR.replace( 'description' );
 
       const styles= {
-        height: "100px",
+        height: "200px",
         marginRight: "10px",
         marginBottom: "10px",
-        maxWidth: "200px",
+        maxWidth: "400px",
       };
 
       $(function() {
-        // Multiple images preview with JavaScript
         var multiImgPreview = function(input, imgPreviewPlaceholder) {
 
             if (input.files) {
