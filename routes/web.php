@@ -15,11 +15,15 @@ use App\Http\Controllers\AnimalController;
 */
 
 Route::group(['middleware' => 'getMenu'], function(){    
-    Route::view('/home', 'pages/home');
-    Route::get('/animals/{page}', [AnimalController::class, 'index']);
-    Route::get('/animals/{page}/{id}', [AnimalController::class, 'show']);
-    Route::view('/create', 'pages/create-animal');
-
     Auth::routes();
+
+    Route::view('/home', 'pages/home')->name('home');
+    Route::middleware('auth')->group(function () {
+        Route::get('animals/{page}/create', [AnimalController::class, 'create'])->name('show.create.advertisement');
+        Route::post('/animals/{page}/create', [AnimalController::class, 'store'])->name('create.advertisement');
+    });
+    Route::get('/animals/{page}', [AnimalController::class, 'index'])->name('show.list.pages');
+    Route::get('/animals/{page}/{id}', [AnimalController::class, 'show'])->name('show.advertisement');
+
 });
 

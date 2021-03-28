@@ -8,7 +8,7 @@
       <h1>{{ $animal->title }}</h1>
     </div>
     <div class="d-flex justify-content-center">
-      <h3 class="mt-5">{{ $animal->description }}</h3>
+      <h3 class="mt-5">{!! $animal->description !!}</h3>
     </div>
     <div class="container-fluid mt-5">
       <div class="row">

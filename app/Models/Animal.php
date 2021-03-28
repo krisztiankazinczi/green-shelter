@@ -15,7 +15,6 @@ class Animal extends Model
 
     protected $fillable = [
         'title',
-        'title',
         'description',
         'dog_of_the_week',
         'adopted',

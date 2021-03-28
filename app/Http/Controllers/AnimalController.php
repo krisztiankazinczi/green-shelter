@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Category;
 use App\Models\Animal;
+use App\Models\AnimalType;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+
 
 class AnimalController extends Controller
 {
@@ -45,11 +48,11 @@ class AnimalController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($page)
     {
-        //
+        $animal_types = AnimalType::all();
+        return view('pages/create_animal', compact('animal_types', 'page'));
     }
 
     /**
@@ -58,9 +61,33 @@ class AnimalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $page)
     {
-        //
+        // checkolni h user be van e jelentkezve ->redirect
+        // szinten nehany dolgot csak adminok tolthetnek fel, azt is checkolni kell!!!!!!!!
+
+        // Validate Form Data
+        $this->validate($request,[
+            'title'=>'required',
+            'description'=>'required',
+            'animal_type'=>'required'
+        ]);
+
+        // Get the relationship ids
+        $menu = Menu::where('route', 'animals/' . $page)->first();
+        $category = Category::where('menu_id', $menu->id)->first();
+        
+        // Create Record
+        Animal::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'animal_type_id' => $request->animal_type,
+            'menu_id' => $menu->id,
+            'category_id' => $category->id,
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect('animals/' . $page)->with('success', 'Sikeresen feladtad a hirdetést, reméljük hamarosan gazdira talál.');
     }
 
     /**
