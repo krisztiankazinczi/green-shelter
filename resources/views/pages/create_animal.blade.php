@@ -31,7 +31,7 @@
                     <div class="form-group row">
                       <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Leírás') }}</label>
                       <div class="col-md-10">
-                          <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required></textarea>
+                          <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description">{{ old('description') }}</textarea>
                           @error('description')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
@@ -47,7 +47,7 @@
                           <select class="form-control w-100 @error('animal_type') is-invalid @enderror" name="animal_type" id="animal_type" required>
                             <option value=""></option>
                             @foreach ($animal_types as $type)
-                              <option value="{{ $type->id }}">{{ $type->name }}</option>
+                              <option value="{{ $type->id }}" @if (old('animal_types') == $type->id) selected @endif >{{ $type->name }}</option>
                             @endforeach
                           </select>
                           @error('animal_type')
@@ -59,15 +59,22 @@
                       </div>
                     @endisset
 
+
                     <div class="form-group row">
                       <label for="images" class="col-md-2 col-form-label text-md-right">{{ __('Képek') }}</label>
                       <div class="col-md-10">
                           <input type="file" id="images" name="images[]" multiple>
-                          @error('images')
+                          @error('images.0')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
                               </span>
                           @enderror
+                        <div class="row user-image mb-3 text-center mt-4">
+                          <div class="imgPreview">
+                          
+                          </div>
+                          
+                        </div>   
                       </div>
                     </div>
 
@@ -85,7 +92,40 @@
     </div>
   </div>
 
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script>
       CKEDITOR.replace( 'description' );
+
+      const styles= {
+        height: "100px",
+        marginRight: "10px",
+        marginBottom: "10px",
+        maxWidth: "200px",
+      };
+
+      $(function() {
+        // Multiple images preview with JavaScript
+        var multiImgPreview = function(input, imgPreviewPlaceholder) {
+
+            if (input.files) {
+                var filesAmount = input.files.length;
+
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img>')).css(styles).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
+                    }
+
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+
+        };
+
+        $('#images').on('change', function() {
+            multiImgPreview(this, 'div.imgPreview');
+        });
+      });    
   </script>
 @endsection

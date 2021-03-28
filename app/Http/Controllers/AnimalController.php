@@ -72,10 +72,11 @@ class AnimalController extends Controller
 
         // Validate Form Data
         $this->validate($request,[
-            'title'=>'required',
+            'title'=>'required|max:70',
             'description'=>'required',
             'animal_type'=>'required',
-            // 'images' => 'required|image|max:2048'
+            'images' => 'required',
+            'images.*' => 'mimes:jpeg,jpg,png,gif|max:2048'
         ]);
 
         // Get the relationship ids
