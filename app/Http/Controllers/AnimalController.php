@@ -83,7 +83,7 @@ class AnimalController extends Controller
             'max' => 'Meghaladtad a maximális karakterhosszt (:max).',
             'mimes' => 'Csak képeket (jpg, png, jpeg, gif) lehet feltölteni',
             'images.required' => 'Minimum 1 kép feltöltése kötelező',
-            'images.size' => 'Képfeltöltés nem sikerült, a képek maximális mérete 2MB'
+            'images.max' => 'Képfeltöltés nem sikerült, a képek maximális mérete 2MB'
         ];
         $this->validate($request, $rules, $customMessages);
 
