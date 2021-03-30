@@ -77,11 +77,12 @@
                         </div>   
                       </div>
                     </div>
-                    @isset($errors)
-                      @foreach ($errors->all() as $error)
-                          <div>{{ $error }}</div>
-                      @endforeach
-                  @endisset
+                    @if(!empty(Session::get('success')))
+                      <div class="alert alert-success"> {{ Session::get('success') }}</div>
+                    @endif
+                    @if(!empty(Session::get('error')))
+                      <div class="alert alert-danger"> {{ Session::get('error') }}</div>
+                    @endif
 
                     <div class="form-group mb-0">
                       <div class="d-flex justify-content-end">

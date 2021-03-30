@@ -18,21 +18,6 @@ use App\Models\AnimalType;
 class AnimalController extends Controller
 {
 
-     /**
-     * Show the application dashboard.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    // public function getAnimals(Request $request, $page)
-    // {
-    //     $uri = 'animals/' . $page;
-    //     $menuItem = Menu::where('route', $uri)->first();
-    //     $category = Category::where('menu_id', $menuItem->id)->first();
-    //     $animals = Animal::with('images')->where('category_id', $category->id)->get();
-    //     return View::make('pages/animals')->with('category', $category)->with('animals', $animals);
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -67,10 +52,7 @@ class AnimalController extends Controller
      */
     public function store(Request $request, $page)
     {
-        // checkolni h user be van e jelentkezve ->redirect
-        // szinten nehany dolgot csak adminok tolthetnek fel, azt is checkolni kell!!!!!!!!
-
-        // Validate Form Data
+        // Validate Form Data, created custom hungarian error messages
         $rules = [
             'title'=>'required|max:70',
             'description'=>'required',
@@ -89,6 +71,13 @@ class AnimalController extends Controller
 
         // Get the relationship ids
         $menu = Menu::where('route', 'animals/' . $page)->first();
+        if (!$menu) {
+            return redirect('home/')->with('error', 'Érvénytelen url-ről érkezett kérés.');
+        }
+        if ($menu->role_id > Auth::user()->role_id) {
+            // if this page is accessible only for admins
+            return redirect('home/')->with('error', 'Nincs jogosultságod itt hirdetést feltölteni');
+        }
         $category = Category::where('menu_id', $menu->id)->first();
         
         $files = $request->images;
@@ -97,7 +86,6 @@ class AnimalController extends Controller
             foreach($files as $file){
                 $extension = $file->extension();
                 $name = Str::uuid()->toString() . '.' . $extension;
-                echo $name;
                 $destination = base_path() . '/public/images';
                 $file->move($destination ,$name);
                 $images[] = $name;
@@ -105,34 +93,40 @@ class AnimalController extends Controller
         }
             
         // Create Record
-        DB::transaction(function() use ($request, $images, $menu, $category)
-        {
-            $newAnimal = Animal::create([
-                'title' => $request->title,
-                'description' => $request->description,
-                'animal_type_id' => $request->animal_type,
-                'menu_id' => $menu->id,
-                'category_id' => $category->id,
-                'user_id' => Auth::user()->id
-            ]);
-            foreach ($images as $index => $image) {
-                $data = [
-                    'filename' => $image,
-                    'main' => $index == 0 ? true : false,
-                    'animal_id' => $newAnimal->id
-                ];
-                Image::create($data);
+        try {
+            DB::transaction(function() use ($request, $images, $menu, $category, $page)
+            {
+                $newAnimal = Animal::create([
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'animal_type_id' => $request->animal_type,
+                    'menu_id' => $menu->id,
+                    'category_id' => $category->id,
+                    'user_id' => Auth::user()->id
+                ]);
+                foreach ($images as $index => $image_name) {
+                    Image::create([
+                        'filename' => $image_name,
+                        'main' => $index == 0 ? true : false,
+                        'animal_id' => $newAnimal->id
+                    ]);
+                }
+            });
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+
+            foreach ($images as $image_name) {
+                $file_path = base_path() . '/public/images/' . $image_name;
+                if(file_exists($file_path)){
+                    unlink($file_path);
+                }
             }
-
-            // if( !$newUser )
-            // {
-            //     throw new \Exception('User not created for account');
-            // }
-        });
-            
-        return redirect('animals/' . $page)->with('success', 'Sikeresen feladtad a hirdetést, reméljük hamarosan gazdira talál.');
-
-
+            // ez valamiert nem redirectel vissza
+            return redirect('animals/' . $page . '/create')->with('error', 'Sajnos nem tudtuk létrehozni a hirdetést, kérünk próbálkozz később.');
+        }            
+        return redirect('animals/' . $page . '/create')->with('success', 'Sikeresen feladtad a hirdetést, reméljük hamarosan gazdira talál.');
     }
 
     /**
