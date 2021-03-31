@@ -5,20 +5,27 @@
 @section('content')
   <div class="container">
     <div class="d-flex justify-content-center">
+      @if(!empty(Session::get('success')))
+        <div class="alert alert-success"> {{ Session::get('success') }}</div>
+      @endif
+      @if(!empty(Session::get('error')))
+        <div class="alert alert-danger"> {{ Session::get('error') }}</div>
+      @endif
+    </div>
+    <div class="d-flex justify-content-center">
       <h1>{{ $animal->title }}</h1>
     </div>
     <div class="d-flex justify-content-center">
       <h3 class="mt-5">{!! $animal->description !!}</h3>
     </div>
     <div class="container-fluid mt-5">
-      <div class="row">
+      <div class="row user-image mb-3 text-center mt-4">
         @foreach ($animal->images as $image)
-          <div class="col-12 col-sm-6 col-lg-4 mb-4">
-            <img class="card-img-top img-fluid" style="height: 15rem; {{ $image->main ? 'border: 10px solid blue;' : '' }}" src="/images/{{ $image->filename }}" alt={{ $animal->title }}>
-          </div>
+            <img src="/images/{{$image->filename}}" alt="{{ $animal->title }}" style="height: 300px; margin-right: 10px; margin-bottom:10px; max-width: 600px; {{ $image->main ? 'border: 10px solid blue;' : '' }}" />
         @endforeach
       </div>
     </div>
+    
     <div class="d-flex justify-content-between">
       <a href="{{ url()->previous() }}">
         <button class="btn btn-primary" >

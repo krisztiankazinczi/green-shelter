@@ -169,7 +169,75 @@ class AnimalController extends Controller
      */
     public function update(Request $request, $page, $id)
     {
-        dd($request->all());
+        // dd($request->all());
+
+        $rules = [
+            'title'=>'required|max:70',
+            'description'=>'required',
+            'animal_type'=>'required',
+            'images.*' => 'mimes:jpeg,jpg,png,gif|max:2048'
+        ];
+        $customMessages = [
+            'required' => 'A mezőt kötelező kitölteni.',
+            'max' => 'Meghaladtad a maximális karakterhosszt (:max).',
+            'mimes' => 'Csak képeket (jpg, png, jpeg, gif) lehet feltölteni',
+            'images.max' => 'Képfeltöltés nem sikerült, a képek maximális mérete 2MB'
+        ];
+        $this->validate($request, $rules, $customMessages);
+
+        // Get the relationship ids
+        $animal = Animal::where('id', $id)->first();
+        if (!$animal) {
+            return redirect('animals/' . $page . '/' . $id . '/edit')->with('error', 'A módosítani kívánt hirdetés nem létezik az adatbázisunkban');
+        }
+        //File upload to server
+        $files = $request->images;
+        $images=array();
+        if ($files) {
+            foreach($files as $file){
+                $extension = $file->extension();
+                $name = Str::uuid()->toString() . '.' . $extension;
+                $destination = base_path() . '/public/images';
+                $file->move($destination ,$name);
+                $images[] = $name;
+            }
+        
+        }
+        // Update Record
+        try {
+            DB::transaction(function() use ($animal, $request, $images, $page, $id, $files)
+            {
+                $animal->title = $request->title;
+                $animal->description = $request->description;
+                $animal->animal_type_id = $request->animal_type;
+                $animal->save();
+
+                if ($files) {
+                    foreach ($images as $index => $image_name) {
+                        Image::create([
+                            'filename' => $image_name,
+                            'main' => false, // main image have been uploaded earlier, we don't need a new one
+                            'animal_id' => $animal->id
+                        ]);
+                    }
+                }
+            });
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            dd($th);
+            DB::rollback();
+            // delete images if db create was unsuccess
+            foreach ($images as $image_name) {
+                $file_path = base_path() . '/public/images/' . $image_name;
+                if(file_exists($file_path)){
+                    unlink($file_path);
+                }
+            }
+            // ez valamiert nem redirectel vissza
+            return redirect('animals/' . $page . '/' . $id . '/edit')->with('error', 'Sajnos nem tudtuk módosítani a hirdetést, kérünk próbálkozz később.');
+        }            
+        return redirect('animals/' . $page . '/' . $id)->with('success', 'Sikeresen módosítottad a hirdetést.');
     }
 
     public function destroy($id)
