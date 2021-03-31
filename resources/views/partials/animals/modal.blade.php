@@ -18,11 +18,13 @@
         </div>
       </div>
       <div class="modal-footer">
-        <a href="/animals/dogs/{{ $animal->id }}">
+        <a href="/{{ $route }}/{{ $animal->id }}">
           <button type="button" class="btn btn-secondary">Megtekintés</button>
         </a>
         @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
-          <button type="button" class="btn btn-primary">Szerkesztés</button>
+          <a href="/{{ $route }}/{{ $animal->id }}/edit">
+            <button type="button" class="btn btn-primary">Szerkesztés</button>
+          </a>
           <button type="button" class="btn btn-danger">Törlés</button>
         @endif
       </div>

@@ -68,12 +68,6 @@
                     <div class="form-group row">
                       <label for="images" class="col-md-2 col-form-label text-md-right">{{ __('Képek') }}</label>
                       <div class="col-md-10">
-                          <div class="row user-image mb-3 text-center mt-4 ml-4">
-                            @foreach( $animal->images as $image )
-                              <img src="/images/{{$image->filename}}" style="height: 200px; margin-right: 10px; margin-bottom:10px; max-width: 400px; {{ $image->main ? 'border: 10px solid blue;' : '' }}" />
-                            @endforeach
-                          </div>   
-
                           <div class="input-group">
                             <div class="custom-file" style="@error('images') border: 1px solid red; @enderror">
                               <input type="file" class="custom-file-input" id="images" name="images[]" accept="image/*" multiple>
@@ -117,6 +111,42 @@
                       </div>
                     </div>
                   </form>
+
+                    <div class="row user-image mb-3 text-center mt-4 ml-4">
+                      @foreach( $animal->images as $image )
+                        <div class="position-relative">
+                          <img src="/images/{{$image->filename}}" style="height: 200px; margin-right: 10px; margin-bottom:10px; max-width: 400px; {{ $image->main ? 'border: 10px solid blue;' : '' }}" />
+                          @if (!$image->main)
+                            <form action="{{ route('delete.image', $image->id) }}" method="POST" id="delete-image">
+                              @csrf
+                              @method('DELETE') 
+                              <i 
+                                class="far fa-times-circle position-absolute" 
+                                style="top: 20px; right: 20px; font-size: 20px; color: red; cursor: pointer;"
+                                data-toggle="tooltip" 
+                                title="Kép törlése"
+                                onclick="deleteImage()"
+                              >
+                              </i>
+                            </form>
+                            <form action="{{ route('change.main.image', $image->id) }}" method="POST" id="main-image">
+                              @csrf
+                              @method('PUT') 
+                                <i 
+                                  class="fas fa-image position-absolute" 
+                                  style="top: 20px; right: 50px; font-size: 20px; color: green; cursor: pointer;"
+                                  onclick="changeMainImage()"
+                                  data-toggle="tooltip" 
+                                  title="Borítókép beállítása"
+                                >
+                                </i>
+                            </form>
+                          @endif
+                          
+                        </div>
+                      @endforeach
+                    </div>   
+
                 </div>
             </div>
         </div>
@@ -164,7 +194,7 @@
       });    
 
 
-     {{-- $(document).ready(function () {
+      $(document).ready(function () {
         $('#form').validate({ 
             rules: {
                 title: {
@@ -184,6 +214,17 @@
               title: 'asdkjlglhsdl g;sdkh gkasldhg k'
             }
         });
-    }); --}}
+    }); 
+
+    // Change main image
+    function changeMainImage() {
+      document.getElementById("main-image").submit();
+    }
+
+    // Delete image
+    function changeMainImage() {
+      document.getElementById("delete-image").submit();
+    }
+
   </script>
 @endsection

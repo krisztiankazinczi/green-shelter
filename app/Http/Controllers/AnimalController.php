@@ -17,7 +17,6 @@ use App\Models\AnimalType;
 
 class AnimalController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -28,10 +27,10 @@ class AnimalController extends Controller
     {
         // $uri = $request->path();
         $uri = 'animals/' . $page;
-        $menuItem = Menu::where('route', $uri)->first();
-        $category = Category::where('menu_id', $menuItem->id)->first();
+        $menu = Menu::where('route', $uri)->first();
+        $category = Category::where('menu_id', $menu->id)->first();
         $animals = Animal::with('images')->where('category_id', $category->id)->get();
-        return View::make('pages/animals')->with('category', $category)->with('animals', $animals);
+        return view('pages/animals', compact('animals', 'category', 'menu'));
     }
 
     /**
