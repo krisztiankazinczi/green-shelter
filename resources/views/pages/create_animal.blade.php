@@ -14,7 +14,7 @@
                 <div class="card-header">{{ __('Hirdetés feladása') }}</div>
 
                 <div class="card-body">
-                  <form method="POST" enctype="multipart/form-data" action="{{ route('create.advertisement', $page) }}">
+                  <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('create.advertisement', $page) }}">
                     @csrf
                     <div class="form-group row">
                       <label for="title" class="col-md-2 col-form-label text-md-right">{{ __('Cím') }}</label>
@@ -85,6 +85,9 @@
                                 </span>
                               @endif
                           @endforeach --}}
+                           @foreach ($errors->getMessages() as $key => $message)
+                              {{$key}}
+                          @endforeach
                         <div class="row user-image mb-3 text-center mt-4">
                           <div class="imgPreview">
                           
@@ -114,6 +117,7 @@
   </div>
 
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script> --}}
   <script>
       CKEDITOR.replace( 'description' );
 
@@ -151,5 +155,28 @@
             $('#file-names').append(filenames);
         });
       });    
+
+
+     {{-- $(document).ready(function () {
+        $('#form').validate({ 
+            rules: {
+                title: {
+                    required: true
+                },
+                description: {
+                    required: true,
+                },
+                animal_type: {
+                    required: true,                    
+                },
+                images: {
+                    required: true,                    
+                },
+            },
+            messages: {
+              title: 'asdkjlglhsdl g;sdkh gkasldhg k'
+            }
+        });
+    }); --}}
   </script>
 @endsection

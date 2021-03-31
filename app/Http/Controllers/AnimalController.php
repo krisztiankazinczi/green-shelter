@@ -80,6 +80,7 @@ class AnimalController extends Controller
         }
         $category = Category::where('menu_id', $menu->id)->first();
         
+        //File upload to server
         $files = $request->images;
         $images=array();
         if ($files) {
@@ -147,12 +148,15 @@ class AnimalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($page, $id)
     {
-        //
+        $animal = Animal::with('images')->where('id', $id)->first();
+        $menu = Menu::where('id', $animal->menu_id)->first();
+        $animal->{"menu"} = $menu;
+        return View::make('pages/animal')->with('animal', $animal);
     }
 
     /**
