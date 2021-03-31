@@ -128,7 +128,6 @@
                                 onclick="deleteImage({{$image->id}})"
                               >
                               </i>
-                              <h1>{{$image->id}}</h1>
                             </form>
                             <form action="{{ route('change.main.image', [$animal->id, $image->id]) }}" method="POST" id="main-image-{{$image->id}}">
                               @csrf

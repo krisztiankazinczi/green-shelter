@@ -32,7 +32,16 @@ class ImageController extends Controller
         return redirect()->back()->with('success', 'A borítókép sikeresen megváltozott.');        
     }
 
-    public function destroy ($id) {
-        dd($id);
+    public function destroy ($id, $image_id) {
+        $image = Image::where('id', $image_id)->first();
+        if (!$image) {
+            return redirect()->back()->with('error', 'A kép nem található az adatbázisban.');
+        }
+        $file_path = base_path() . '/public/images/' . $image->filename;
+        if(file_exists($file_path)){
+            unlink($file_path);
+        }
+        $image->delete();
+        return redirect()->back()->with('success', 'A képet töröltük az adatbázisból');
     }
 }
