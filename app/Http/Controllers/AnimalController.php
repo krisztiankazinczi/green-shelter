@@ -156,7 +156,8 @@ class AnimalController extends Controller
         $animal = Animal::with('images')->where('id', $id)->first();
         $menu = Menu::where('id', $animal->menu_id)->first();
         $animal->{"menu"} = $menu;
-        return View::make('pages/animal')->with('animal', $animal);
+        $animal_types = AnimalType::all();
+        return view('pages/edit_animal', compact('animal', 'page', 'animal_types'));
     }
 
     /**
@@ -166,9 +167,9 @@ class AnimalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $page, $id)
     {
-        //
+        dd($request->all());
     }
 
     public function destroy($id)
