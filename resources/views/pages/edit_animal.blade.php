@@ -117,7 +117,7 @@
                         <div class="position-relative">
                           <img src="/images/{{$image->filename}}" style="height: 200px; margin-right: 10px; margin-bottom:10px; max-width: 400px; {{ $image->main ? 'border: 10px solid blue;' : '' }}" />
                           @if (!$image->main)
-                            <form action="{{ route('delete.image', $image->id) }}" method="POST" id="delete-image">
+                            <form action="{{ route('delete.image', [$animal->id, $image->id]) }}" method="POST" id="delete-image-{{$image->id}}">
                               @csrf
                               @method('DELETE') 
                               <i 
@@ -125,17 +125,18 @@
                                 style="top: 20px; right: 20px; font-size: 20px; color: red; cursor: pointer;"
                                 data-toggle="tooltip" 
                                 title="Kép törlése"
-                                onclick="deleteImage()"
+                                onclick="deleteImage({{$image->id}})"
                               >
                               </i>
+                              <h1>{{$image->id}}</h1>
                             </form>
-                            <form action="{{ route('change.main.image', $image->id) }}" method="POST" id="main-image">
+                            <form action="{{ route('change.main.image', [$animal->id, $image->id]) }}" method="POST" id="main-image-{{$image->id}}">
                               @csrf
                               @method('PUT') 
                                 <i 
                                   class="fas fa-image position-absolute" 
                                   style="top: 20px; right: 50px; font-size: 20px; color: green; cursor: pointer;"
-                                  onclick="changeMainImage()"
+                                  onclick="changeMainImage({{$image->id}})"
                                   data-toggle="tooltip" 
                                   title="Borítókép beállítása"
                                 >
@@ -217,13 +218,13 @@
     }); 
 
     // Change main image
-    function changeMainImage() {
-      document.getElementById("main-image").submit();
+    function changeMainImage(id) {
+      document.getElementById(`main-image-${id}`).submit();
     }
 
     // Delete image
-    function changeMainImage() {
-      document.getElementById("delete-image").submit();
+    function deleteImage(id) {
+      document.getElementById(`delete-image-${id}`).submit();
     }
 
   </script>

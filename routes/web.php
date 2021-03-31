@@ -27,8 +27,8 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::middleware('checkAccess')->group(function () {
         Route::get('animals/{page}/{id}/edit', [AnimalController::class, 'edit'])->name('edit.advertisement');
         Route::put('/animals/{page}/{id}/edit', [AnimalController::class, 'update'])->name('update.advertisement');
-        Route::put('/images/{id}', [ImageController::class, 'changeMain'])->name('change.main.image');
-        Route::delete('/images/{id}', [ImageController::class, 'destroy'])->name('delete.image');
+        Route::put('/images/{id}/{image_id}', [ImageController::class, 'changeMain'])->name('change.main.image');
+        Route::delete('/images/{id}/{image_id}', [ImageController::class, 'destroy'])->name('delete.image');
     });
     
     Route::get('/animals/{page}', [AnimalController::class, 'index'])->name('show.list.pages');
