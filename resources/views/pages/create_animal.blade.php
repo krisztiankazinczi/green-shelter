@@ -19,7 +19,7 @@
                     <div class="form-group row">
                       <label for="title" class="col-md-2 col-form-label text-md-right">{{ __('Cím') }}</label>
                       <div class="col-md-10">
-                          <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
+                          <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" autocomplete="title" autofocus>
                           @error('title')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
@@ -31,12 +31,16 @@
                     <div class="form-group row">
                       <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Leírás') }}</label>
                       <div class="col-md-10">
-                          <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description">{{ old('description') }}</textarea>
-                          @error('description')
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
-                          @enderror
+                          <div style="@error('description') border: 1px solid red; @enderror">
+                            <textarea id="description" class="form-control" name="description">{{ old('description') }}</textarea>
+                          </div>
+                          <div>
+                            @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                          </div>
                       </div>
                     </div>
 
@@ -44,10 +48,10 @@
                       <div class="form-group row">
                         <label for="animal_type" class="col-md-2 col-form-label text-md-right">{{ __('Kategória') }}</label>
                         <div class="col-md-10">
-                          <select class="form-control w-100 @error('animal_type') is-invalid @enderror" name="animal_type" id="animal_type" required>
+                          <select class="form-control w-100 @error('animal_type') is-invalid @enderror" name="animal_type" id="animal_type">
                             <option value=""></option>
                             @foreach ($animal_types as $type)
-                              <option value="{{ $type->id }}" @if (old('animal_types') == $type->id) selected @endif >{{ $type->name }}</option>
+                              <option value="{{ $type->id }}" {{ !strcmp($type->id, old('animal_type')) ? 'selected' : '' }}>{{ $type->name }}</option>
                             @endforeach
                           </select>
                           @error('animal_type')
@@ -63,12 +67,24 @@
                     <div class="form-group row">
                       <label for="images" class="col-md-2 col-form-label text-md-right">{{ __('Képek') }}</label>
                       <div class="col-md-10">
-                          <input type="file" id="images" name="images[]" multiple>
+                          <div class="input-group">
+                            <div class="custom-file" style="@error('images') border: 1px solid red; @enderror">
+                              <input type="file" class="custom-file-input" id="images" name="images[]" multiple>
+                              <label class="custom-file-label" for="images" id="file-names"></label>
+                            </div>
+                          </div>
                           @error('images')
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                           @enderror
+                          {{-- @foreach ($errors->getMessages() as $key => $message)
+                              @if (str_starts_with((strval($key)), 'images'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @endif
+                          @endforeach --}}
                         <div class="row user-image mb-3 text-center mt-4">
                           <div class="imgPreview">
                           
@@ -83,7 +99,6 @@
                     @if(!empty(Session::get('error')))
                       <div class="alert alert-danger"> {{ Session::get('error') }}</div>
                     @endif
-
                     <div class="form-group mb-0">
                       <div class="d-flex justify-content-end">
                           <button type="submit" class="btn btn-primary d-block">
@@ -110,26 +125,30 @@
       };
 
       $(function() {
-        var multiImgPreview = function(input, imgPreviewPlaceholder) {
+        const multiImgPreview = function(input, imgPreviewPlaceholder) {
 
             if (input.files) {
-                var filesAmount = input.files.length;
-
+                let filesAmount = input.files.length;
                 for (i = 0; i < filesAmount; i++) {
-                    var reader = new FileReader();
-
+                    const reader = new FileReader();
                     reader.onload = function(event) {
                         $($.parseHTML('<img>')).css(styles).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
                     }
-
                     reader.readAsDataURL(input.files[i]);
                 }
             }
-
         };
 
-        $('#images').on('change', function() {
+        $('#images').on('change', function(e) {
             multiImgPreview(this, 'div.imgPreview');
+
+            let filenames = "";
+            for (i = 0; i < e.target.files.length; i++) {
+              filenames += e.target.files[i].name;
+              if (i !== e.target.files.length - 1) filenames += ', '; 
+            }
+            
+            $('#file-names').append(filenames);
         });
       });    
   </script>

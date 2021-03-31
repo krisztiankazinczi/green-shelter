@@ -76,7 +76,7 @@ class AnimalController extends Controller
         }
         if ($menu->role_id > Auth::user()->role_id) {
             // if this page is accessible only for admins
-            return redirect('home/')->with('error', 'Nincs jogosultságod itt hirdetést feltölteni');
+            return redirect('home/')->with('error', 'Nincs jogosultságod ilyen hirdetést feltölteni');
         }
         $category = Category::where('menu_id', $menu->id)->first();
         
@@ -116,7 +116,7 @@ class AnimalController extends Controller
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
-
+            // delete images if db create was unsuccess
             foreach ($images as $image_name) {
                 $file_path = base_path() . '/public/images/' . $image_name;
                 if(file_exists($file_path)){
