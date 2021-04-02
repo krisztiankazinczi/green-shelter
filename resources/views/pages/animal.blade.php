@@ -35,19 +35,25 @@
       <div class="d-flex flex-row">
         @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
           <a href="/{{ $animal->menu->route }}/{{ $animal->id }}/edit">
-            <button class="btn btn-warning mr-2" >
+            <button class="btn btn-warning mr-3" >
               Szerkesztés
             </button>
           </a>
+          <form action="{{ route('adopt', [$page, $animal->id]) }}" method="POST">
+            @csrf
+            @method('PUT') 
+            <button type="submit" class="btn btn-success mr-3" >
+              Befogadás
+            </button>
+          </form>
+
           <form action="{{ route('delete.advertisement', [$animal->id]) }}" method="POST">
             @csrf
             @method('DELETE') 
             <button type="submit" class="btn btn-danger" >
               Törlés
             </button>
-          </form>
-            
-        
+          </form>      
         @endif
       </div>
     </div>

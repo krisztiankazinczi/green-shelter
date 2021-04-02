@@ -30,7 +30,8 @@ class AnimalController extends Controller
         $menu = Menu::where('route', $uri)->first();
         // redirect if not exists
         $category = Category::where('menu_id', $menu->id)->first();
-        $animals = Animal::with('images')->where('category_id', $category->id)->get();
+        // joinolni a tablakat!!!!
+        $animals = Animal::with('images')->where('category_id', $category->id)->where('adopted', false)->get();
         return view('pages/animals', compact('animals', 'category', 'menu'));
     }
 
@@ -277,6 +278,7 @@ class AnimalController extends Controller
     public function successStories() {
         $animals = Animal::with('images')->where('adopted', true)->get();
         $category = Category::with('menu')->where('id', 4)->first();
+        // ez igy nem helyes, csinald vissza a modelt es joinold ezt
         if (!$animals || !$category) {
             return redirect('home')->with('error', 'Az oldal jelenleg nem elérhető, ezért visszairányítottunk a főoldalra..');
         }
@@ -289,6 +291,17 @@ class AnimalController extends Controller
             return redirect('home')->with('error', 'A keresett hirdetés nem található.');
         }
         return view('pages/adopted', compact('animal'));
+    }
+
+    public function adopt($page, $id) {
+        $animal = Animal::where('id', $id)->first();
+        if (!$animal) {
+            return redirect()->back()->with('error', 'A keresett hirdetés nem található.');
+        }
+        $animal->adopted = true;
+        $animal->save();
+
+        return redirect('success-stories/' . $id)->with('success', 'Sikeresen mentettük a befogadást a rendszerünkben.');
     }
 
 }
