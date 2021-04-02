@@ -29,6 +29,7 @@ Route::group(['middleware' => 'getMenu'], function(){
         Route::put('/animals/{page}/{id}/edit', [AnimalController::class, 'update'])->name('update.advertisement');
         Route::delete('/animals/{id}/delete', [AnimalController::class, 'destroy'])->name('delete.advertisement');
         Route::put('/animals/{page}/{id}/adopt', [AnimalController::class, 'adopt'])->name('adopt');
+        Route::put('/success-stories/{id}/withdraw-adopt', [AnimalController::class, 'withdrawAdopt'])->name('withdraw.adopt');
         Route::put('/images/{id}/{image_id}', [ImageController::class, 'changeMain'])->name('change.main.image');
         Route::delete('/images/{id}/{image_id}', [ImageController::class, 'destroy'])->name('delete.image');
     });

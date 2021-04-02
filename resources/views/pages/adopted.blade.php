@@ -34,13 +34,13 @@
       </a>
       <div class="d-flex flex-row">
         @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
-          {{-- <form action="{{ route('delete.advertisement', [$animal->id]) }}" method="POST">
+          <form action="{{ route('withdraw.adopt', [$animal->id]) }}" method="POST">
             @csrf
-            @method('DELETE') 
+            @method('PUT') 
             <button type="submit" class="btn btn-danger" >
-              Törlés
+              Adoptálás visszavonása
             </button>
-          </form> --}}
+          </form>
         @endif
       </div>
     </div>

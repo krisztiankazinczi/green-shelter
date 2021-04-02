@@ -288,7 +288,7 @@ class AnimalController extends Controller
     public function successStory($id) {
         $animal = Animal::with('images')->where('id', $id)->first();
         if (!$animal) {
-            return redirect('home')->with('error', 'A keresett hirdetés nem található.');
+            return redirect('home')->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
         return view('pages/adopted', compact('animal'));
     }
@@ -296,12 +296,23 @@ class AnimalController extends Controller
     public function adopt($page, $id) {
         $animal = Animal::where('id', $id)->first();
         if (!$animal) {
-            return redirect()->back()->with('error', 'A keresett hirdetés nem található.');
+            return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
         $animal->adopted = true;
         $animal->save();
 
         return redirect('success-stories/' . $id)->with('success', 'Sikeresen mentettük a befogadást a rendszerünkben.');
+    }
+
+    public function withdrawAdopt($id) {
+        $animal = Animal::where('id', $id)->first();
+        if (!$animal) {
+            return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
+        }
+        $menu = Menu::where('id', $animal->menu_id)->first();
+        $animal->adopted = false;
+        $animal->save();
+        return redirect($menu->route . '/' . $id)->with('success', 'Visszavontuk a befogadást a rendszerünkben.');
     }
 
 }
