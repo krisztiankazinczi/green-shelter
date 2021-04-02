@@ -28,6 +28,7 @@ class AnimalController extends Controller
         // $uri = $request->path();
         $uri = 'animals/' . $page;
         $menu = Menu::where('route', $uri)->first();
+        // redirect if not exists
         $category = Category::where('menu_id', $menu->id)->first();
         $animals = Animal::with('images')->where('category_id', $category->id)->get();
         return view('pages/animals', compact('animals', 'category', 'menu'));
@@ -141,7 +142,7 @@ class AnimalController extends Controller
         $animal = Animal::with('images')->where('id', $id)->first();
         $menu = Menu::where('id', $animal->menu_id)->first();
         $animal->{"menu"} = $menu;
-        return View::make('pages/animal')->with('animal', $animal);
+        return view('pages/animal', compact('animal', 'page'));
     }
 
     /**
@@ -224,7 +225,7 @@ class AnimalController extends Controller
 
             DB::commit();
         } catch (\Throwable $th) {
-            dd($th);
+
             DB::rollback();
             // delete images if db create was unsuccess
             foreach ($images as $image_name) {
@@ -241,7 +242,36 @@ class AnimalController extends Controller
 
     public function destroy($id)
     {
-        //
+        // it must exists since in a middleware already checked
+        $advertisement = Animal::where('id', $id)->first();
+        $file_names = array();
+        $images = Image::where('animal_id', $advertisement->id)->get();
+        foreach ($images as $image) {
+            $file_names[] = $image->filename;
+        }
+        try {
+            DB::transaction(function() use ($advertisement, $images) {
+                foreach ($images as $image) {
+                    $image->delete();
+                }
+                $advertisement->delete();
+            });
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            // ezt meg ki kell talalni hova redirectaljunk
+            return redirect('home')->with('error', 'Nem sikerült törölni a hirdetést, próbáld meg később.');
+        }
+
+        foreach ($file_names as $image_name) {
+            $file_path = base_path() . '/public/images/' . $image_name;
+            if(file_exists($file_path)){
+                unlink($file_path);
+            }
+        }
+        // ezt meg ki kell talalni hova redirectaljunk
+        return redirect('home')->with('success', 'Sikeresen töröltük a hirdetést az adatbázisból.');
     }
 
 }
