@@ -35,6 +35,7 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::get('/animals/{page}', [AnimalController::class, 'index'])->name('show.list.pages');
     Route::get('/animals/{page}/{id}', [AnimalController::class, 'show'])->name('show.advertisement');
     Route::get('/success-stories', [AnimalController::class, 'successStories'])->name('success.stories');
+    Route::get('/success-stories/{id}', [AnimalController::class, 'successStory'])->name('success.story');
 
 });
 

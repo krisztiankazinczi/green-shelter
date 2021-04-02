@@ -283,4 +283,12 @@ class AnimalController extends Controller
         return view('pages/adopteds', compact('animals', 'category'));
     }
 
+    public function successStory($id) {
+        $animal = Animal::with('images')->where('id', $id)->first();
+        if (!$animal) {
+            return redirect('home')->with('error', 'A keresett hirdetés nem található.');
+        }
+        return view('pages/adopted', compact('animal'));
+    }
+
 }
