@@ -24,7 +24,8 @@ class Category extends Model
 
     public function menu()
     {
-        return $this->hasOne(Menu::class);
+        // return $this->hasOne(Menu::class);
+        return $this->belongsTo(Menu::class);
     }
 
     public function animal()

@@ -15,31 +15,40 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $categories = [
+            // [
+            //     'title' => 'Gazdára váró kutyák',
+            //     'description' => 'Folyamatosan frissítjük az oldalunkat, mégis a személyes látogatást javasoljuk a felelosségteljes kiválasztáshoz.
+            //     Nagyon szeretnénk, ha a kutyáink sorsa jóra fordulna és szerető családra találnának. A képekre kattintva nagyobb méretben, külön ablakban megtekintheti őket.',
+            //     'image_uri' => 'images/dog1.jpg',
+            //     'menu_id' => 3,
+            //     'text_location' => 'left'
+            // ],
+            // [
+            //     'title' => 'Elveszett kedvencek',
+            //     'description' => 'Talált és elveszett kutyákról szívesen közlünk információkat, ha a elérhetőségünkre elküldi a hirdetés szövegét és egy fényképet.
+
+            //     Kérjük, ha már nem aktuális, értesítsenek minket!',
+            //     'image_uri' => 'images/dog2.jpeg',
+            //     'menu_id' => 5,
+            //     'text_location' => 'right'
+            // ],
+            // [
+            //     'title' => 'Talált kedvencek',
+            //     'description' => 'Talált és elveszett kutyákról szívesen közlünk információkat, ha a elérhetőségünkre elküldi a hirdetés szövegét és egy fényképet.
+
+            //     Kérjük, ha már nem aktuális, értesítsenek minket!',
+            //     'image_uri' => 'images/dog3.jpeg',
+            //     'menu_id' => 7,
+            //     'text_location' => 'right'
+            // ],
             [
-                'title' => 'Gazdára váró kutyák',
-                'description' => 'Folyamatosan frissítjük az oldalunkat, mégis a személyes látogatást javasoljuk a felelosségteljes kiválasztáshoz.
-                Nagyon szeretnénk, ha a kutyáink sorsa jóra fordulna és szerető családra találnának. A képekre kattintva nagyobb méretben, külön ablakban megtekintheti őket.',
-                'image_uri' => 'images/dog1.jpg',
-                'menu_id' => 3,
+                'title' => 'Sikertörténetek',
+                'description' => 'Folyamatosan frissítjük az oldalunkat, kérjük küldjék el e-mailcímünkre sikeres örökbefogadásaik képes-szöveges beszámolóikat!
+
+                Nagyon örülünk a sikeres örökbefogadásoknak!',
+                'image_uri' => 'images/kep9.png',
+                'menu_id' => 12,
                 'text_location' => 'left'
-            ],
-            [
-                'title' => 'Elveszett kedvencek',
-                'description' => 'Talált és elveszett kutyákról szívesen közlünk információkat, ha a elérhetőségünkre elküldi a hirdetés szövegét és egy fényképet.
-
-                Kérjük, ha már nem aktuális, értesítsenek minket!',
-                'image_uri' => 'images/dog2.jpeg',
-                'menu_id' => 5,
-                'text_location' => 'right'
-            ],
-            [
-                'title' => 'Talált kedvencek',
-                'description' => 'Talált és elveszett kutyákról szívesen közlünk információkat, ha a elérhetőségünkre elküldi a hirdetés szövegét és egy fényképet.
-
-                Kérjük, ha már nem aktuális, értesítsenek minket!',
-                'image_uri' => 'images/dog3.jpeg',
-                'menu_id' => 7,
-                'text_location' => 'right'
             ],
         ];
 

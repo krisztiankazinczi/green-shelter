@@ -274,4 +274,13 @@ class AnimalController extends Controller
         return redirect('home')->with('success', 'Sikeresen töröltük a hirdetést az adatbázisból.');
     }
 
+    public function successStories() {
+        $animals = Animal::with('images')->where('adopted', true)->get();
+        $category = Category::with('menu')->where('id', 4)->first();
+        if (!$animals || !$category) {
+            return redirect('home')->with('error', 'Az oldal jelenleg nem elérhető, ezért visszairányítottunk a főoldalra..');
+        }
+        return view('pages/adopteds', compact('animals', 'category'));
+    }
+
 }
