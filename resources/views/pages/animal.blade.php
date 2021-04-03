@@ -39,21 +39,45 @@
               Szerkesztés
             </button>
           </a>
-          <form action="{{ route('adopt', [$page, $animal->id]) }}" method="POST">
-            @csrf
-            @method('PUT') 
-            <button type="submit" class="btn btn-success mr-3" >
-              Befogadás
-            </button>
-          </form>
 
-          <form action="{{ route('delete.advertisement', [$animal->id]) }}" method="POST">
-            @csrf
-            @method('DELETE') 
-            <button type="submit" class="btn btn-danger" >
-              Törlés
-            </button>
-          </form>      
+          <button 
+            type="submit" 
+            class="btn btn-success mr-3" 
+            data-toggle="modal" 
+            data-target="#{{ $animal->id . '-adopt' }}"
+          >
+            Befogadás
+          </button>
+          @include(
+          'partials.modal_confirm', 
+          [
+            'id' => $animal->id . '-adopt',
+            'question' => 'Kérünk erősítsd meg a befogadást!',
+            'route' => 'adopt',
+            'method' => 'PUT',
+            'route_params' => [$page, $animal->id],
+            'action_button_text' => 'Megerősítem',
+            'action_button_class' => 'btn btn-success'
+          ])    
+
+          <button 
+            class="btn btn-danger" 
+            data-toggle="modal" 
+            data-target="#{{ $animal->id . '-delete' }}"
+          >
+            Törlés
+          </button>
+          @include(
+            'partials.modal_confirm', 
+            [
+              'id' => $animal->id . '-delete',
+              'question' => 'Biztosan törlöd ezt a hirdetést?',
+              'route' => 'delete.advertisement',
+              'method' => 'DELETE',
+              'route_params' => [$animal->id],
+              'action_button_text' => 'Törlés',
+              'action_button_class' => 'btn btn-danger'
+            ])      
         @endif
       </div>
     </div>

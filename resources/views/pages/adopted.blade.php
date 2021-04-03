@@ -34,13 +34,24 @@
       </a>
       <div class="d-flex flex-row">
         @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
-          <form action="{{ route('withdraw.adopt', [$animal->id]) }}" method="POST">
-            @csrf
-            @method('PUT') 
-            <button type="submit" class="btn btn-danger" >
-              Adoptálás visszavonása
-            </button>
-          </form>
+          <button 
+            class="btn btn-danger" 
+            data-toggle="modal" 
+            data-target="#{{ $animal->id . '-revert-adopt' }}"
+          >
+            Befogadás visszavonása
+          </button>
+          @include(
+            'partials.modal_confirm', 
+            [
+              'id' => $animal->id . '-revert-adopt',
+              'question' => 'Biztosan visszavonod a befogadást?',
+              'route' => 'withdraw.adopt',
+              'method' => 'PUT',
+              'route_params' => [$animal->id],
+              'action_button_text' => 'Befogadás visszavonása',
+              'action_button_class' => 'btn btn-danger'
+            ])      
         @endif
       </div>
     </div>
