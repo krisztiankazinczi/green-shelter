@@ -44,4 +44,12 @@ class ImageController extends Controller
         $image->delete();
         return redirect()->back()->with('success', 'A képet töröltük az adatbázisból');
     }
+
+    public function gallery () {
+        $images = Image::with('animal')->get();
+        if (!$images) {
+            return redirect('home')->with('error', 'Adatbázis hiba miatt az oldal jelenleg nem elérhető. Dolgozunk a problémán.');
+        }
+        return view('pages/gallery', compact('images'));
+    }
 }
