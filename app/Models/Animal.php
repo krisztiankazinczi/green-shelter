@@ -16,7 +16,7 @@ class Animal extends Model
     protected $fillable = [
         'title',
         'description',
-        'dog_of_the_week',
+        'animal_of_the_week',
         'adopted',
         'category_id',
         'user_id',
@@ -34,7 +34,7 @@ class Animal extends Model
         parent::boot();
         self::creating(function ($model) {
             $model->id = Str::uuid()->toString();
-            $model->dog_of_the_week = false;
+            $model->animal_of_the_week = false;
             $model->adopted = false;
         });
     }
