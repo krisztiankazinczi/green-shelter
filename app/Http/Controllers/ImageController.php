@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Image;
+use App\Models\Menu;
 
 
 class ImageController extends Controller
@@ -49,6 +50,10 @@ class ImageController extends Controller
         $images = Image::with('animal')->get();
         if (!$images) {
             return redirect('home')->with('error', 'Adatbázis hiba miatt az oldal jelenleg nem elérhető. Dolgozunk a problémán.');
+        }
+        foreach ($images as $image) {
+            $menu = Menu::where('id', $image->animal->menu_id)->first();
+            $image->{"menu"} = $menu;
         }
         return view('pages/gallery', compact('images'));
     }

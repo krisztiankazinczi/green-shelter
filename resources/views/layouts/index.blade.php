@@ -13,7 +13,7 @@
       <meta name="csrf-token" content="{{ csrf_token() }}">
       @yield('cdn-files')
     </head>
-    <body>
+    <body style="overflow-x: hidden;">
       <div class="d-flex flex-column">
         @include('partials.nav')
         <main class="flex-grow-1">@yield('content')</main>
