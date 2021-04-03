@@ -33,6 +33,26 @@
         </button>
       </a>
       <div class="d-flex flex-row">
+        @if (Auth::user() && Auth::user()->role_id == 3)
+          <button 
+            class="btn btn-success mr-3" 
+            data-toggle="modal" 
+            data-target="#{{ $animal->id . '-animal-of-week' }}"
+          >
+            A hét állata
+          </button>
+          @include(
+          'partials.modal_confirm', 
+          [
+            'id' => $animal->id . '-animal-of-week',
+            'question' => 'Biztosan beallítod a hét állatának?',
+            'route' => 'set.animal.of.week',
+            'method' => 'PUT',
+            'route_params' => [$animal->id],
+            'action_button_text' => 'A hét állata',
+            'action_button_class' => 'btn btn-success'
+          ])
+        @endif
         @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
           <a href="/{{ $animal->menu->route }}/{{ $animal->id }}/edit">
             <button class="btn btn-warning mr-3" >

@@ -327,4 +327,28 @@ class AnimalController extends Controller
         return view('pages/animal', compact('animal', 'page'));
     }
 
+    public function setAnimalOfWeek ($id) {
+        $previousAnimalOfWeek = Animal::where('dog_of_the_week', true)->first();
+        $newAnimalOfWeek = Animal::where('id', $id)->first();
+        if (!$newAnimalOfWeek) {
+            return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
+        }
+
+        try {
+            DB::transaction(function() use ($previousAnimalOfWeek, $newAnimalOfWeek) {
+                $previousAnimalOfWeek->dog_of_the_week = false;
+                $previousAnimalOfWeek->save();
+                $newAnimalOfWeek->dog_of_the_week = true;
+                $newAnimalOfWeek->save();
+            });
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
+        }
+
+        return redirect('animal-of-week')->with('success', 'Sikeresen frissítettük a hét állatát.');
+    }
+
 }
