@@ -315,4 +315,16 @@ class AnimalController extends Controller
         return redirect($menu->route . '/' . $id)->with('success', 'Visszavontuk a befogadást a rendszerünkben.');
     }
 
+    public function animalOfWeek () {
+        $animal = Animal::with('images')->where('dog_of_the_week', true)->first();
+        if (!$animal) {
+            return redirect('home')->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
+        }
+        $menu = Menu::where('id', $animal->menu_id)->first();
+        $animal->{"menu"} = $menu;
+        $split = explode('/',$menu->route);
+        $page = end($split);
+        return view('pages/animal', compact('animal', 'page'));
+    }
+
 }

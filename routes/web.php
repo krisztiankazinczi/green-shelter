@@ -28,6 +28,7 @@ Route::group(['middleware' => 'getMenu'], function(){
         Route::get('animals/{page}/{id}/edit', [AnimalController::class, 'edit'])->name('edit.advertisement');
         Route::put('/animals/{page}/{id}/edit', [AnimalController::class, 'update'])->name('update.advertisement');
         Route::delete('/animals/{id}/delete', [AnimalController::class, 'destroy'])->name('delete.advertisement');
+        Route::put('/animals/{page}/{id}/animal-of-week', [AnimalController::class, 'setAnimalOfWeek'])->name('set.animal.of.week');
         Route::put('/animals/{page}/{id}/adopt', [AnimalController::class, 'adopt'])->name('adopt');
         Route::put('/success-stories/{id}/withdraw-adopt', [AnimalController::class, 'withdrawAdopt'])->name('withdraw.adopt');
         Route::put('/images/{id}/{image_id}', [ImageController::class, 'changeMain'])->name('change.main.image');
@@ -39,6 +40,7 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::get('/success-stories', [AnimalController::class, 'successStories'])->name('success.stories');
     Route::get('/success-stories/{id}', [AnimalController::class, 'successStory'])->name('success.story');
     Route::get('/gallery', [ImageController::class, 'gallery'])->name('gallery');
+    Route::get('/animal-of-week', [AnimalController::class, 'animalOfWeek'])->name('animal.of.week');
 
 });
 
