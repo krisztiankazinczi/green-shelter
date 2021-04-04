@@ -17,7 +17,7 @@ class CreateAnimalsTable extends Migration
             $table->uuid('id')->index();
             $table->string('title', 70);
             $table->longText('description');
-            $table->boolean('animal_of_the_week');
+            $table->boolean('animal_of_the_week')->default(false);
             $table->boolean('adopted');
             $table->timestamps();
         });

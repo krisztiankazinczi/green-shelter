@@ -33,7 +33,7 @@ class Animal extends Model
         parent::boot();
         self::creating(function ($model) {
             $model->id = Str::uuid()->toString();
-            $model->animal_of_the_week = false;
+            // $model->animal_of_the_week = false;
             $model->adopted = false;
         });
     }

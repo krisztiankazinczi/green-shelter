@@ -42,6 +42,7 @@ class AnimalSeeder extends Seeder
                 'user_id' => 2,
                 'animal_type_id' => $animal_type2->id,
                 'menu_id' => 3,
+                'animal_of_the_week' => true
             ],
             [
                 'title' => 'Szilveszter óta keressük Micit',
@@ -103,13 +104,24 @@ class AnimalSeeder extends Seeder
         ];
 
         foreach ($animals as $animal) {
-            Animal::create(array(
-                'title' => $animal['title'],
-                'description' => $animal['description'],
-                'user_id' => $animal['user_id'],
-                'animal_type_id' => $animal['animal_type_id'],
-                'menu_id' => $animal['menu_id'],
-            ));
+            if (array_key_exists("animal_of_the_week", $animal)) {
+                Animal::create(array(
+                    'title' => $animal['title'],
+                    'description' => $animal['description'],
+                    'user_id' => $animal['user_id'],
+                    'animal_type_id' => $animal['animal_type_id'],
+                    'menu_id' => $animal['menu_id'],
+                    'animal_of_the_week' => $animal['animal_of_the_week']
+                ));
+            } else {
+                Animal::create(array(
+                    'title' => $animal['title'],
+                    'description' => $animal['description'],
+                    'user_id' => $animal['user_id'],
+                    'animal_type_id' => $animal['animal_type_id'],
+                    'menu_id' => $animal['menu_id'],
+                ));
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ class CheckAccess
       }
       // if the user is who created it or if the user is admin
       if (Auth::user()->id == $advertisement->user_id || Auth::user()->role_id == 3) {
+        app()->instance('advertisement', $advertisement);
         return $next($request);
       } else {
         return redirect()->back()->with('error', 'Nincs jogosultságod módosítani ezt a hirdetést.');

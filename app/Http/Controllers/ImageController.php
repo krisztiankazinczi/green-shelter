@@ -52,8 +52,12 @@ class ImageController extends Controller
             return redirect('home')->with('error', 'Adatbázis hiba miatt az oldal jelenleg nem elérhető. Dolgozunk a problémán.');
         }
         foreach ($images as $image) {
-            $menu = Menu::where('id', $image->animal->menu_id)->first();
-            $image->{"menu"} = $menu;
+            if ($image->animal->adopted) {
+                $image->{"route"} = '/success-stories/';
+            } else {
+                $menu = Menu::where('id', $image->animal->menu_id)->first();
+                $image->{"route"} = '/animals/' . $menu->route;
+            }
         }
         return view('pages/gallery', compact('images'));
     }

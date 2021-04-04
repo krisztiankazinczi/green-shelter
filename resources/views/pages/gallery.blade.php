@@ -21,7 +21,7 @@
           />
           <div class="button">
             <a 
-              href="/{{ $image->menu->route }}/{{ $image->animal->id }}"
+              href="{{ $image->route }}/{{ $image->animal->id }}"
             >
               <button class="btn btn-primary " >
                 Részletek
@@ -33,7 +33,7 @@
           'id' => $image->animal->id . $image->id,
           'image_path' => '/images/' . $image->filename,
           'image_alt' => $image->animal->title,
-          'link_to_advertisement' => '/' . $image->menu->route . '/' . $image->animal->id
+          'link_to_advertisement' => $image->route . '/' . $image->animal->id
         ])
     @endforeach
   @endisset

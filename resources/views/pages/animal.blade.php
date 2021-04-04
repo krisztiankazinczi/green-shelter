@@ -54,7 +54,7 @@
           ])
         @endif
         @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
-          <a href="/{{ $animal->menu->route }}/{{ $animal->id }}/edit">
+          <a href="{{ Request::url() }}/edit">
             <button class="btn btn-warning mr-3" >
               Szerkesztés
             </button>

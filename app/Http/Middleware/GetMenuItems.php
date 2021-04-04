@@ -21,7 +21,7 @@ class GetMenuItems
         $menuItems = Menu::all();
         foreach ($menuItems as $item) {
             foreach ($menuItems as $item1) {
-                if ($item->name == $item1->parent && !isset($item->hasSubMenu)) {
+                if ($item->id == $item1->parent && !isset($item->hasSubMenu)) {
                     $item->{"hasSubMenu"} = true;
                 }
             };

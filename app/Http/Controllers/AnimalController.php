@@ -25,13 +25,11 @@ class AnimalController extends Controller
      */
     public function index(Request $request, $page)
     {
-        // $uri = $request->path();
-        $uri = 'animals/' . $page;
-        $menu = Menu::where('route', $uri)->first();
+        $menu = Menu::where('route', $page)->first();
         // redirect if not exists
         $category = Category::where('menu_id', $menu->id)->first();
         // joinolni a tablakat!!!!
-        $animals = Animal::with('images')->where('category_id', $category->id)->where('adopted', false)->get();
+        $animals = Animal::with('images')->where('menu_id', $menu->id)->where('adopted', false)->get();
         return view('pages/animals', compact('animals', 'category', 'menu'));
     }
 
@@ -71,7 +69,7 @@ class AnimalController extends Controller
         $this->validate($request, $rules, $customMessages);
 
         // Get the relationship ids
-        $menu = Menu::where('route', 'animals/' . $page)->first();
+        $menu = Menu::where('route', $page)->first();
         if (!$menu) {
             return redirect('home/')->with('error', 'Érvénytelen url-ről érkezett kérés.');
         }
@@ -79,7 +77,6 @@ class AnimalController extends Controller
             // if this page is accessible only for admins
             return redirect('home/')->with('error', 'Nincs jogosultságod ilyen hirdetést feltölteni');
         }
-        $category = Category::where('menu_id', $menu->id)->first();
         
         //File upload to server
         $files = $request->images;
@@ -96,14 +93,13 @@ class AnimalController extends Controller
             
         // Create Record
         try {
-            DB::transaction(function() use ($request, $images, $menu, $category, $page)
+            DB::transaction(function() use ($request, $images, $menu, $page)
             {
                 $newAnimal = Animal::create([
                     'title' => $request->title,
                     'description' => $request->description,
                     'animal_type_id' => $request->animal_type,
                     'menu_id' => $menu->id,
-                    'category_id' => $category->id,
                     'user_id' => Auth::user()->id
                 ]);
                 foreach ($images as $index => $image_name) {
@@ -170,8 +166,6 @@ class AnimalController extends Controller
      */
     public function update(Request $request, $page, $id)
     {
-        // dd($request->all());
-
         $rules = [
             'title'=>'required|max:70',
             'description'=>'required',
@@ -316,7 +310,7 @@ class AnimalController extends Controller
     }
 
     public function animalOfWeek () {
-        $animal = Animal::with('images')->where('dog_of_the_week', true)->first();
+        $animal = Animal::with('images')->where('animal_of_the_week', true)->first();
         if (!$animal) {
             return redirect('home')->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
@@ -328,7 +322,7 @@ class AnimalController extends Controller
     }
 
     public function setAnimalOfWeek ($id) {
-        $previousAnimalOfWeek = Animal::where('dog_of_the_week', true)->first();
+        $previousAnimalOfWeek = Animal::where('animal_of_the_week', true)->first();
         $newAnimalOfWeek = Animal::where('id', $id)->first();
         if (!$newAnimalOfWeek) {
             return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');

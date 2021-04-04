@@ -16,19 +16,19 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   @foreach ($menuItems as $item1)
-                    @if ($item->name == $item1->parent)
+                    @if ($item->id == $item1->parent)
                       @if ($item1->role_id > 1)
                         @if (Auth::user() != null && $item1->role_id <= Auth::user()->role_id)
-                          <a class="dropdown-item" href="/{{$item1->route}}">{{ $item1->name }}</a>
+                          <a class="dropdown-item" href="/{{$item->route}}/{{$item1->route}}">{{ $item1->name }}</a>
                         @endif
                       @else 
-                        <a class="dropdown-item" href="/{{$item1->route}}">{{ $item1->name }}</a>
+                        <a class="dropdown-item" href="/{{$item->route}}/{{$item1->route}}">{{ $item1->name }}</a>
                       @endif    
                     @endif
                   @endforeach
                 </div>
               </li>
-            @elseif ($item->parent == "")
+            @elseif ($item->parent == 0)
               @if ($item->role_id > 1)
                 @if (Auth::user() != null && $item->role_id <= Auth::user()->role_id)
                   <li class="nav-item {{ Request::path() == $item->route ? 'active' : '' }}">
