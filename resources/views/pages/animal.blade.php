@@ -34,24 +34,49 @@
       </a>
       <div class="d-flex flex-row">
         @if (Auth::user() && Auth::user()->role_id == 3)
-          <button 
-            class="btn btn-success mr-3" 
-            data-toggle="modal" 
-            data-target="#{{ $animal->id . '-animal-of-week' }}"
-          >
-            A hét állata
-          </button>
-          @include(
-          'partials.modal_confirm', 
-          [
-            'id' => $animal->id . '-animal-of-week',
-            'question' => 'Biztosan beallítod a hét állatának?',
-            'route' => 'set.animal.of.week',
-            'method' => 'PUT',
-            'route_params' => [$animal->id],
-            'action_button_text' => 'A hét állata',
-            'action_button_class' => 'btn btn-success'
-          ])
+          @if (!$animal->animal_of_the_week)
+            <button 
+              class="btn btn-success mr-3" 
+              data-toggle="modal" 
+              data-target="#{{ $animal->id . '-animal-of-week' }}"
+            >
+              A hét állata
+            </button>
+            @include(
+            'partials.modal_confirm', 
+            [
+              'id' => $animal->id . '-animal-of-week',
+              'question' => 'Biztosan beallítod a hét állatának?',
+              'route' => 'set.animal.of.week',
+              'method' => 'PUT',
+              'route_params' => [$animal->id],
+              'action_button_text' => 'A hét állata',
+              'action_button_class' => 'btn btn-success'
+            ])
+          @endif
+
+          @if (!$animal->adopted)
+            <button 
+              type="submit" 
+              class="btn btn-success mr-3" 
+              data-toggle="modal" 
+              data-target="#{{ $animal->id . '-adopt' }}"
+            >
+              Befogadás
+            </button>
+            @include(
+            'partials.modal_confirm', 
+            [
+              'id' => $animal->id . '-adopt',
+              'question' => 'Kérünk erősítsd meg a befogadást!',
+              'route' => 'adopt',
+              'method' => 'PUT',
+              'route_params' => [$page, $animal->id],
+              'action_button_text' => 'Megerősítem',
+              'action_button_class' => 'btn btn-success'
+            ])    
+          @endif
+
         @endif
         @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
           <a href="{{ Request::url() }}/edit">
@@ -59,45 +84,27 @@
               Szerkesztés
             </button>
           </a>
-
-          <button 
-            type="submit" 
-            class="btn btn-success mr-3" 
-            data-toggle="modal" 
-            data-target="#{{ $animal->id . '-adopt' }}"
-          >
-            Befogadás
-          </button>
-          @include(
-          'partials.modal_confirm', 
-          [
-            'id' => $animal->id . '-adopt',
-            'question' => 'Kérünk erősítsd meg a befogadást!',
-            'route' => 'adopt',
-            'method' => 'PUT',
-            'route_params' => [$page, $animal->id],
-            'action_button_text' => 'Megerősítem',
-            'action_button_class' => 'btn btn-success'
-          ])    
-
-          <button 
-            class="btn btn-danger" 
-            data-toggle="modal" 
-            data-target="#{{ $animal->id . '-delete' }}"
-          >
-            Törlés
-          </button>
-          @include(
-            'partials.modal_confirm', 
-            [
-              'id' => $animal->id . '-delete',
-              'question' => 'Biztosan törlöd ezt a hirdetést?',
-              'route' => 'delete.advertisement',
-              'method' => 'DELETE',
-              'route_params' => [$animal->id],
-              'action_button_text' => 'Törlés',
-              'action_button_class' => 'btn btn-danger'
-            ])      
+          
+          @if (!$animal->animal_of_the_week)
+            <button 
+              class="btn btn-danger" 
+              data-toggle="modal" 
+              data-target="#{{ $animal->id . '-delete' }}"
+            >
+              Törlés
+            </button>
+            @include(
+              'partials.modal_confirm', 
+              [
+                'id' => $animal->id . '-delete',
+                'question' => 'Biztosan törlöd ezt a hirdetést?',
+                'route' => 'delete.advertisement',
+                'method' => 'DELETE',
+                'route_params' => [$animal->id],
+                'action_button_text' => 'Törlés',
+                'action_button_class' => 'btn btn-danger'
+              ])  
+          @endif    
         @endif
       </div>
     </div>

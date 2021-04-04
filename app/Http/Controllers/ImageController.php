@@ -53,7 +53,7 @@ class ImageController extends Controller
         }
         foreach ($images as $image) {
             if ($image->animal->adopted) {
-                $image->{"route"} = '/success-stories/';
+                $image->{"route"} = '/success-stories';
             } else {
                 $menu = Menu::where('id', $image->animal->menu_id)->first();
                 $image->{"route"} = '/animals/' . $menu->route;

@@ -26,11 +26,13 @@ class AnimalController extends Controller
     public function index(Request $request, $page)
     {
         $menu = Menu::where('route', $page)->first();
+        $create_menu = Menu::where('route', $page . '/create')->first();
+        $create_button_role_id = $create_menu->role_id;
         // redirect if not exists
         $category = Category::where('menu_id', $menu->id)->first();
         // joinolni a tablakat!!!!
         $animals = Animal::with('images')->where('menu_id', $menu->id)->where('adopted', false)->get();
-        return view('pages/animals', compact('animals', 'category', 'menu'));
+        return view('pages/animals', compact('animals', 'category', 'menu', 'create_button_role_id'));
     }
 
     /**
@@ -239,6 +241,9 @@ class AnimalController extends Controller
     {
         // it must exists since in a middleware already checked
         $advertisement = Animal::where('id', $id)->first();
+        if ($advertisement->animal_of_the_week) {
+            return redirect()->back()->with('error', 'A hét állata nem törölhető.');
+        }
         $file_names = array();
         $images = Image::where('animal_id', $advertisement->id)->get();
         foreach ($images as $image) {
