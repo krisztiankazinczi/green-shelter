@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Image;
+use App\Models\Animal;
 
 class ImagesSeeder extends Seeder
 {
@@ -14,91 +15,99 @@ class ImagesSeeder extends Seeder
      */
     public function run()
     {
+        $animal1 = Animal::where('title', 'Elveszett leonbergit keresi szerető családja!')->first();
+        $animal2 = Animal::where('title', 'Buksit keresem!')->first();
+        $animal3 = Animal::where('title', 'Szilveszter óta keressük Micit')->first();
+        $animal4 = Animal::where('title', 'Elveszett szeretett kiskutyám!')->first();
+        $animal5 = Animal::where('title', 'Szilveszter óta keressük Micit2')->first();
+        $animal6 = Animal::where('title', 'Elveszett szeretett kiskutyám3!')->first();
+        $animal7 = Animal::where('title', 'Elveszett szeretett kiskutyám2!')->first();
+
         $images = [
             [ 
                 'filename' => 'dog1.jpg',
                 'main' => true,
-                'animal_id' => '0c5014c0-2f7f-4592-866e-36998fb18590'
+                'animal_id' => $animal1->id
             ],
             [ 
                 'filename' => 'dog2.jpeg',
                 'main' => false,
-                'animal_id' => '0c5014c0-2f7f-4592-866e-36998fb18590'
+                'animal_id' => $animal1->id
             ],
             [ 
                 'filename' => 'dog3.jpeg',
                 'main' => false,
-                'animal_id' => '0c5014c0-2f7f-4592-866e-36998fb18590'
+                'animal_id' => $animal1->id
             ],
             [ 
                 'filename' => 'dog4.jpg',
                 'main' => true,
-                'animal_id' => '5d779a04-2670-4ad2-9a99-20c3cf89cc13'
+                'animal_id' => $animal2->id
             ],
             [ 
                 'filename' => 'dog5.jpg',
                 'main' => false,
-                'animal_id' => '5d779a04-2670-4ad2-9a99-20c3cf89cc13'
+                'animal_id' => $animal2->id
             ],
             [ 
                 'filename' => 'dog6.jpg',
                 'main' => false,
-                'animal_id' => '5d779a04-2670-4ad2-9a99-20c3cf89cc13'
+                'animal_id' => $animal2->id
             ],
             [ 
                 'filename' => 'dog7.jpg',
                 'main' => false,
-                'animal_id' => '5d779a04-2670-4ad2-9a99-20c3cf89cc13'
+                'animal_id' => $animal2->id
             ],
             [ 
                 'filename' => 'dog8.jpg',
                 'main' => true,
-                'animal_id' => '5bbec869-62a1-447f-b275-15b592543f46'
+                'animal_id' => $animal3->id
             ],
             [ 
                 'filename' => 'dog9.jpg',
                 'main' => false,
-                'animal_id' => '5bbec869-62a1-447f-b275-15b592543f46'
+                'animal_id' => $animal3->id
             ],
             [ 
                 'filename' => 'dog10.jpg',
                 'main' => true,
-                'animal_id' => 'f348348b-acac-4db2-9e0e-7734a3b84068'
+                'animal_id' => $animal4->id
             ],
             [ 
                 'filename' => 'dog11.jpg',
                 'main' => true,
-                'animal_id' => 'f5bb1ad8-719c-48ab-9170-9804436a5827'
+                'animal_id' => $animal5->id
             ],
             [ 
                 'filename' => 'dog12.jpeg',
                 'main' => false,
-                'animal_id' => 'f5bb1ad8-719c-48ab-9170-9804436a5827'
+                'animal_id' => $animal5->id
             ],
             [ 
                 'filename' => 'dog13.jpg',
                 'main' => false,
-                'animal_id' => 'f5bb1ad8-719c-48ab-9170-9804436a5827'
+                'animal_id' => $animal5->id
             ],
             [ 
                 'filename' => 'dog14.jpg',
                 'main' => true,
-                'animal_id' => '93cb30cc-4f2b-433c-8f0e-94085bae3d8c'
+                'animal_id' => $animal6->id
             ],
             [ 
                 'filename' => 'dog15.jpg',
                 'main' => false,
-                'animal_id' => '93cb30cc-4f2b-433c-8f0e-94085bae3d8c'
+                'animal_id' => $animal6->id
             ],
             [ 
                 'filename' => 'dog16.jpg',
                 'main' => false,
-                'animal_id' => '93cb30cc-4f2b-433c-8f0e-94085bae3d8c'
+                'animal_id' => $animal6->id
             ],
             [ 
                 'filename' => 'dog17.jpg',
                 'main' => true,
-                'animal_id' => '85e3af03-e722-419e-9460-94bd0b6a3c4d'
+                'animal_id' => $animal7->id
             ],
         ];
 

@@ -18,14 +18,13 @@ class Animal extends Model
         'description',
         'animal_of_the_week',
         'adopted',
-        'category_id',
         'user_id',
         'animal_type_id',
         'menu_id',
     ];
 
     protected $casts = [
-        'dog_of_the_week' => 'boolean',
+        'animal_of_the_week' => 'boolean',
         'adopted' => 'boolean'
     ];
     
@@ -47,11 +46,6 @@ class Animal extends Model
     public function animalType()
     {
         return $this->hasOne(AnimalType::class);
-    }
-
-    public function category()
-    {
-        return $this->hasOne(Category::class);
     }
 
     public function user()

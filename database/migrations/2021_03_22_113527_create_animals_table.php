@@ -17,14 +17,12 @@ class CreateAnimalsTable extends Migration
             $table->uuid('id')->index();
             $table->string('title', 70);
             $table->longText('description');
-            $table->boolean('dog_of_the_week');
+            $table->boolean('animal_of_the_week');
             $table->boolean('adopted');
             $table->timestamps();
         });
 
         Schema::table('animals', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('animal_type_id');

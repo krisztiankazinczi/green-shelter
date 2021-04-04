@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Animal;
+use App\Models\AnimalType;
 
 class AnimalSeeder extends Seeder
 {
@@ -14,6 +15,12 @@ class AnimalSeeder extends Seeder
      */
     public function run()
     {
+        $animal_type1 = AnimalType::where('name', 'Korcs')->first();
+        $animal_type2 = AnimalType::where('name', 'Rottweiler')->first();
+        $animal_type3 = AnimalType::where('name', 'Csivava')->first();
+        $animal_type4 = AnimalType::where('name', 'Husky')->first();
+        $animal_type5 = AnimalType::where('name', 'Golden Retriever')->first();
+
         $animals = [
             [
                 'title' => 'Elveszett leonbergit keresi szerető családja!',
@@ -23,9 +30,8 @@ class AnimalSeeder extends Seeder
                 Köszönettel:\n\n
                 Dr. Gaál Ágnes\n
                 06304339384',
-                'category_id' => 1,
                 'user_id' => 1,
-                'animal_type_id' => '1d75d107-d7ad-4dbb-b450-20c01bd1acd5',
+                'animal_type_id' => $animal_type1->id,
                 'menu_id' => 3,
             ],
             [
@@ -33,9 +39,8 @@ class AnimalSeeder extends Seeder
                 'description' => 'Tavaly Máriakéméndről tűnt el. Azóta nem tudok sajnos róla semmit.\n
                 \nBuksi névre hallgat. Chippel rendelkezik. Ivartalanított kan.3 éves lesz májusba\n\n
                 elérhetőségem: 06705977263',
-                'category_id' => 1,
                 'user_id' => 2,
-                'animal_type_id' => '84101b2e-c7c3-40f0-b8c7-9315e3b62805',
+                'animal_type_id' => $animal_type2->id,
                 'menu_id' => 3,
             ],
             [
@@ -46,9 +51,8 @@ class AnimalSeeder extends Seeder
                 Kovács Krisztina\n
                 06309987521\n
                 krisztuuka@citromail.hu',
-                'category_id' => 1,
                 'user_id' => 3,
-                'animal_type_id' => '0cfe2c0e-1b19-42ad-9531-14aaaf724e93',
+                'animal_type_id' => $animal_type3->id,
                 'menu_id' => 3,
             ],
             [
@@ -58,47 +62,43 @@ class AnimalSeeder extends Seeder
                 Hohl Bernadett\n
                 06203934625 vagy 06209622373\n
                 detti2310@gmail.com',
-                'category_id' => 1,
                 'user_id' => 2,
-                'animal_type_id' => '0cfe2c0e-1b19-42ad-9531-14aaaf724e93',
+                'animal_type_id' => $animal_type4->id,
                 'menu_id' => 3,
             ],
             [
-                'title' => 'Szilveszter óta keressük Micit',
+                'title' => 'Szilveszter óta keressük Micit2',
                 'description' => 'Szilveszter óta keressük Micit, de nem adjuk fel!\n
                 Csatolok róla egy képet,többen látták de mi nem találtuk meg.\n
                 Ezen a mobilszámon bármikor elérhető van, minden információ érdekel esetleges legrosszabb hír is. Köszönöm!\n\n
                 Kovács Krisztina\n
                 06309987521\n
                 krisztuuka@citromail.hu',
-                'category_id' => 2,
                 'user_id' => 3,
-                'animal_type_id' => '811607b6-2a1a-42dd-8de5-32016c0464bf',
-                'menu_id' => 5,
-            ],
-            [
-                'title' => 'Elveszett szeretett kiskutyám!',
-                'description' => 'Elveszett szeretett kiskutyám aug.27-én a délutáni órákban Szigetszentmiklósról, a Szőlő közből. Chip van benne (chipszám: 900032001610546), félénk, kis termetű, kan, fekete-fehér harlekin uszkár. Gucci névre hallgat.\n
-                MAGAS PÉNZ JUTALOM A BECSÜLETES MEGTALÁLÓNAK VAGY NYOMRAVEZETŐNEK!\n\n
-                Hohl Bernadett\n
-                06203934625 vagy 06209622373\n
-                detti2310@gmail.com',
-                'category_id' => 2,
-                'user_id' => 4,
-                'animal_type_id' => 'd9c462a8-f10d-4d6c-9ceb-41022444155a',
-                'menu_id' => 5,
-            ],
-            [
-                'title' => 'Elveszett szeretett kiskutyám!',
-                'description' => 'Elveszett szeretett kiskutyám aug.27-én a délutáni órákban Szigetszentmiklósról, a Szőlő közből. Chip van benne (chipszám: 900032001610546), félénk, kis termetű, kan, fekete-fehér harlekin uszkár. Gucci névre hallgat.\n
-                MAGAS PÉNZ JUTALOM A BECSÜLETES MEGTALÁLÓNAK VAGY NYOMRAVEZETŐNEK!\n\n
-                Hohl Bernadett\n
-                06203934625 vagy 06209622373\n
-                detti2310@gmail.com',
-                'category_id' => 3,
-                'user_id' => 4,
-                'animal_type_id' => '811607b6-2a1a-42dd-8de5-32016c0464bf',
+                'animal_type_id' => $animal_type5->id,
                 'menu_id' => 7,
+            ],
+            [
+                'title' => 'Elveszett szeretett kiskutyám3!',
+                'description' => 'Elveszett szeretett kiskutyám aug.27-én a délutáni órákban Szigetszentmiklósról, a Szőlő közből. Chip van benne (chipszám: 900032001610546), félénk, kis termetű, kan, fekete-fehér harlekin uszkár. Gucci névre hallgat.\n
+                MAGAS PÉNZ JUTALOM A BECSÜLETES MEGTALÁLÓNAK VAGY NYOMRAVEZETŐNEK!\n\n
+                Hohl Bernadett\n
+                06203934625 vagy 06209622373\n
+                detti2310@gmail.com',
+                'user_id' => 4,
+                'animal_type_id' => $animal_type1->id,
+                'menu_id' => 7,
+            ],
+            [
+                'title' => 'Elveszett szeretett kiskutyám2!',
+                'description' => 'Elveszett szeretett kiskutyám aug.27-én a délutáni órákban Szigetszentmiklósról, a Szőlő közből. Chip van benne (chipszám: 900032001610546), félénk, kis termetű, kan, fekete-fehér harlekin uszkár. Gucci névre hallgat.\n
+                MAGAS PÉNZ JUTALOM A BECSÜLETES MEGTALÁLÓNAK VAGY NYOMRAVEZETŐNEK!\n\n
+                Hohl Bernadett\n
+                06203934625 vagy 06209622373\n
+                detti2310@gmail.com',
+                'user_id' => 4,
+                'animal_type_id' => $animal_type2->id,
+                'menu_id' => 9,
             ],
         ];
 
@@ -106,7 +106,6 @@ class AnimalSeeder extends Seeder
             Animal::create(array(
                 'title' => $animal['title'],
                 'description' => $animal['description'],
-                'category_id' => $animal['category_id'],
                 'user_id' => $animal['user_id'],
                 'animal_type_id' => $animal['animal_type_id'],
                 'menu_id' => $animal['menu_id'],
