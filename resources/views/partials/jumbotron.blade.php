@@ -4,13 +4,13 @@
             <div class="row">
                 <div class="col-md-6">
                     @if ($category->text_location === 'left')
-                        <h1>{{ $category->title }}</h1>
+                        <h1>{{ $category->menu->name }}</h1>
                         <h2>{{ $category->description }}</h2>
                     @endif
                 </div>
                 <div class="col-md-6">
                     @if ($category->text_location === 'right')
-                        <h1>{{ $category->title }}</h1>
+                        <h1>{{ $category->menu->name }}</h1>
                         <h2>{{ $category->description }}</h2>
                     @endif
                 </div>

@@ -29,7 +29,7 @@ class AnimalController extends Controller
         $create_menu = Menu::where('route', $page . '/create')->first();
         $create_button_role_id = $create_menu->role_id;
         // redirect if not exists
-        $category = Category::where('menu_id', $menu->id)->first();
+        $category = Category::with('menu')->where('menu_id', $menu->id)->first();
         // joinolni a tablakat!!!!
         $animals = Animal::with('images')->where('menu_id', $menu->id)->where('adopted', false)->get();
         return view('pages/animals', compact('animals', 'category', 'menu', 'create_button_role_id'));

@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', $category->title)
+@section('title', $category->menu->name)
 
 @section('content')
   @include('partials.jumbotron')
