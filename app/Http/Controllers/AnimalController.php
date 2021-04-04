@@ -26,6 +26,7 @@ class AnimalController extends Controller
     public function index(Request $request, $page)
     {
         $menu = Menu::where('route', $page)->first();
+        // in front-end I will check if user has access to create this kind of advertisement or not
         $create_menu = Menu::where('route', $page . '/create')->first();
         $create_button_role_id = $create_menu->role_id;
         // redirect if not exists
@@ -138,9 +139,10 @@ class AnimalController extends Controller
      */
     public function show($page, $id)
     {
-        $animal = Animal::with('images')->where('id', $id)->first();
-        $menu = Menu::where('id', $animal->menu_id)->first();
-        $animal->{"menu"} = $menu;
+        $animal = Animal::with('images', 'adoptions', 'menu')->where('id', $id)->first();
+        // dd($animal);
+        // $menu = Menu::where('id', $animal->menu_id)->first();
+        // $animal->{"menu"} = $menu;
         return view('pages/animal', compact('animal', 'page'));
     }
 

@@ -40,7 +40,7 @@ class Animal extends Model
 
     public function menu()
     {
-        return $this->hasOne(Menu::class);
+        return $this->belongsTo(Menu::class);
     }
 
     public function animalType()
@@ -56,5 +56,10 @@ class Animal extends Model
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function adoptions()
+    {
+        return $this->hasMany(Adoption::class);
     }
 }

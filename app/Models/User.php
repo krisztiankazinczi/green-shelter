@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Animal::class);
     }
+
+    public function adoptions()
+    {
+        return $this->hasMany(Adoption::class);
+    }
 }

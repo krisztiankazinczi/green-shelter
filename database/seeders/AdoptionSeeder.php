@@ -19,6 +19,8 @@ class AdoptionSeeder extends Seeder
         $animal1 = Animal::where('title', 'Buksit keresem!')->first();
         $animal2 = Animal::where('title', 'Szilveszter óta keressük Micit')->first();
         $animal3 = Animal::where('title', 'Elveszett szeretett kiskutyám!')->first();
+        $animal3->adopted = true;
+        $animal3->save();
 
         $adoptions = [
             [

@@ -12,6 +12,13 @@
         <div class="alert alert-danger"> {{ Session::get('error') }}</div>
       @endif
     </div>
+    <p class="text text-danger">
+      @foreach ($animal->adoptions as $adoption)
+        @if ($adoption->user_id == Auth::user()->id)
+          Befogadási szándékodat rögzítettük, hamarosan felvesszük veled a kapcsolatot.
+        @endif
+      @endforeach
+    </p>
     <div class="d-flex justify-content-center">
       <h1>{{ $animal->title }}</h1>
     </div>
@@ -32,80 +39,88 @@
           Vissza
         </button>
       </a>
-      <div class="d-flex flex-row">
-        @if (Auth::user() && Auth::user()->role_id == 3)
-          @if (!$animal->animal_of_the_week)
-            <button 
-              class="btn btn-success mr-3" 
-              data-toggle="modal" 
-              data-target="#{{ $animal->id . '-animal-of-week' }}"
-            >
-              A hét állata
-            </button>
-            @include(
-            'partials.modal_confirm', 
-            [
-              'id' => $animal->id . '-animal-of-week',
-              'question' => 'Biztosan beallítod a hét állatának?',
-              'route' => 'set.animal.of.week',
-              'method' => 'PUT',
-              'route_params' => [$animal->id],
-              'action_button_text' => 'A hét állata',
-              'action_button_class' => 'btn btn-success'
-            ])
-          @endif
-
-          @if (!$animal->adopted)
-            <button 
-              type="submit" 
-              class="btn btn-success mr-3" 
-              data-toggle="modal" 
-              data-target="#{{ $animal->id . '-adopt' }}"
-            >
-              Befogadás
-            </button>
-            @include(
-            'partials.modal_confirm', 
-            [
-              'id' => $animal->id . '-adopt',
-              'question' => 'Kérünk erősítsd meg a befogadást!',
-              'route' => 'adopt',
-              'method' => 'PUT',
-              'route_params' => [$page, $animal->id],
-              'action_button_text' => 'Megerősítem',
-              'action_button_class' => 'btn btn-success'
-            ])    
-          @endif
-
+      <div class="d-flex justify-content-end">
+        @if (!$animal->adopted)
+          <button 
+            type="submit" 
+            class="btn btn-success mr-3" 
+            data-toggle="modal" 
+            data-target="#{{ $animal->id . '-adopt' }}"
+            @foreach ($animal->adoptions as $adoption)
+              @if ($adoption->user_id == Auth::user()->id)
+                disabled
+              @endif
+            @endforeach
+          >
+            Befogadás
+          </button>
+          @include(
+          'partials.modal_confirm', 
+          [
+            'id' => $animal->id . '-adopt',
+            'question' => 'Kérünk erősítsd meg a befogadást!',
+            'route' => 'adopt',
+            'method' => 'PUT',
+            'route_params' => [$page, $animal->id],
+            'action_button_text' => 'Megerősítem',
+            'action_button_class' => 'btn btn-success'
+          ])    
         @endif
-        @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
-          <a href="{{ Request::url() }}/edit">
-            <button class="btn btn-warning mr-3" >
-              Szerkesztés
-            </button>
-          </a>
-          
-          @if (!$animal->animal_of_the_week)
-            <button 
-              class="btn btn-danger" 
-              data-toggle="modal" 
-              data-target="#{{ $animal->id . '-delete' }}"
-            >
-              Törlés
-            </button>
-            @include(
+
+        <div class="d-flex flex-row">
+          @if (Auth::user() && Auth::user()->role_id == 3)
+            @if (!$animal->animal_of_the_week)
+              <button 
+                class="btn btn-success mr-3" 
+                data-toggle="modal" 
+                data-target="#{{ $animal->id . '-animal-of-week' }}"
+              >
+                A hét állata
+              </button>
+              @include(
               'partials.modal_confirm', 
               [
-                'id' => $animal->id . '-delete',
-                'question' => 'Biztosan törlöd ezt a hirdetést?',
-                'route' => 'delete.advertisement',
-                'method' => 'DELETE',
+                'id' => $animal->id . '-animal-of-week',
+                'question' => 'Biztosan beallítod a hét állatának?',
+                'route' => 'set.animal.of.week',
+                'method' => 'PUT',
                 'route_params' => [$animal->id],
-                'action_button_text' => 'Törlés',
-                'action_button_class' => 'btn btn-danger'
-              ])  
-          @endif    
-        @endif
+                'action_button_text' => 'A hét állata',
+                'action_button_class' => 'btn btn-success'
+              ])
+            @endif
+
+          @endif
+          @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
+            <a href="{{ Request::url() }}/edit">
+              <button class="btn btn-warning mr-3" >
+                Szerkesztés
+              </button>
+            </a>
+            
+            @if (!$animal->animal_of_the_week)
+              <button 
+                class="btn btn-danger" 
+                data-toggle="modal" 
+                data-target="#{{ $animal->id . '-delete' }}"
+              >
+                Törlés
+              </button>
+              @include(
+                'partials.modal_confirm', 
+                [
+                  'id' => $animal->id . '-delete',
+                  'question' => 'Biztosan törlöd ezt a hirdetést?',
+                  'route' => 'delete.advertisement',
+                  'method' => 'DELETE',
+                  'route_params' => [$animal->id],
+                  'action_button_text' => 'Törlés',
+                  'action_button_class' => 'btn btn-danger'
+                ])  
+            @endif    
+          @endif
+      
+      </div>
       </div>
     </div>
   </div>
