@@ -15,7 +15,7 @@ class CreateAdoptionsTable extends Migration
     {
         Schema::create('adoptions', function (Blueprint $table) {
             $table->id();
-            $table->string('status')->default('requested'); // 'requested' || 'adopted'
+            $table->string('status')->default('requested'); // 'requested' || 'adopted' || 'rejected'
             $table->timestamps(); // updated_at will be the adoption time, since after adoption this table row won't be modified
         });
 

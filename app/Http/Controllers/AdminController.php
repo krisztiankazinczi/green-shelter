@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Adoption;
 
 class AdminController extends Controller
 {
@@ -10,7 +11,11 @@ class AdminController extends Controller
         return view('pages/admin');
     }
 
-    public function indexWithOption($option) {
-        return view('pages/admin', compact('option'));
+    public function adoptions($type) {
+        if ($type != 'requested' && $type != 'adopted' && $type != 'rejected') {
+            return redirect('home')->with('error', 'Nem megfelelő típus');
+        }
+        $requests = Adoption::with('animal', 'user')->where('status', $type)->get();
+        return view('pages/admin', compact('requests'));
     }
 }

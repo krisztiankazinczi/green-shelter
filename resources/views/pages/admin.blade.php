@@ -6,17 +6,27 @@
 
 <div id="adminSideNav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="{{ Request::url() }}/adoption-requests">Befogadási kérések</a>
+  <a href="{{ route('admin.adoption', ['type' => 'requested']) }}">Befogadási kérések</a>
+  <a href="{{ route('admin.adoption', ['type' => 'rejected']) }}">Elutasított kérések</a>
+  <a href="{{ route('admin.adoption', ['type' => 'adopted']) }}">Befogadások</a>
 </div>
 
-<i class="fas fa-bars sidenav-open" onclick="openNav()"></i>
+<i class="fas fa-bars" id="sidenav-open" onclick="openNav()"></i>
 
 <div id="main">
-  @isset($option)
-    @if ($option == 'adoption-requests')
-      @include('partials.admin.adoption_requests')
+    @if (last(request()->segments()) == 'requested')
+      @isset($requests)
+        @include('partials.admin.adoption_requests', ['title' => 'Befogadási kérelmek', 'requests' => $requests])
+      @endisset
+    @elseif (last(request()->segments()) == 'rejected')
+      @isset($requests)
+        @include('partials.admin.adoption_requests', ['title' => 'Elutasított kérések', 'requests' => $requests])
+      @endisset
+    @elseif (last(request()->segments()) == 'adopted')
+      @isset($requests)
+        @include('partials.admin.adoption_requests', ['title' => 'Befogadott állatok', 'requests' => $requests])
+      @endisset
     @endif
-  @endisset
 </div>
 
 <style>
@@ -61,6 +71,19 @@
   margin-left: 250px;
 }
 
+#sidenav-open {
+  position: fixed;
+  top: 6vh;
+  left: 30px;
+  z-index: 1;
+  font-size: 25px;
+  padding: 10px;
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, .15);
+  cursor: pointer;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {
@@ -75,20 +98,14 @@
   }
 
   #main {
-    margin-left: 60px;
+    margin-left: 80px;
+  }
+
+  #sidenav-open {
+    visibility: visible;
   }
 }
 
-.sidenav-open {
-  position: fixed;
-  top: 6vh;
-  left: 30px;
-  z-index: 1;
-  font-size: 25px;
-  padding: 10px;
-  box-shadow: 0 0 10px 4px rgba(0, 0, 0, .15);
-  cursor: pointer;
-}
 </style>
 
 <script>
@@ -96,11 +113,13 @@
 function openNav() {
   document.getElementById("adminSideNav").style.width = "250px";
   document.getElementById("main").style.marginLeft = "250px";
+  document.getElementById("sidenav-open").style.visibility = "hidden";
 }
 
 function closeNav() {
   document.getElementById("adminSideNav").style.width = "0";
-  document.getElementById("main").style.marginLeft = "60px";
+  document.getElementById("main").style.marginLeft = "80px";
+  document.getElementById("sidenav-open").style.visibility = "visible";
 }
 
 </script>

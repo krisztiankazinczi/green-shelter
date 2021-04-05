@@ -48,7 +48,10 @@ Route::group(['middleware' => 'getMenu'], function(){
 
     Route::middleware('isAdmin')->group(function () {
         Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-        Route::get('/admin-dashboard/{option}', [AdminController::class, 'indexWithOption'])->name('admin.dashboard.option');
+        Route::get('/admin-dashboard/adoption/{type}', [AdminController::class, 'adoptions'])->name('admin.adoption');
+
+        Route::put('approve-adoption/{id}', [AdoptionController::class, 'approveAdoption'])->name('approve.adoption');
+        Route::put('reject-adoption/{id}', [AdoptionController::class, 'rejectAdoption'])->name('reject.adoption');
     });
 });
 
