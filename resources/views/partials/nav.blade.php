@@ -6,7 +6,7 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
+    <ul class="ml-auto navbar-nav">
         @isset($menuItems)
           @foreach ($menuItems as $item)
             @if (isset($item->hasSubMenu))
@@ -31,7 +31,8 @@
             @elseif ($item->parent == 0)
               @if ($item->role_id > 1)
                 @if (Auth::user() != null && $item->role_id <= Auth::user()->role_id)
-                  <li class="nav-item {{ Request::path() == $item->route ? 'active' : '' }}">
+                  <li class="nav-item {{ Request::is($item->route) || Request::is($item->route . '/*') ? 'active' : '' }}">
+                  
                     <a class="nav-link" href="/{{$item->route}}">{{ $item->name }}<span class="sr-only">(current)</span></a>
                   </li>
                 @endif

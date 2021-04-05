@@ -35,26 +35,7 @@
                     'route_params' => [$request->id],
                     'action_button_text' => 'Jóváhagyom',
                     'action_button_class' => 'btn btn-success'
-                  ])  
-
-                  <button 
-                    class="mr-3 btn btn-danger" 
-                    data-toggle="modal" 
-                    data-target="#{{ $request->id . '-reject-request' }}"
-                  >
-                    Elutasítás
-                  </button>
-                  @include(
-                  'partials.modal_confirm', 
-                  [
-                    'id' => $request->id . '-reject-request',
-                    'question' => 'Biztosan elutasítod a befogadási kérelmet? ' . $request->animal->title,
-                    'route' => 'reject.adoption',
-                    'method' => 'PUT',
-                    'route_params' => [$request->id],
-                    'action_button_text' => 'Elutasítom',
-                    'action_button_class' => 'btn btn-danger'
-                  ])      
+                  ])    
                 </td>
             </tr>
             @endforeach            

@@ -6,7 +6,10 @@
 
 <div id="adminSideNav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="{{ route('admin.adoption', ['type' => 'requested']) }}">Befogadási kérések</a>
+  <a 
+    href="{{ route('admin.adoption', ['type' => 'requested']) }}"
+    class="{{ last(request()->segments()) === 'requested' ? 'active-admin-menu' : '' }}"
+  >Befogadási kérések</a>
   <a href="{{ route('admin.adoption', ['type' => 'rejected']) }}">Elutasított kérések</a>
   <a href="{{ route('admin.adoption', ['type' => 'adopted']) }}">Befogadások</a>
 </div>
@@ -55,6 +58,10 @@
 
 .sidenav a:hover {
   color: #f1f1f1;
+}
+
+.active-admin-menu {
+  color:  #f1f1f1;
 }
 
 .sidenav .closebtn {
