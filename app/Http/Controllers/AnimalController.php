@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Animal;
 use App\Models\Image;
 use App\Models\AnimalType;
+use App\Models\Adoption;
 
 
 class AnimalController extends Controller
@@ -140,7 +141,17 @@ class AnimalController extends Controller
     public function show($page, $id)
     {
         $animal = Animal::with('images', 'adoptions', 'menu')->where('id', $id)->first();
-        return view('pages/animal', compact('animal', 'page'));
+        $adoptionRequest;
+
+        if (Auth::user()) {
+            $adoptionRequest = Adoption::where([
+                'animal_id' => $id,
+                'user_id' => Auth::user()->id
+            ])->first();
+            // $adoptionRequest = Adoption::where('animal_id', $animal->id)->where('user_id', Auth::user()->id)->first();
+        }
+
+        return view('pages/animal', compact('animal', 'page', 'adoptionRequest'));
     }
 
     /**

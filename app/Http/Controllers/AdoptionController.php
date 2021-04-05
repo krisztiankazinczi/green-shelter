@@ -22,6 +22,22 @@ class AdoptionController extends Controller
         return redirect()->back()->with('success', 'Befogadási szándékodat rögzítettük, hamarosan jelentkezünk.');
     }
 
+    public function revertAdoptionRequest($id) {
+        $animal = Animal::where('id', $id)->first();
+        if (!$animal) {
+            return redirect()->back()->with('error', 'A hirdetes nem létezik a rendszerünkben.');
+        }
+        $my_adoption_request = Adoption::where([
+            'animal_id' => $id,
+            'user_id' => Auth::user()->id
+        ])->first();
+        if (!$my_adoption_request) {
+            return redirect()->back()->with('error', 'A rendszerünkben nem szerepel befogadási szándék nyilatkozat tőled.');
+        }
+        $my_adoption_request->delete();
+        return redirect()->back()->with('success', 'A befogadási szándékodat töröltük a rendszerünkből');
+    }
+
     public function approveAdoption($id) {
         $adoption_request = Adoption::where('id', $id)->first();
         if (!$adoption_request) {

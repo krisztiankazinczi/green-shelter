@@ -43,34 +43,48 @@
       </a>
       <div class="d-flex justify-content-end">
         @if (!$animal->adopted && Auth::user())
-          <button 
-            type="submit" 
-            class="mr-3 btn btn-success" 
-            data-toggle="modal" 
-            data-target="#{{ $animal->id . '-adopt' }}"
-            @isset($animal->adoptions)
-              @foreach ($animal->adoptions as $adoption)
-                @if ($adoption->user_id == Auth::user()->id)
-                  disabled
-                @endif
-              @endforeach
-            @endisset
-          >
-            Befogadás
-          </button>
-          @include(
-          'partials.modal_confirm', 
-          [
-            'id' => $animal->id . '-adopt',
-            'question' => 'Kérünk erősítsd meg a befogadási szándékodat!',
-            'route' => 'request.adoption',
-            'method' => 'POST',
-            'route_params' => [$animal->id],
-            'action_button_text' => 'Megerősítem',
-            'action_button_class' => 'btn btn-success'
-          ])    
+          @if ($adoptionRequest)
+            <button 
+              type="submit" 
+              class="mr-3 btn btn-danger" 
+              data-toggle="modal" 
+              data-target="#{{ $animal->id . '-adopt-revert' }}"
+            >
+              Befogadási Szándék Visszavonás
+            </button>
+            @include(
+            'partials.modal_confirm', 
+            [
+              'id' => $animal->id . '-adopt-revert',
+              'question' => 'Biztosan visszavonod a befogadási szándékodat?',
+              'route' => 'revert.adoption.request',
+              'method' => 'DELETE',
+              'route_params' => [$animal->id],
+              'action_button_text' => 'Visszavonom',
+              'action_button_class' => 'btn btn-danger'
+            ])   
+          @else
+            <button 
+              type="submit" 
+              class="mr-3 btn btn-success" 
+              data-toggle="modal" 
+              data-target="#{{ $animal->id . '-adopt' }}"
+            >
+              Befogadás
+            </button>
+            @include(
+            'partials.modal_confirm', 
+            [
+              'id' => $animal->id . '-adopt',
+              'question' => 'Kérünk erősítsd meg a befogadási szándékodat!',
+              'route' => 'request.adoption',
+              'method' => 'POST',
+              'route_params' => [$animal->id],
+              'action_button_text' => 'Megerősítem',
+              'action_button_class' => 'btn btn-success'
+            ])    
+          @endif
         @endif
-
         <div class="flex-row d-flex">
           @if (Auth::user() && Auth::user()->role_id == 3)
             @if (!$animal->animal_of_the_week)
