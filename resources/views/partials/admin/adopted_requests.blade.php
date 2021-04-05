@@ -19,22 +19,22 @@
                 <td>{{ $request->created_at }}</td>
                 <td>
                   <button 
-                    class="mr-3 btn btn-success" 
+                    class="mr-3 btn btn-danger" 
                     data-toggle="modal" 
-                    data-target="#{{ $request->id . '-adoption-request' }}"
+                    data-target="#{{ $request->id . '-adoption-revert' }}"
                   >
-                    Jóváhagyás
+                    Befogadás visszavonása
                   </button>
                   @include(
                   'partials.modal_confirm', 
                   [
-                    'id' => $request->id . '-adoption-request',
-                    'question' => 'Erősítsd meg, hogy befogadták ay ebben a hirdetesben szereplő állatot: ' . $request->animal->title,
-                    'route' => 'approve.adoption',
+                    'id' => $request->id . '-adoption-revert',
+                    'question' => 'Biztosan visszavonod a következő állat befogadását? - ' . $request->animal->title,
+                    'route' => 'revert.adoption',
                     'method' => 'PUT',
                     'route_params' => [$request->id],
-                    'action_button_text' => 'Jóváhagyom',
-                    'action_button_class' => 'btn btn-success'
+                    'action_button_text' => 'Befogadás visszavonása',
+                    'action_button_class' => 'btn btn-danger'
                   ])    
                 </td>
             </tr>

@@ -31,6 +31,9 @@ class AdoptionController extends Controller
         if (!$animal) {
             return redirect()->back()->with('error', 'A befogadni kívánt hirdetés nem létezik a rendszerünkben');
         }
+
+        // write a middleware for these 2 db request check, because I use these in every function!!!!!
+
         try {
             DB::transaction(function() use ($adoption_request, $animal)
             {
@@ -90,6 +93,34 @@ class AdoptionController extends Controller
         $adoption_request->status = 'requested';
         $adoption_request->save();
         return redirect()->back()->with('success', 'Az elutasított befogadási kérést sikeresen visszavontad');
+    }
+
+    public function revertAdoption($id) {
+        $adoption_request = Adoption::where('id', $id)->first();
+        if (!$adoption_request) {
+            return redirect()->back()->with('error', 'A módosítani kívánt kérés már nem szerepel az adatbázisban');
+        }
+        $animal = Animal::where('id', $adoption_request->animal_id)->first();
+        if (!$animal) {
+            return redirect()->back()->with('error', 'A befogadni kívánt hirdetés nem létezik a rendszerünkben');
+        }
+
+        try {
+            DB::transaction(function() use ($adoption_request, $animal)
+            {
+                $adoption_request->status = 'requested';
+                $adoption_request->save();
+
+                $animal->adopted = false;
+                $animal->save();
+            });
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később');
+        }
+        return redirect()->back()->with('success', 'Sikeresen visszavontad a befogadást.');
 
     }
 }

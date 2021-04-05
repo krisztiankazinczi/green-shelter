@@ -53,6 +53,7 @@ Route::group(['middleware' => 'getMenu'], function(){
         Route::put('approve-adoption/{id}', [AdoptionController::class, 'approveAdoption'])->name('approve.adoption');
         Route::put('reject-adoption/{id}', [AdoptionController::class, 'rejectAdoption'])->name('reject.adoption');
         Route::put('revert-rejection/{id}', [AdoptionController::class, 'revertAdoptionRejection'])->name('revert.adoption.rejection');
+        Route::put('revert-adoption/{id}', [AdoptionController::class, 'revertAdoption'])->name('revert.adoption');
     });
 });
 
