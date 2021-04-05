@@ -8,10 +8,16 @@
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a 
     href="{{ route('admin.adoption', ['type' => 'requested']) }}"
-    class="{{ last(request()->segments()) === 'requested' ? 'active-admin-menu' : '' }}"
+    class="{{ last(request()->segments()) == 'requested' ? 'active-admin-menu' : '' }}"
   >Befogadási kérések</a>
-  <a href="{{ route('admin.adoption', ['type' => 'rejected']) }}">Elutasított kérések</a>
-  <a href="{{ route('admin.adoption', ['type' => 'adopted']) }}">Befogadások</a>
+  <a 
+    href="{{ route('admin.adoption', ['type' => 'rejected']) }}"
+    class="{{ last(request()->segments()) == 'rejected' ? 'active-admin-menu' : '' }}"
+  >Elutasított kérések</a>
+  <a 
+    href="{{ route('admin.adoption', ['type' => 'adopted']) }}"
+    class="{{ last(request()->segments()) == 'adopted' ? 'active-admin-menu' : '' }}"  
+  >Befogadások</a>
 </div>
 
 <i class="fas fa-bars" id="sidenav-open" onclick="openNav()"></i>
@@ -23,11 +29,11 @@
       @endisset
     @elseif (last(request()->segments()) == 'rejected')
       @isset($requests)
-        @include('partials.admin.adoption_requests', ['title' => 'Elutasított kérések', 'requests' => $requests])
+        @include('partials.admin.rejected_requests', ['title' => 'Elutasított kérések', 'requests' => $requests])
       @endisset
     @elseif (last(request()->segments()) == 'adopted')
       @isset($requests)
-        @include('partials.admin.adoption_requests', ['title' => 'Befogadott állatok', 'requests' => $requests])
+        @include('partials.admin.adopted_requests', ['title' => 'Befogadott állatok', 'requests' => $requests])
       @endisset
     @endif
 </div>
@@ -61,7 +67,7 @@
 }
 
 .active-admin-menu {
-  color:  #f1f1f1;
+  color:  white !important;
 }
 
 .sidenav .closebtn {

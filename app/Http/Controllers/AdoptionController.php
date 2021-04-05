@@ -27,7 +27,7 @@ class AdoptionController extends Controller
         if (!$adoption_request) {
             return redirect()->back()->with('error', 'A módosítani kívánt kérés már nem szerepel az adatbázisban');
         }
-        $animal = Animal::where('id', $adoption_request->animal_id)-first();
+        $animal = Animal::where('id', $adoption_request->animal_id)->first();
         if (!$animal) {
             return redirect()->back()->with('error', 'A befogadni kívánt hirdetés nem létezik a rendszerünkben');
         }
@@ -71,5 +71,25 @@ class AdoptionController extends Controller
         $adoption_request->save();
 
         return redirect()->back()->with('success', 'A kérést elutasítottad');
+    }
+
+    public function revertAdoptionRejection($id) {
+        $adoption_request = Adoption::where('id', $id)->first();
+        if (!$adoption_request) {
+            return redirect()->back()->with('error', 'A módosítani kívánt kérés már nem szerepel az adatbázisban');
+        }
+        $animal = Animal::where('id', $adoption_request->animal_id)->first();
+        if (!$animal) {
+            return redirect()->back()->with('error', 'A befogadni kívánt hirdetés nem létezik a rendszerünkben');
+        }
+
+        if ($animal->adopted) {
+            return redirect()->back()->with('error', 'Az állatot már befogadták, így nem lehet visszavonni az elutasítást. Ha mégis szeretnéd, akkor vond vissza előbb a befogadást');
+        }
+
+        $adoption_request->status = 'requested';
+        $adoption_request->save();
+        return redirect()->back()->with('success', 'Az elutasított befogadási kérést sikeresen visszavontad');
+
     }
 }
