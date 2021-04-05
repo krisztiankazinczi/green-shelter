@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\AdoptionController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +46,9 @@ Route::group(['middleware' => 'getMenu'], function(){
 
     Route::post('adoption-request/{id}', [AdoptionController::class, 'adoptionRequest'])->name('request.adoption');
 
+    Route::middleware('isAdmin')->group(function () {
+        Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::get('/admin-dashboard/{option}', [AdminController::class, 'indexWithOption'])->name('admin.dashboard.option');
+    });
 });
 
