@@ -13,11 +13,13 @@
       @endif
     </div>
     <p class="text text-danger">
-      @foreach ($animal->adoptions as $adoption)
-        @if ($adoption->user_id == Auth::user()->id)
-          Befogadási szándékodat rögzítettük, hamarosan felvesszük veled a kapcsolatot.
-        @endif
-      @endforeach
+      @isset($animal->adoptions)
+        @foreach ($animal->adoptions as $adoption)
+          @if (Auth::user() && $adoption->user_id == Auth::user()->id)
+            Befogadási szándékodat rögzítettük, hamarosan felvesszük veled a kapcsolatot.
+          @endif
+        @endforeach
+      @endisset
     </p>
     <div class="d-flex justify-content-center">
       <h1>{{ $animal->title }}</h1>
@@ -25,8 +27,8 @@
     <div class="d-flex justify-content-center">
       <h3 class="mt-5">{!! $animal->description !!}</h3>
     </div>
-    <div class="container-fluid mt-5">
-      <div class="row user-image mb-3 text-center mt-4">
+    <div class="mt-5 container-fluid">
+      <div class="mt-4 mb-3 text-center row user-image">
         @foreach ($animal->images as $image)
             <img src="/images/{{$image->filename}}" alt="{{ $animal->title }}" style="height: 300px; margin-right: 10px; margin-bottom:10px; max-width: 600px; {{ $image->main ? 'border: 10px solid blue;' : '' }}" />
         @endforeach
@@ -40,17 +42,19 @@
         </button>
       </a>
       <div class="d-flex justify-content-end">
-        @if (!$animal->adopted)
+        @if (!$animal->adopted && Auth::user())
           <button 
             type="submit" 
-            class="btn btn-success mr-3" 
+            class="mr-3 btn btn-success" 
             data-toggle="modal" 
             data-target="#{{ $animal->id . '-adopt' }}"
-            @foreach ($animal->adoptions as $adoption)
-              @if ($adoption->user_id == Auth::user()->id)
-                disabled
-              @endif
-            @endforeach
+            @isset($animal->adoptions)
+              @foreach ($animal->adoptions as $adoption)
+                @if ($adoption->user_id == Auth::user()->id)
+                  disabled
+                @endif
+              @endforeach
+            @endisset
           >
             Befogadás
           </button>
@@ -58,20 +62,20 @@
           'partials.modal_confirm', 
           [
             'id' => $animal->id . '-adopt',
-            'question' => 'Kérünk erősítsd meg a befogadást!',
-            'route' => 'adopt',
-            'method' => 'PUT',
-            'route_params' => [$page, $animal->id],
+            'question' => 'Kérünk erősítsd meg a befogadási szándékodat!',
+            'route' => 'request.adoption',
+            'method' => 'POST',
+            'route_params' => [$animal->id],
             'action_button_text' => 'Megerősítem',
             'action_button_class' => 'btn btn-success'
           ])    
         @endif
 
-        <div class="d-flex flex-row">
+        <div class="flex-row d-flex">
           @if (Auth::user() && Auth::user()->role_id == 3)
             @if (!$animal->animal_of_the_week)
               <button 
-                class="btn btn-success mr-3" 
+                class="mr-3 btn btn-success" 
                 data-toggle="modal" 
                 data-target="#{{ $animal->id . '-animal-of-week' }}"
               >
@@ -93,7 +97,7 @@
           @endif
           @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
             <a href="{{ Request::url() }}/edit">
-              <button class="btn btn-warning mr-3" >
+              <button class="mr-3 btn btn-warning" >
                 Szerkesztés
               </button>
             </a>

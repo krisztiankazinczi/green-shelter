@@ -140,9 +140,6 @@ class AnimalController extends Controller
     public function show($page, $id)
     {
         $animal = Animal::with('images', 'adoptions', 'menu')->where('id', $id)->first();
-        // dd($animal);
-        // $menu = Menu::where('id', $animal->menu_id)->first();
-        // $animal->{"menu"} = $menu;
         return view('pages/animal', compact('animal', 'page'));
     }
 
