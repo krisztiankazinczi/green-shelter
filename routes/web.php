@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\AnimalTypeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\AdoptionController;
 use App\Http\Controllers\AdminController;
@@ -43,6 +44,7 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::get('/success-stories/{id}', [AnimalController::class, 'successStory'])->name('success.story');
     Route::get('/gallery', [ImageController::class, 'gallery'])->name('gallery');
     Route::get('/animal-of-week', [AnimalController::class, 'animalOfWeek'])->name('animal.of.week');
+    Route::get('/type/{type_id}', [AnimalTypeController::class, 'index'])->name('anymal.type');
 
     Route::post('adoption-request/{id}', [AdoptionController::class, 'adoptionRequest'])->name('request.adoption');
     Route::delete('revert-adoption-request/{id}', [AdoptionController::class, 'revertAdoptionRequest'])->name('revert.adoption.request');
