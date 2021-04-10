@@ -8,7 +8,12 @@
     @endforeach
     <div class="card-body d-flex flex-column justify-content-between">
       <div>
-        <h5 class="card-title">{{ $animal->title }}</h5>
+        <div class="d-flex justify-content-between position-relative">
+          <h5 class="card-title type-link">{{ $animal->title }}</h5>
+          <a href="/type/{{ $animal->animalType->id }}">
+            <h5 class="card-title btn btn-outline-success position-absolute" style="top: -5px; right: 0; padding: 2px; padding-left: 5px; padding-right: 5px">{{ $animal->animalType->name }}</h5>
+          </a>
+        </div>
         <p class="card-text">{!! substr( $animal->description, 0, 150) . '...' !!}</p>
       </div>
       <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#{{ $animal->id }}">
@@ -17,3 +22,12 @@
     </div>
   </div>
 @endisset
+
+<style>
+  .type-link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 60%;
+  }
+</style>

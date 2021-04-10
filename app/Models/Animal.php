@@ -45,7 +45,7 @@ class Animal extends Model
 
     public function animalType()
     {
-        return $this->hasOne(AnimalType::class);
+        return $this->belongsTo(AnimalType::class);
     }
 
     public function user()
