@@ -103,4 +103,26 @@ class AnimalTypeController extends Controller
 
         return redirect('type/' . $animal_type->id)->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
     }
+
+    public function destroy ($id) {
+        $animal_type = AnimalType::where('id', $id)->first();
+        if (!$animal_type) {
+            return redirect()->back()->with('error', 'A módosítani kívánt fajta már nem létezik az adatbázisunkban');
+        }
+
+        $is_animal_attached_to_this_species = Animal::where('animal_type_id', $id)->first();
+
+        if ($is_animal_attached_to_this_species) {
+            return redirect()->back()->with('error', 'Az állatfajta nem törölhető, mert vannak hozzá tartozó állatok az adatbázisban.');
+        }
+
+        $stored_image_path = base_path() . '/public/images/' . $animal_type->image_uri;
+        $animal_type->delete();
+        if(file_exists($stored_image_path)){
+            unlink($stored_image_path);
+        }
+
+        return redirect()->back()->with('success', 'Az állatfajtát sikeresen törölted az adatbázisból');
+        
+    }
 }

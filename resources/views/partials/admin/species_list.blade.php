@@ -1,4 +1,10 @@
 <div class="mt-5 container-fluid">
+  @if(!empty(Session::get('success')))
+      <div class="alert alert-success"> {{ Session::get('success') }}</div>
+  @endif
+  @if(!empty(Session::get('error')))
+      <div class="alert alert-danger"> {{ Session::get('error') }}</div>
+  @endif
     <div class="d-flex justify-content-between">
       <h2>Regisztrált állatfajták az oldalon</h2>
       <a href="{{ route('show.create.species') }}" class="text-decoration-none">
@@ -42,31 +48,25 @@
                     <button 
                       class="mb-2 btn btn-danger btn-sm" 
                       data-toggle="modal" 
-                      data-target="#{{ $type->id . '-revert-rejection' }}"
+                      data-target="#{{ $type->id . '-delete-species' }}"
                     >
                       Törlés
                     </button>
-                    {{-- @include(
+                    @include(
                     'partials.modal_confirm', 
                     [
-                      'id' => $request->id . '-revert-rejection',
-                      'question' => 'Biztosan visszavonod az adoptálás elutasítását? - ' . $request->animal->title,
-                      'route' => 'revert.adoption.rejection',
-                      'method' => 'PUT',
-                      'route_params' => [$request->id],
-                      'action_button_text' => 'Elutasítás visszavonása',
+                      'id' => $type->id . '-delete-species',
+                      'question' => 'Biztosan törölni szeretnéd ezt az állatfajtát? - ' . $type->name,
+                      'route' => 'animal.type.delete',
+                      'method' => 'DELETE',
+                      'route_params' => [$type->id],
+                      'action_button_text' => 'Biztosan törlöm',
                       'action_button_class' => 'btn btn-danger'
-                    ])     --}}
+                    ])    
                   </div>
                 </td>
             </tr>
             @endforeach            
         </tbody>
     </table>
-    @if(!empty(Session::get('success')))
-        <div class="alert alert-success"> {{ Session::get('success') }}</div>
-    @endif
-    @if(!empty(Session::get('error')))
-        <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-    @endif
   </div>

@@ -62,6 +62,7 @@ Route::group(['middleware' => 'getMenu'], function(){
         Route::get('/admin-dashboard/species-list', [AdminController::class, 'animalTypes'])->name('anymal.types');
         Route::get('/type/{id}/edit', [AnimalTypeController::class, 'show'])->name('anymal.type.show');
         Route::put('/type/{id}/edit', [AnimalTypeController::class, 'edit'])->name('animal.type.edit');
+        Route::delete('/type/{id}/delete', [AnimalTypeController::class, 'destroy'])->name('animal.type.delete');
     });
 });
 
