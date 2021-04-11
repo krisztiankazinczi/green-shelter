@@ -62,4 +62,9 @@ class Animal extends Model
     {
         return $this->hasMany(Adoption::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }
