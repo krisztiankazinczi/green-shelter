@@ -6,7 +6,7 @@
         <img class="card-img-top img-fluid" style="height: 15rem;" src="/images/{{ $image->filename }}" alt={{ $animal->title }}>
       @endif
     @endforeach
-    <div class="card-body d-flex flex-column justify-content-between">
+    <div class="pb-2 card-body d-flex flex-column justify-content-between">
       <div>
         <div class="d-flex justify-content-between position-relative">
           <h5 class="card-title type-link">{{ $animal->title }}</h5>
@@ -16,9 +16,23 @@
         </div>
         <p class="card-text">{!! substr( $animal->description, 0, 150) . '...' !!}</p>
       </div>
-      <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#{{ $animal->id }}">
-        További Információ
-      </button>
+      <div class="d-flex justify-content-center align-items-center">
+        <button type="button" class="mt-2 btn btn-primary" style="flex: 1;" data-toggle="modal" data-target="#{{ $animal->id }}">
+          További Információ
+        </button>
+        <div class="d-flex flex-column align-items-center">
+          <i class="mt-3 mb-0 ml-2 far fa-heart h3" style="cursor: pointer;"></i>
+          <p class="mb-0 ml-2 text" style="margin-top: -2px;">
+            @if(isset($animal->likesCount))
+              @forelse($animal->likesCount as $likes)
+                {{ $likes->totalLikes }}
+              @empty
+                0
+              @endforelse
+            @endif
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 @endisset

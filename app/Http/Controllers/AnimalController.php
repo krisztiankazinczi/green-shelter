@@ -33,7 +33,7 @@ class AnimalController extends Controller
         // redirect if not exists
         $category = Category::with('menu')->where('menu_id', $menu->id)->first();
         // joinolni a tablakat!!!!
-        $animals = Animal::with('images', 'animalType', 'menu')->where('menu_id', $menu->id)->where('adopted', false)->get();
+        $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')->where('menu_id', $menu->id)->where('adopted', false)->get();
         return view('pages/animals', compact('animals', 'category', 'menu', 'create_button_role_id'));
     }
 
@@ -140,7 +140,8 @@ class AnimalController extends Controller
      */
     public function show($page, $id)
     {
-        $animal = Animal::with('images', 'adoptions', 'menu')->where('id', $id)->first();
+        $animal = Animal::with('images', 'adoptions', 'menu', 'likesCount')->where('id', $id)->first();
+        dd($animal);
         $adoptionRequest = null;
 
         if (Auth::user()) {

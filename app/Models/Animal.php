@@ -67,4 +67,11 @@ class Animal extends Model
     {
         return $this->hasMany(Like::class);
     }
+
+    public function likesCount()
+    {
+        return $this->likes()
+            ->selectRaw('animal_id, count(*) as totalLikes')
+            ->groupBy('animal_id');
+    }
 }
