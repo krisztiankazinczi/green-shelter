@@ -10,7 +10,7 @@
       <div>
         <div class="d-flex justify-content-between position-relative">
           <h5 class="card-title type-link">{{ $animal->title }}</h5>
-          <a href="/type/{{ $animal->animalType->id }}">
+          <a href="/type/{{ $animal->animal_type_id }}">
             <h5 class="card-title btn btn-outline-success btn-sm position-absolute" style="top: -5px; right: 0;">{{ $animal->animalType->name }}</h5>
           </a>
         </div>

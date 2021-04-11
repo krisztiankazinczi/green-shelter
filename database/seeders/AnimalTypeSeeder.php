@@ -17,23 +17,28 @@ class AnimalTypeSeeder extends Seeder
         $types = [
             [ 
                 'name' => 'Korcs',
-                'description' => 'Some description'
+                'description' => 'Some description',
+                'image_uri' => 'types/korcs.jpg'
             ],
             [ 
                 'name' => 'Rottweiler',
-                'description' => 'Some description'
+                'description' => 'Some description',
+                'image_uri' => 'types/rottweiler.jpg'
             ],
             [ 
                 'name' => 'Csivava',
-                'description' => 'Some description'
+                'description' => 'Some description',
+                'image_uri' => 'types/csivava.jpg'
             ],
             [ 
                 'name' => 'Husky',
-                'description' => 'Some description'
+                'description' => 'Some description',
+                'image_uri' => 'types/husky.jpg'
             ],
             [ 
                 'name' => 'Golden Retriever',
-                'description' => 'Some description'
+                'description' => 'Some description',
+                'image_uri' => 'types/golden_retriever.jpg'
             ],
         ];
 
@@ -41,6 +46,7 @@ class AnimalTypeSeeder extends Seeder
             AnimalType::create(array(
                 'name' => $type['name'],
                 'description' => $type['description'],
+                'image_uri' => $type['image_uri'],
             ));
         }
     }

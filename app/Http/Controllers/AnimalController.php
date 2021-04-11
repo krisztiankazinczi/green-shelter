@@ -33,7 +33,7 @@ class AnimalController extends Controller
         // redirect if not exists
         $category = Category::with('menu')->where('menu_id', $menu->id)->first();
         // joinolni a tablakat!!!!
-        $animals = Animal::with('images', 'animalType')->where('menu_id', $menu->id)->where('adopted', false)->get();
+        $animals = Animal::with('images', 'animalType', 'menu')->where('menu_id', $menu->id)->where('adopted', false)->get();
         return view('pages/animals', compact('animals', 'category', 'menu', 'create_button_role_id'));
     }
 
@@ -285,7 +285,7 @@ class AnimalController extends Controller
     }
 
     public function successStories() {
-        $animals = Animal::with('images')->where('adopted', true)->get();
+        $animals = Animal::with('images', 'menu', 'animalType')->where('adopted', true)->get();
         $category = Category::with('menu')->where('id', 4)->first();
         // ez igy nem helyes, csinald vissza a modelt es joinold ezt
         if (!$animals || !$category) {

@@ -17,6 +17,7 @@ class CreateAnimalTypesTable extends Migration
             $table->uuid('id')->index();
             $table->string('name', 40);
             $table->longText('description');
+            $table->string('image_uri', 50);
             $table->timestamps();
         });
     }

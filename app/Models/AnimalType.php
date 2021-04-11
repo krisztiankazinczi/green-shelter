@@ -15,7 +15,8 @@ class AnimalType extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'image_uri'
     ];
 
     protected $hidden = [
