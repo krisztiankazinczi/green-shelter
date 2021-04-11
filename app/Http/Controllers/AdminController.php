@@ -18,4 +18,8 @@ class AdminController extends Controller
         $requests = Adoption::with('animal', 'user')->where('status', $type)->get();
         return view('pages/admin', compact('requests'));
     }
+
+    public function createSpecies() {
+        return view('pages/admin');
+    }
 }

@@ -2,6 +2,10 @@
 
 @section('title', 'Admin Felület')
 
+@section('cdn-files')
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+@endsection
+
 @section('content')
 
 <div id="adminSideNav" class="sidenav">
@@ -18,6 +22,10 @@
     href="{{ route('admin.adoption', ['type' => 'adopted']) }}"
     class="{{ last(request()->segments()) == 'adopted' ? 'active-admin-menu' : '' }}"  
   >Befogadások</a>
+  <a 
+    href="{{ route('create.species') }}"
+    class="{{ last(request()->segments()) == 'create-species' ? 'active-admin-menu' : '' }}"  
+  >Új fajta hozzáadása</a>
 </div>
 
 <i class="fas fa-bars" id="sidenav-open" onclick="openNav()"></i>
@@ -35,6 +43,8 @@
       @isset($requests)
         @include('partials.admin.adopted_requests', ['title' => 'Befogadott állatok', 'requests' => $requests])
       @endisset
+    @elseif (last(request()->segments()) == 'create-species')
+      @include('partials.admin.create_species')
     @endif
 </div>
 

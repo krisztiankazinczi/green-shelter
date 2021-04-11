@@ -6,7 +6,7 @@
               <th scope="col">Hirdetés címe</th>
               <th scope="col">Felhasználó név</th>
               <th scope="col">Email</th>
-              <th scope="col">Befogadási kérelem időpontja</th>
+              <th scope="col">Befogadás időpontja</th>
               <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -16,7 +16,7 @@
                 <td>{{ $request->animal->title }}</td>
                 <td>{{ $request->user->name }}</td>
                 <td>{{ $request->user->email }}</td>
-                <td>{{ $request->created_at }}</td>
+                <td>{{ $request->updated_at }}</td>
                 <td>
                   <button 
                     class="mr-3 btn btn-danger" 
