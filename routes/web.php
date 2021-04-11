@@ -57,7 +57,8 @@ Route::group(['middleware' => 'getMenu'], function(){
         Route::put('revert-rejection/{id}', [AdoptionController::class, 'revertAdoptionRejection'])->name('revert.adoption.rejection');
         Route::put('revert-adoption/{id}', [AdoptionController::class, 'revertAdoption'])->name('revert.adoption');
 
-        Route::get('/admin-dashboard/create-species', [AdminController::class, 'createSpecies'])->name('create.species');
+        Route::get('/admin-dashboard/create-species', [AdminController::class, 'createSpecies'])->name('show.create.species');
+        Route::post('/create-species', [AnimalTypeController::class, 'create'])->name('create.species');
     });
 });
 

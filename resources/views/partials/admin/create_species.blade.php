@@ -4,14 +4,13 @@
       <div class="card">
         <div class="card-header">{{ __('Új állatfajta létrehozása') }}</div>
         <div class="card-body">
-          {{-- <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('create.new.species') }}"> --}}
-          <form method="POST" id="form" enctype="multipart/form-data">
+          <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('create.species') }}">
             @csrf
             <div class="form-group row">
               <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('Fajta neve') }}</label>
               <div class="col-md-10">
-                  <input id="name" type="text" class="form-control @error('title') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
-                  @error('title')
+                  <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
+                  @error('name')
                       <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                       </span>

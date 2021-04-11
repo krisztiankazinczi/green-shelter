@@ -23,7 +23,7 @@
     class="{{ last(request()->segments()) == 'adopted' ? 'active-admin-menu' : '' }}"  
   >Befogadások</a>
   <a 
-    href="{{ route('create.species') }}"
+    href="{{ route('show.create.species') }}"
     class="{{ last(request()->segments()) == 'create-species' ? 'active-admin-menu' : '' }}"  
   >Új fajta hozzáadása</a>
 </div>
