@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class AnimalTypeController extends Controller
 {
-    public function show($type_id) {
+    public function index($type_id) {
         $animals = Animal::with('images', 'animalType', 'menu')->where('animal_type_id', $type_id)->where('adopted', false)->get();
         $animal_type = AnimalType::where('id', $type_id)->first();
         return view('pages/animal_type', compact('animals', 'animal_type'));
@@ -51,5 +51,13 @@ class AnimalTypeController extends Controller
             return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
         return redirect()->back()->with('success', 'Sikeresen elmentettük az adatbázisban az új fajtát.');
+    }
+
+    public function show($id) {
+        $animal_type = AnimalType::where('id', $id)->first();
+        if (!$animal_type) {
+            return redirect()->back()->with('error', 'A módosítani kívánt fajta már nem létezik az adatbázisunkban');
+        }
+        return view('pages/edit-species', compact('animal_type'));
     }
 }

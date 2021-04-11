@@ -1,5 +1,12 @@
 <div class="mt-5 container-fluid">
-    <h2>Regisztrált állatfajták az oldalon</h2>
+    <div class="d-flex justify-content-between">
+      <h2>Regisztrált állatfajták az oldalon</h2>
+      <a href="{{ route('show.create.species') }}" class="text-decoration-none">
+        <button class="mb-2 btn btn-primary btn-sm">
+          Új létrehozása
+        </button>
+      </a>
+    </div>
     <table class="table mt-3">
         <thead>
             <tr>
@@ -21,12 +28,13 @@
                 <td>{!! $type->description !!}</td>
                 <td>
                   <div class="d-flex flex-column">
-                    <a href="/type/{{ $type->id }}" class="text-decoration-none">
+                    <a href="{{ route('anymal.type', ['type_id' => $type->id]) }}" class="text-decoration-none">
                       <button class="mb-2 btn btn-primary btn-sm btn-block">
                         Megtekintés
                       </button>
                     </a>
-                    <a href="/type/{{ $type->id }}/edit" class="text-decoration-none">
+                    {{-- <a href="/type/{{ $type->id }}/edit" class="text-decoration-none"> --}}
+                    <a href="{{ route('anymal.type.show', ['id' => $type->id]) }}" class="text-decoration-none">
                       <button class="mb-2 btn btn-success btn-sm btn-block">
                         Szerkesztés
                       </button>
