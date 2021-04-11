@@ -13,7 +13,7 @@
       <div class="card">
         <div class="card-header">{{ __('Új állatfajta létrehozása') }}</div>
         <div class="card-body">
-          <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('create.species') }}">
+          <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('animal.type.edit', ['id' => $animal_type->id]) }}">
             @csrf
             @method('PUT')
             <div class="form-group row">
@@ -71,7 +71,7 @@
             <div class="mb-0 form-group">
               <div class="d-flex justify-content-end">
                   <button type="submit" class="btn btn-primary d-block">
-                      {{ __('Létrehozás') }}
+                      {{ __('Mentés') }}
                   </button>
               </div>
             </div>

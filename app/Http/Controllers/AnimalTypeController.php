@@ -60,4 +60,47 @@ class AnimalTypeController extends Controller
         }
         return view('pages/edit-species', compact('animal_type'));
     }
+
+    public function edit(Request $request, $id) {
+        $rules = [
+            'name'=>'required|max:40',
+            'description'=>'required',
+            'image.*' => 'mimes:jpeg,jpg,png,gif|max:2048'
+        ];
+        $customMessages = [
+            'required' => 'A mezőt kötelező kitölteni.',
+            'max' => 'Meghaladtad a maximális karakterhosszt (:max).',
+            'mimes' => 'Csak képeket (jpg, png, jpeg, gif) lehet feltölteni',
+            'image.max' => 'Képfeltöltés nem sikerült, a kép maximális mérete 2MB'
+        ];
+        $this->validate($request, $rules, $customMessages);
+
+        $animal_type = AnimalType::where('id', $id)->first();
+        if (!$animal_type) {
+            return redirect()->back()->with('error', 'A módosítani kívánt fajta már nem létezik az adatbázisunkban');
+        }
+        
+        $animal_type->name = $request->name;
+        $animal_type->description = $request->description;
+
+        if (!$request->image) {
+            $animal_type->save();
+            return redirect('type/' . $animal_type->id)->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
+        }
+        
+        $previous_image_path = base_path() . '/public/images/' . $animal_type->image_uri;
+        if(file_exists($previous_image_path)){
+            unlink($previous_image_path);
+        }
+        
+        $extension = $request->image->extension();
+        $new_image_name = Str::uuid()->toString() . '.' . $extension;
+        $destination = base_path() . '/public/images/types/';
+        $request->image->move($destination ,$new_image_name);
+
+        $animal_type->image_uri = 'types/' . $new_image_name;
+        $animal_type->save();
+
+        return redirect('type/' . $animal_type->id)->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
+    }
 }
