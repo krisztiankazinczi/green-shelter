@@ -42,6 +42,7 @@
         </button>
       </a>
       <div class="d-flex justify-content-end">
+        @include('partials.like_icon_count', ['likesCount' => $animal->likesCount])
         @if (!$animal->adopted && Auth::user())
           @if ($adoptionRequest)
             <button 

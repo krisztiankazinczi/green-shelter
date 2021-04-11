@@ -58,4 +58,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Adoption::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function likesById($animal_id)
+    {
+        return $this->likes()
+            ->where('animal_id', $animal_id)
+            ->where('user_id', $this->id)
+            ->first();
+    }
 }

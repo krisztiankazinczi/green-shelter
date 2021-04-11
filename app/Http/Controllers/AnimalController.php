@@ -141,7 +141,6 @@ class AnimalController extends Controller
     public function show($page, $id)
     {
         $animal = Animal::with('images', 'adoptions', 'menu', 'likesCount')->where('id', $id)->first();
-        dd($animal);
         $adoptionRequest = null;
 
         if (Auth::user()) {

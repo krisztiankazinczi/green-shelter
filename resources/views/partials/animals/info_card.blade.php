@@ -20,18 +20,7 @@
         <button type="button" class="mt-2 btn btn-primary" style="flex: 1;" data-toggle="modal" data-target="#{{ $animal->id }}">
           További Információ
         </button>
-        <div class="d-flex flex-column align-items-center">
-          <i class="mt-3 mb-0 ml-2 far fa-heart h3" style="cursor: pointer;"></i>
-          <p class="mb-0 ml-2 text" style="margin-top: -2px;">
-            @if(isset($animal->likesCount))
-              @forelse($animal->likesCount as $likes)
-                {{ $likes->totalLikes }}
-              @empty
-                0
-              @endforelse
-            @endif
-          </p>
-        </div>
+        @include('partials.like_icon_count', ['likesCount' => $animal->likesCount, 'animal_id' => $animal->id])
       </div>
     </div>
   </div>
