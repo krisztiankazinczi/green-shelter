@@ -14,7 +14,7 @@
     </div>
     <div class="col-12 col-md-6">
       <h1>{{ $animal_type->name }}</h1>
-      <h5>{{ $animal_type->description }}</h5>
+      <h5>{!! $animal_type->description !!}</h5>
     </div>
   </div>
   @include('partials.grid', ['animals' => $animals])

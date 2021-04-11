@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Adoption;
+use App\Models\AnimalType;
 
 class AdminController extends Controller
 {
@@ -21,5 +22,10 @@ class AdminController extends Controller
 
     public function createSpecies() {
         return view('pages/admin');
+    }
+
+    public function animalTypes() {
+        $animal_types = AnimalType::all();
+        return view('pages/admin', compact('animal_types'));
     }
 }

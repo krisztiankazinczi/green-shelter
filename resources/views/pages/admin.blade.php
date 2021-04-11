@@ -26,6 +26,10 @@
     href="{{ route('show.create.species') }}"
     class="{{ last(request()->segments()) == 'create-species' ? 'active-admin-menu' : '' }}"  
   >Új fajta hozzáadása</a>
+  <a 
+    href="{{ route('anymal.types') }}"
+    class="{{ last(request()->segments()) == 'species-list' ? 'active-admin-menu' : '' }}"  
+  >Állat fajták</a>
 </div>
 
 <i class="fas fa-bars" id="sidenav-open" onclick="openNav()"></i>
@@ -45,6 +49,10 @@
       @endisset
     @elseif (last(request()->segments()) == 'create-species')
       @include('partials.admin.create_species')
+    @elseif (last(request()->segments()) == 'species-list')
+      @isset($animal_types)
+        @include('partials.admin.species_list', ['animal_types', $animal_types])
+      @endisset
     @endif
 </div>
 
