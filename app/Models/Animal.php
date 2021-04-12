@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class Animal extends Model
 {
@@ -73,5 +75,11 @@ class Animal extends Model
         return $this->likes()
             ->selectRaw('animal_id, count(*) as totalLikes')
             ->groupBy('animal_id');
+    }
+
+    public function likedByMe()
+    {
+        return $this->likes()
+            ->where('user_id', Auth::user()->id);
     }
 }

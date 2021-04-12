@@ -50,6 +50,7 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::post('adoption-request/{id}', [AdoptionController::class, 'adoptionRequest'])->name('request.adoption');
     Route::delete('revert-adoption-request/{id}', [AdoptionController::class, 'revertAdoptionRequest'])->name('revert.adoption.request');
 
+    Route::get('my-likes', [LikeController::class, 'myLikes'])->name('my.likes');
     Route::put('toggle-like/{animal_id}', [LikeController::class, 'toggleLike'])->name('toggle.like');
 
     Route::middleware('isAdmin')->group(function () {
