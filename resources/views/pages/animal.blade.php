@@ -41,8 +41,12 @@
           Vissza
         </button>
       </a>
-      <div class="d-flex justify-content-end">
-        @include('partials.like_icon_count', ['likesCount' => $animal->likesCount])
+      <div class="d-flex justify-content-end align-items-center">
+        @include('partials.like_icon_count', [
+          'likesCount' => $animal->likesCount, 
+          'animal_id' => $animal->id,
+          'icon_classes' => 'mr-3 mb-0 h3',
+        ])
         @if (!$animal->adopted && Auth::user())
           @if ($adoptionRequest)
             <button 

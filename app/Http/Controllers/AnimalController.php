@@ -148,7 +148,6 @@ class AnimalController extends Controller
                 'animal_id' => $id,
                 'user_id' => Auth::user()->id
             ])->first();
-            // $adoptionRequest = Adoption::where('animal_id', $animal->id)->where('user_id', Auth::user()->id)->first();
         }
 
         return view('pages/animal', compact('animal', 'page', 'adoptionRequest'));
@@ -333,7 +332,17 @@ class AnimalController extends Controller
         $animal->{"menu"} = $menu;
         $split = explode('/',$menu->route);
         $page = end($split);
-        return view('pages/animal', compact('animal', 'page'));
+
+        $adoptionRequest = null;
+
+        if (Auth::user()) {
+            $adoptionRequest = Adoption::where([
+                'animal_id' => $animal->id,
+                'user_id' => Auth::user()->id
+            ])->first();
+        }
+
+        return view('pages/animal', compact('animal', 'page', 'adoptionRequest'));
     }
 
     public function setAnimalOfWeek ($id) {

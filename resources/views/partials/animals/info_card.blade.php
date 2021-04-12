@@ -20,7 +20,12 @@
         <button type="button" class="mt-2 btn btn-primary" style="flex: 1;" data-toggle="modal" data-target="#{{ $animal->id }}">
           További Információ
         </button>
-        @include('partials.like_icon_count', ['likesCount' => $animal->likesCount, 'animal_id' => $animal->id])
+        @include('partials.like_icon_count', [
+          'likesCount' => $animal->likesCount, 
+          'animal_id' => $animal->id,
+          'icon_classes' => 'mt-3 mb-0 ml-2 h3',
+          'is_count' => true
+        ])
       </div>
     </div>
   </div>

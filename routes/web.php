@@ -6,6 +6,7 @@ use App\Http\Controllers\AnimalTypeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\AdoptionController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,8 @@ Route::group(['middleware' => 'getMenu'], function(){
 
     Route::post('adoption-request/{id}', [AdoptionController::class, 'adoptionRequest'])->name('request.adoption');
     Route::delete('revert-adoption-request/{id}', [AdoptionController::class, 'revertAdoptionRequest'])->name('revert.adoption.request');
+
+    Route::put('toggle-like/{animal_id}', [LikeController::class, 'toggleLike'])->name('toggle.like');
 
     Route::middleware('isAdmin')->group(function () {
         Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
