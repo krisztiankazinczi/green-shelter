@@ -44,7 +44,6 @@
 
 <script>
   function submitLike(animal_id) {
-    console.log(animal_id);
     document.getElementById(`like-${animal_id}`).submit();
   }
 </script>
