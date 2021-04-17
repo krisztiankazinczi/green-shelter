@@ -34,6 +34,7 @@ Route::group(['middleware' => 'getMenu'], function(){
         Route::put('toggle-like/{animal_id}', [LikeController::class, 'toggleLike'])->name('toggle.like');
 
         Route::get('profile', [UserController::class, 'showProfile'])->name('show.profile');
+        Route::get('edit-profile', [UserController::class, 'editProfile'])->name('edit.profile');
     });
 
     Route::middleware('checkAccess')->group(function () {
