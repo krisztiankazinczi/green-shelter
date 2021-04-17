@@ -24,7 +24,7 @@
       <i 
         class="@isset($icon_classes) {{ $icon_classes }} @endisset far fa-heart" 
         @if (Auth::user()) style="cursor: pointer;" @endif
-        onclick="submitLike('{{$animal->id}}')"
+        @if (Auth::user()) onclick="submitLike('{{$animal->id}}')" @endif
       ></i>
   </form>
   

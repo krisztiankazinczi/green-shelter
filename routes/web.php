@@ -7,6 +7,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\AdoptionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,13 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::middleware('auth')->group(function () {
         Route::get('animals/{page}/create', [AnimalController::class, 'create'])->name('show.create.advertisement');
         Route::post('/animals/{page}/create', [AnimalController::class, 'store'])->name('create.advertisement');
+        Route::post('adoption-request/{id}', [AdoptionController::class, 'adoptionRequest'])->name('request.adoption');
+        Route::delete('revert-adoption-request/{id}', [AdoptionController::class, 'revertAdoptionRequest'])->name('revert.adoption.request');
+    
+        Route::get('my-likes', [LikeController::class, 'myLikes'])->name('my.likes');
+        Route::put('toggle-like/{animal_id}', [LikeController::class, 'toggleLike'])->name('toggle.like');
+
+        Route::get('profile', [UserController::class, 'showProfile'])->name('show.profile');
     });
 
     Route::middleware('checkAccess')->group(function () {
@@ -47,11 +55,7 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::get('/animal-of-week', [AnimalController::class, 'animalOfWeek'])->name('animal.of.week');
     Route::get('/type/{type_id}', [AnimalTypeController::class, 'index'])->name('anymal.type');
 
-    Route::post('adoption-request/{id}', [AdoptionController::class, 'adoptionRequest'])->name('request.adoption');
-    Route::delete('revert-adoption-request/{id}', [AdoptionController::class, 'revertAdoptionRequest'])->name('revert.adoption.request');
 
-    Route::get('my-likes', [LikeController::class, 'myLikes'])->name('my.likes');
-    Route::put('toggle-like/{animal_id}', [LikeController::class, 'toggleLike'])->name('toggle.like');
 
     Route::middleware('isAdmin')->group(function () {
         Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin.dashboard');

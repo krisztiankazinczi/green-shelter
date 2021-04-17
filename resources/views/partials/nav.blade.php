@@ -44,11 +44,13 @@
             @endif
           @endforeach
         @endisset
-        <li class="nav-item {{ Request::path() == 'my-likes' ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('my.likes') }}">
-            <i class="mb-0 h4 far fa-heart" style="cursor: pointer;"></i>
-          </a>
-        </li>
+        @auth
+          <li class="nav-item {{ Request::path() == 'my-likes' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('my.likes') }}">
+              <i class="mb-0 h4 far fa-heart" style="cursor: pointer;"></i>
+            </a>
+          </li>
+        @endauth
       </ul>
       <div class="ml-auto">
         @auth
