@@ -35,6 +35,7 @@ Route::group(['middleware' => 'getMenu'], function(){
 
         Route::get('profile', [UserController::class, 'showProfile'])->name('show.profile');
         Route::get('edit-profile', [UserController::class, 'editProfile'])->name('edit.profile');
+        Route::put('update-profile', [UserController::class, 'updateProfile'])->name('update.profile');
     });
 
     Route::middleware('checkAccess')->group(function () {

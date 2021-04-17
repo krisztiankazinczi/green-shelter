@@ -14,4 +14,8 @@ class UserController extends Controller
     public function editProfile() {
         return view('pages/edit-profile');
     }
+
+    public function updateProfile(Request $request) {
+        dd($request);
+    }
 }
