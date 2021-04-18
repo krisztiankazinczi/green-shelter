@@ -11,19 +11,28 @@ class ReviewController extends Controller
 {
     public function index() {
         $reviews = Review::with('adoption', 'adoption.user')->get();
-        // auth nem biztos hogy van
-        $amIAdoptedAndReviewed = Adoption::join('reviews', 'adoptions.id', '=', 'reviews.adoption_id')
-        ->where('adoptions.user_id', Auth::user()->id)
-        ->first();
-
-        $amIAdopted = null;
-        if (!$amIAdoptedAndReviewed) {
-            $amIAdopted = Adoption::where('user_id', Auth::user()->id)->first();
-        }
-        $buttonFunction = null;
-        if ($amIAdoptedAndReviewed) $buttonFunction = 'edit';
-        if ($amIAdopted) $buttonFunction = 'create';
         
-        return view('pages.reviews', compact('reviews', 'buttonFunction'));
+        $buttonFunction = null;
+        $myReview = null;
+        if (Auth::user()) {
+            $amIAdoptedAndReviewed = Adoption::join('reviews', 'adoptions.id', '=', 'reviews.adoption_id')
+            ->where('adoptions.user_id', Auth::user()->id)
+            ->first();
+
+            $amIAdopted = null;
+            if (!$amIAdoptedAndReviewed) {
+                $amIAdopted = Adoption::where('user_id', Auth::user()->id)->first();
+            }
+            if ($amIAdoptedAndReviewed) {
+                $myReview = $amIAdoptedAndReviewed;
+                $buttonFunction = 'edit';
+            } 
+            if ($amIAdopted) $buttonFunction = 'create';
+        }
+
+        
+        return view('pages.reviews', compact('reviews', 'buttonFunction', 'myReview'));
     }
+
+
 }

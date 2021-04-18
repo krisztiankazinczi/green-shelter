@@ -65,8 +65,7 @@ Route::group(['middleware' => 'getMenu'], function(){
             Route::delete('/type/{id}/delete', [AnimalTypeController::class, 'destroy'])->name('animal.type.delete');
         });
     });
-
-    
+ 
     Route::get('/animals/{page}', [AnimalController::class, 'index'])->name('show.list.pages');
     Route::get('/animals/{page}/{id}', [AnimalController::class, 'show'])->name('show.advertisement');
     Route::get('/success-stories', [AnimalController::class, 'successStories'])->name('success.stories');
@@ -75,8 +74,5 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::get('/animal-of-week', [AnimalController::class, 'animalOfWeek'])->name('animal.of.week');
     Route::get('/type/{type_id}', [AnimalTypeController::class, 'index'])->name('anymal.type');
     Route::get('/about-us/reviews', [ReviewController::class, 'index'])->name('reviews');
-
-
-
 });
 

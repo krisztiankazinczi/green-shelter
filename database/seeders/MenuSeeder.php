@@ -129,12 +129,6 @@ class MenuSeeder extends Seeder
                 'role_id' => '1',
             ],
             [
-                'route' => 'write-review',
-                'name' => 'Véleményezés',
-                'parent' => 17,
-                'role_id' => '2',
-            ],
-            [
                 'route' => 'admin-dashboard',
                 'name' => 'Admin Felület',
                 'role_id' => '3',
