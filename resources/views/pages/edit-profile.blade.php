@@ -41,7 +41,7 @@
             </div>
 
             <div class="form-group row">
-              <label for="bio" class="col-md-2 col-form-label text-md-right">{{ __('Leírás') }}</label>
+              <label for="bio" class="col-md-2 col-form-label text-md-right">{{ __('Bio') }}</label>
               <div class="col-md-10">
                   <div style="@error('bio') border: 1px solid red; @enderror">
                     <textarea id="bio" class="form-control" name="bio">{{ old('bio', Auth::user()->bio) }}</textarea>

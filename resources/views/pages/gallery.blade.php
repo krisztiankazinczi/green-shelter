@@ -16,7 +16,7 @@
           data-toggle="modal" 
           data-target="#{{ $image->animal->id . $image->id }}"
         >
-          <img src="/images/{{$image->filename}}" 
+          <img src="/images/{{$image->filename}}"  class="img-thumbnail"
             {{-- style="height: 300px; margin-right: 15px; margin-bottom:15px; max-width: 600px; object-fit: cover;" alt="{{$image->animal->title}}"  --}}
           />
           <div class="button">

@@ -50,6 +50,11 @@
               <i class="mb-0 h4 far fa-heart" style="cursor: pointer;"></i>
             </a>
           </li>
+          <li class="nav-item {{ Request::path() == 'profile' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('show.profile') }}">
+              <i class="far fa-user-circle mb-0 h4" style="cursor: pointer;"></i>
+            </a>
+          </li>
         @endauth
       </ul>
       <div class="ml-auto">
