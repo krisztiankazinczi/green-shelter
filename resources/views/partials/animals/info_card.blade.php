@@ -1,6 +1,6 @@
 @isset($animal)
   @include('partials.animals.modal', ['animal' => $animal])
-  <div class="card w-75" style="min-width: 17rem; max-width: 25rem;">
+  <div class="card w-75" style="min-width: 17rem; max-width: 25rem; box-shadow: 0 0 10px 4px rgba(0, 0, 0, .15);">
     @foreach ($animal->images as $image)
       @if ($image->main)
         <img class="card-img-top img-fluid" style="height: 15rem;" src="/images/{{ $image->filename }}" alt={{ $animal->title }}>

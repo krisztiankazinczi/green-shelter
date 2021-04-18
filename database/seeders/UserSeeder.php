@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
                 'name' => 'Test User',
                 'email' => 'test@test.com',
                 'password' => Hash::make('12345678'),
-                'avatar_uri' => 'users/user1.jpg'
+                'avatar_uri' => 'users/user3.jpeg'
             ],
             [
                 'name' => 'Monika',
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
                 'name' => 'Orsi',
                 'email' => 'orsi@test.com',
                 'password' => Hash::make('12345678'),
-                'avatar_uri' => 'users/user3.jpeg'
+                'avatar_uri' => 'users/user1.jpg'
             ],
             [
                 'name' => 'Dani',

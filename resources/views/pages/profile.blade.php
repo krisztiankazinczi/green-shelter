@@ -8,7 +8,7 @@
       <div class="col-12 col-sm-5 col-md-3 col-lg-2">
         <div class="d-flex justify-content-center align-items-center flex-column">
           <img
-            src="{{Auth::user()->avatar_uri ? 'images/' . Auth::user()->avatar_uri : 'images/users/default-profile-image.jpg'}}"
+            src="{{Auth::user()->avatar_uri ? '/images/' . Auth::user()->avatar_uri : '/images/users/default-profile-image.jpg'}}"
             class="avatar img-circle rounded-circle img-thumbnail"
             style="width: 200px;"
           />
