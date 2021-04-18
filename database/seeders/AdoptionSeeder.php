@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Animal;
 use App\Models\Adoption;
+use App\Models\Animal;
+use Illuminate\Support\Facades\DB;
 
 
 class AdoptionSeeder extends Seeder
