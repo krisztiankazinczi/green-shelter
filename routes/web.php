@@ -8,6 +8,7 @@ use App\Http\Controllers\AdoptionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,7 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::get('/gallery', [ImageController::class, 'gallery'])->name('gallery');
     Route::get('/animal-of-week', [AnimalController::class, 'animalOfWeek'])->name('animal.of.week');
     Route::get('/type/{type_id}', [AnimalTypeController::class, 'index'])->name('anymal.type');
+    Route::get('/about-us/reviews', [ReviewController::class, 'index'])->name('reviews');
 
 
 

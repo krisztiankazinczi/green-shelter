@@ -26,4 +26,9 @@ class Review extends Model
             $model->id = Str::uuid()->toString();
         });
     }
+
+    public function adoption()
+    {
+        return $this->belongsTo(Adoption::class);
+    }
 }
