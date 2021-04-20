@@ -106,8 +106,8 @@
 
 
   <div 
-    class="modal fade show" 
-    style="display:block;" 
+    class="modal fade @if($errors->any()) show @endif" 
+    style="@if($errors->any()) display:block; @endif" 
     id="create-review" 
     role="dialog"
   >
@@ -170,6 +170,21 @@
                   @enderror
               </div>
             </div>
+
+            @if($myReview != null)
+              <input 
+                type="hidden" 
+                name="id" 
+                value="{{ $myReview->id }}" 
+                autofocus
+              />
+              <input 
+                type="hidden" 
+                name="adoption_id" 
+                value="{{ $myReview->adoption_id }}" 
+                autofocus
+              />
+            @endif
 
             <div class="form-group mb-0">
               <div class="d-flex justify-content-end">

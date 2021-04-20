@@ -21,7 +21,7 @@ class ReviewController extends Controller
 
             $amIAdopted = null;
             if (!$amIAdoptedAndReviewed) {
-                $amIAdopted = Adoption::where('user_id', Auth::user()->id)->first();
+                $amIAdopted = Adoption::where('user_id', Auth::user()->id)->where('status', 'adopted')->first();
             }
             if ($amIAdoptedAndReviewed) {
                 $myReview = $amIAdoptedAndReviewed;
@@ -29,17 +29,45 @@ class ReviewController extends Controller
             } 
             if ($amIAdopted) $buttonFunction = 'create';
         }
-
-        
         return view('pages.reviews', compact('reviews', 'buttonFunction', 'myReview'));
     }
 
     public function addReview(Request $request) {
-        dd($request->review);
+        $rules = [
+            'rating'=>'required|numeric|min:1|max:5',
+            'review'=>'required',
+        ];
+        $customMessages = [
+            'required' => 'A mezőt kötelező kitölteni.',
+            'numeric' => 'A mező értéke csak szám lehet.',
+            'max' => 'Az értékelés mezo maximális értéke: :max.',
+            'min' => 'Az értékelés mezo minimális értéke: :max.',
+        ];
+        $this->validate($request, $rules, $customMessages);
+
+        $myAdoption = Adoption::where('user_id', Auth::user()->id)->where('status', 'adopted')->first();
+        // redirect if not exists
+        Review::create([
+            'adoption_id' => $myAdoption->id,
+            'rating' => $request->rating,
+            'review' => $request->review,
+        ]);
+        return redirect()->back()->with('success', 'A véleményedet siekresen mentettük az adatbázisban.');
     }
 
     public function editReview(Request $request) {
-        dd($request->rating);
+        $rules = [
+            'rating'=>'required|numeric|min:1|max:5',
+            'review'=>'required',
+        ];
+        $customMessages = [
+            'required' => 'A mezőt kötelező kitölteni.',
+            'numeric' => 'A mező értéke csak szám lehet.',
+            'max' => 'Az értékelés mezo maximális értéke: :max.',
+            'min' => 'Az értékelés mezo minimális értéke: :max.',
+        ];
+        $this->validate($request, $rules, $customMessages);
+        // $review = Review::where('id', )
     }
 
 
