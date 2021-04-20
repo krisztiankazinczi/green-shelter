@@ -105,43 +105,83 @@
   </div>
 
 
-  <div class="modal fade" id="create-review" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content w-100">
-      <div class="modal-header">
-        <h5 class="modal-title">Vélemény Létrehozása</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" id="form" action="">
-          @csrf
-
-          <div class="form-group row">
-            <label for="rating" class="col-md-2 col-form-label text-md-right">{{ __('Értékelés') }}</label>
-            <div class="col-md-10">
-                <input 
-                  id="rating" 
-                  type="number" 
-                  class="form-control @error('rating') is-invalid @enderror" 
-                  name="rating" 
-                  value="{{ $myReview != null ? old('rating', $myReview->rating) : old('rating') }}" 
-                  autofocus
-                  min="1" 
-                  max="5"
-                >
-                @error('rating')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+  <div 
+    class="modal fade show" 
+    style="display:block;" 
+    id="create-review" 
+    role="dialog"
+  >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content w-100">
+        <div class="modal-header">
+          <h5 class="modal-title">Vélemény Létrehozása</h5>
+          <button 
+            type="button" 
+            class="close" 
+            data-dismiss="modal" 
+            aria-label="Close" 
+            onclick="document.getElementById('create-review').style.display = 'none'"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" id="form" action="{{ $myReview != null ? route('edit.review') : route('add.review') }}">
+            @csrf
+            <div class="form-group row">
+              <label for="rating" class="col-md-2 col-form-label text-md-right">{{ __('Értékelés') }}</label>
+              <div class="col-md-10">
+                  <input 
+                    id="rating" 
+                    type="number" 
+                    class="form-control @error('rating') is-invalid @enderror" 
+                    name="rating" 
+                    value="{{ $myReview != null ? old('rating', $myReview->rating) : old('rating') }}" 
+                    autofocus
+                    min="1" 
+                    max="5"
+                  >
+                  @error('rating')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
             </div>
-          </div>
 
-        </form>
+            <div class="form-group row">
+              <label for="rating" class="col-md-2 col-form-label text-md-right">{{ __('Vélemény') }}</label>
+              <div class="col-md-10">
+                  <textarea 
+                    id="review" 
+                    type="text" 
+                    class="form-control @error('review') is-invalid @enderror" 
+                    name="review" 
+                    {{-- value="{{ $myReview != null ? old('review', $myReview->review) : old('review') }}"  --}}
+                    autofocus
+                    rows="4"
+                  >
+                    {{ $myReview != null ? old('review', $myReview->review) : old('review') }}
+                  </textarea>
+                  @error('review')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
+            </div>
+
+            <div class="form-group mb-0">
+              <div class="d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary d-block">
+                      {{ $myReview != null ? __('Vélemény módosítása') : __('Vélemény közzététele')}}
+                  </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
       </div>
-    </div>
   </div>
 </div>
 @endsection

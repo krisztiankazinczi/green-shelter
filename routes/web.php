@@ -64,6 +64,9 @@ Route::group(['middleware' => 'getMenu'], function(){
             Route::put('/type/{id}/edit', [AnimalTypeController::class, 'edit'])->name('animal.type.edit');
             Route::delete('/type/{id}/delete', [AnimalTypeController::class, 'destroy'])->name('animal.type.delete');
         });
+
+        Route::post('/add-review', [ReviewController::class, 'addReview'])->name('add.review');
+        Route::post('/edit-review', [ReviewController::class, 'editReview'])->name('edit.review');
     });
  
     Route::get('/animals/{page}', [AnimalController::class, 'index'])->name('show.list.pages');

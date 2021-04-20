@@ -34,5 +34,13 @@ class ReviewController extends Controller
         return view('pages.reviews', compact('reviews', 'buttonFunction', 'myReview'));
     }
 
+    public function addReview(Request $request) {
+        dd($request->review);
+    }
+
+    public function editReview(Request $request) {
+        dd($request->rating);
+    }
+
 
 }
