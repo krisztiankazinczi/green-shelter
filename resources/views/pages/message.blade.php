@@ -19,25 +19,47 @@
         <h5 class="mb-3 card-title">{{ $message->subject }}</h5>
         <p class="card-text">{{$message->message}}</p>
         <a class="card-link">Válasz</a>
-        <a 
-          class="card-link" 
-          style="cursor: pointer;"
-          data-toggle="modal" 
-          data-target="#{{ $message->id . '-archive' }}"
-        >
-          Archiválás
-        </a>
-        @include(
-        'partials.modal_confirm', 
-        [
-          'id' => $message->id . '-archive',
-          'question' => 'Biztosan archiválod ezt az üzenetet?',
-          'route' => 'archive.message',
-          'method' => 'PUT',
-          'route_params' => [$message->id],
-          'action_button_text' => 'Archiválom',
-          'action_button_class' => 'btn btn-success'
-        ])    
+        @if (!$message->archived)
+          <a 
+            class="card-link" 
+            style="cursor: pointer;"
+            data-toggle="modal" 
+            data-target="#{{ $message->id . '-archive' }}"
+          >
+            Archiválás
+          </a>
+          @include(
+          'partials.modal_confirm', 
+          [
+            'id' => $message->id . '-archive',
+            'question' => 'Biztosan archiválod ezt az üzenetet?',
+            'route' => 'archive.message',
+            'method' => 'PUT',
+            'route_params' => [$message->id],
+            'action_button_text' => 'Archiválom',
+            'action_button_class' => 'btn btn-success'
+          ])    
+        @else 
+          <a 
+            class="card-link" 
+            style="cursor: pointer;"
+            data-toggle="modal" 
+            data-target="#{{ $message->id . '-revert-archive' }}"
+          >
+            Archiválás visszavonása
+          </a>
+          @include(
+          'partials.modal_confirm', 
+          [
+            'id' => $message->id . '-revert-archive',
+            'question' => 'Biztosan visszavonod az archiválást erről az üzenetről?',
+            'route' => 'revert.archive.message',
+            'method' => 'PUT',
+            'route_params' => [$message->id],
+            'action_button_text' => 'Archiválást visszavonom',
+            'action_button_class' => 'btn btn-success'
+          ])   
+        @endif
       </div>
     </div>
   </div>

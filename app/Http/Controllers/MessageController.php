@@ -54,4 +54,14 @@ class MessageController extends Controller
         $message->save();
         return redirect('messages/inbox')->with('success', 'Az üzenet archiválva.');
     }
+
+    public function revertArchiveMessage ($id) {
+        $message = Message::where('id', $id)->first();
+        if (!$message) {
+            return redirect()->back()->with('error', 'Ez az üzenet nem létezik az adatbázisban.');
+        }
+        $message->archived = false;
+        $message->save();
+        return redirect('messages/inbox')->with('success', 'Sikeresen visszavontad az archiválást.');
+    }
 }
