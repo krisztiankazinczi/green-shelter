@@ -45,6 +45,9 @@
       width: 48em;
       margin-bottom: 0;
     }
+    tr > td > a > p {
+      color: black;
+    }
 
     #messages-container {
       font-size: 16px;
@@ -78,24 +81,24 @@
       <div class="col-md-2 d-flex flex-column">
         <a 
           href="{{ route('show.messages', ['type' => 'inbox']) }}"
-          class="text-decoration-none {{ last(request()->segments()) == 'inbox' ? 'active-option' : '' }}"
+          class="text-decoration-none {{ Request::is('messages/inbox') || Request::is('messages/inbox'. '/*') ? 'active-option' : '' }}"
         >
           <h5>Beérkező üzenetek</h5>
         </a>
         <a 
           href="{{ route('show.messages', ['type' => 'sent']) }}"
-          class="text-decoration-none {{ last(request()->segments()) == 'sent' ? 'active-option' : '' }}"
+          class="text-decoration-none {{ Request::is('messages/sent') || Request::is('messages/sent'. '/*') ? 'active-option' : '' }}"
         >
           <h5>Elküldött üzenetek</h5>
         </a>
         <a 
           href="{{ route('show.messages', ['type' => 'archived']) }}"
-          class="text-decoration-none {{ last(request()->segments()) == 'archived' ? 'active-option' : '' }}"
+          class="text-decoration-none {{ Request::is('messages/archived') || Request::is('messages/archived'. '/*') ? 'active-option' : '' }}"
         >
           <h5>Archivált üzenetek</h5>
         </a>
       </div>
-      <div class="col-md-10" id="messages-container">
+      <div class="col-md-10">
         @yield('message_content')
       </div>
     </div>

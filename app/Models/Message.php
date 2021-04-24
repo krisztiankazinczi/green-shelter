@@ -10,6 +10,9 @@ class Message extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+    public $keyType = 'string';
+
     protected $fillable = [
         'subject',
         'message',
@@ -40,5 +43,10 @@ class Message extends Model
     public function to()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function animal()
+    {
+        return $this->belongsTo(Animal::class);
     }
 }

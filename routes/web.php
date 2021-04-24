@@ -69,6 +69,7 @@ Route::group(['middleware' => 'getMenu'], function(){
         Route::post('/add-review', [ReviewController::class, 'addReview'])->name('add.review');
         Route::post('/edit-review', [ReviewController::class, 'editReview'])->name('edit.review');
         Route::get('/messages/{type}', [MessageController::class, 'index'])->name('show.messages');
+        Route::get('/messages/{type}/{id}', [MessageController::class, 'showMessage'])->name('show.message');
     });
  
     Route::get('/animals/{page}', [AnimalController::class, 'index'])->name('show.list.pages');

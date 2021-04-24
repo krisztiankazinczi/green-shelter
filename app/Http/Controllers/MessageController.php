@@ -37,4 +37,11 @@ class MessageController extends Controller
 
         return view('pages.messages', compact('messages', 'isDesktop'));
     }
+
+    public function showMessage ($type, $id) {
+        Date::setLocale('hu');
+        $message = Message::with('from', 'to', 'animal')->where('id', $id)->first();
+        // return ha nem letezik
+        return view('pages.message', compact('message'));
+    }
 }
