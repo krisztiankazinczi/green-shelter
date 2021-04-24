@@ -97,6 +97,12 @@
         >
           <h5>Archivált üzenetek</h5>
         </a>
+        <a 
+          href="{{ route('show.messages', ['type' => 'trash']) }}"
+          class="text-decoration-none {{ Request::is('messages/trash') || Request::is('messages/trash'. '/*') ? 'active-option' : '' }}"
+        >
+          <h5>Törölt üzenetek</h5>
+        </a>
       </div>
       <div class="col-md-10">
         @yield('message_content')

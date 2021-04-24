@@ -17,22 +17,34 @@ class MessageController extends Controller
         $isDesktop = $agent->isDesktop();
         $messages = null;
         if ($type == 'inbox') {
-            $messages = Message::with('from', 'to')->where('to_id', Auth::user()->id)->where('archived', false)->get();
+            $messages = Message::with('from', 'to')
+                ->where('to_id', Auth::user()->id)
+                ->where('archived', false)
+                ->where('inTrash', false)
+                ->get();
         }
         if ($type == 'sent') {
-            $messages = Message::with('from', 'to')->where('from_id', Auth::user()->id)->where('archived', false)->get();
+            $messages = Message::with('from', 'to')
+                ->where('from_id', Auth::user()->id)
+                ->where('archived', false)
+                ->where('inTrash', false)
+                ->get();
         }
         if ($type == 'archived') {
             $messages = Message::with('from', 'to')->where(function ($query) {
                 $query->where('from_id', Auth::user()->id)
                     ->orWhere('to_id', Auth::user()->id);
-            })->where('archived', true)->get();
-
-            // $messages = Message::with('from', 'to')
-            // ->where('archived', true)
-            // ->orWhere('from_id', Auth::user()->id)
-            // ->orWhere('to_id', Auth::user()->id)
-            // ->get();
+            })->where('archived', true)
+            ->where('inTrash', false)
+            ->get();
+        }
+        if ($type == 'trash') {
+            $messages = Message::with('from', 'to')->where(function ($query) {
+                $query->where('from_id', Auth::user()->id)
+                    ->orWhere('to_id', Auth::user()->id);
+            })->where('archived', false)
+            ->where('inTrash', true)
+            ->get();
         }
 
         return view('pages.messages', compact('messages', 'isDesktop'));
@@ -63,5 +75,15 @@ class MessageController extends Controller
         $message->archived = false;
         $message->save();
         return redirect('messages/inbox')->with('success', 'Sikeresen visszavontad az archiválást.');
+    }
+
+    public function trashMessage($id) {
+        $message = Message::where('id', $id)->first();
+        if (!$message) {
+            return redirect()->back()->with('error', 'Ez az üzenet nem létezik az adatbázisban.');
+        }
+        $message->inTrash = true;
+        $message->save();
+        return redirect('messages/inbox')->with('success', 'Az üzenetet áthelyeztük a kukába.');
     }
 }

@@ -20,11 +20,13 @@ class Message extends Model
         'archived',
         'from_id',
         'to_id',
+        'inTrash'
     ];
 
     protected $casts = [
         'read' => 'boolean',
         'archived' => 'boolean',
+        'inTrash' => 'boolean',
     ];
 
     public static function boot()

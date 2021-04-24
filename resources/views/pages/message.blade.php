@@ -18,48 +18,73 @@
       <div class="card-body">
         <h5 class="mb-3 card-title">{{ $message->subject }}</h5>
         <p class="card-text">{{$message->message}}</p>
-        <a class="card-link">Válasz</a>
-        @if (!$message->archived)
-          <a 
-            class="card-link" 
-            style="cursor: pointer;"
-            data-toggle="modal" 
-            data-target="#{{ $message->id . '-archive' }}"
-          >
-            Archiválás
-          </a>
-          @include(
-          'partials.modal_confirm', 
-          [
-            'id' => $message->id . '-archive',
-            'question' => 'Biztosan archiválod ezt az üzenetet?',
-            'route' => 'archive.message',
-            'method' => 'PUT',
-            'route_params' => [$message->id],
-            'action_button_text' => 'Archiválom',
-            'action_button_class' => 'btn btn-success'
-          ])    
-        @else 
-          <a 
-            class="card-link" 
-            style="cursor: pointer;"
-            data-toggle="modal" 
-            data-target="#{{ $message->id . '-revert-archive' }}"
-          >
-            Archiválás visszavonása
-          </a>
-          @include(
-          'partials.modal_confirm', 
-          [
-            'id' => $message->id . '-revert-archive',
-            'question' => 'Biztosan visszavonod az archiválást erről az üzenetről?',
-            'route' => 'revert.archive.message',
-            'method' => 'PUT',
-            'route_params' => [$message->id],
-            'action_button_text' => 'Archiválást visszavonom',
-            'action_button_class' => 'btn btn-success'
-          ])   
-        @endif
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <a class="card-link">Válasz</a>
+            @if (!$message->archived)
+              <a 
+                class="card-link" 
+                style="cursor: pointer;"
+                data-toggle="modal" 
+                data-target="#{{ $message->id . '-archive' }}"
+              >
+                Archiválás
+              </a>
+              @include(
+              'partials.modal_confirm', 
+              [
+                'id' => $message->id . '-archive',
+                'question' => 'Biztosan archiválod ezt az üzenetet?',
+                'route' => 'archive.message',
+                'method' => 'PUT',
+                'route_params' => [$message->id],
+                'action_button_text' => 'Archiválom',
+                'action_button_class' => 'btn btn-success'
+              ])    
+            @else 
+              <a 
+                class="card-link" 
+                style="cursor: pointer;"
+                data-toggle="modal" 
+                data-target="#{{ $message->id . '-revert-archive' }}"
+              >
+                Archiválás visszavonása
+              </a>
+              @include(
+              'partials.modal_confirm', 
+              [
+                'id' => $message->id . '-revert-archive',
+                'question' => 'Biztosan visszavonod az archiválást erről az üzenetről?',
+                'route' => 'revert.archive.message',
+                'method' => 'PUT',
+                'route_params' => [$message->id],
+                'action_button_text' => 'Archiválást visszavonom',
+                'action_button_class' => 'btn btn-success'
+              ])   
+            @endif
+          </div>
+          <div>
+            <a 
+              class="card-link text-danger" 
+              style="cursor: pointer;"
+              data-toggle="modal" 
+              data-target="#{{ $message->id . '-delete' }}"
+            >
+              Törlés
+            </a>
+            @include(
+            'partials.modal_confirm', 
+            [
+              'id' => $message->id . '-delete',
+              'question' => 'Biztosan törlöd ezt az üzenetet?',
+              'route' => 'trash.message',
+              'method' => 'PUT',
+              'route_params' => [$message->id],
+              'action_button_text' => 'Törlöm',
+              'action_button_class' => 'btn btn-danger'
+            ])    
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration
             $table->longText('message');
             $table->boolean('read')->default(false);
             $table->boolean('archived')->default(false);
+            $table->boolean('inTrash')->default(false);
             $table->timestamps();
         });
 
