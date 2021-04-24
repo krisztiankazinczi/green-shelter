@@ -55,8 +55,8 @@
               <i class="mb-0 far fa-user-circle h4" style="cursor: pointer;"></i>
             </a>
           </li>
-          <li class="nav-item {{ Request::path() == 'messages' ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('show.messages') }}">
+          <li class="nav-item {{ Request::is('messages') || Request::is('messages'. '/*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('show.messages', ['type' => 'inbox']) }}">
               <i class="mb-0 far fa-envelope h4" style="cursor: pointer;"></i>
             </a>
           </li>
