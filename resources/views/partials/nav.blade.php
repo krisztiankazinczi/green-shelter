@@ -52,7 +52,12 @@
           </li>
           <li class="nav-item {{ Request::path() == 'profile' ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('show.profile') }}">
-              <i class="far fa-user-circle mb-0 h4" style="cursor: pointer;"></i>
+              <i class="mb-0 far fa-user-circle h4" style="cursor: pointer;"></i>
+            </a>
+          </li>
+          <li class="nav-item {{ Request::path() == 'messages' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('show.messages') }}">
+              <i class="mb-0 far fa-envelope h4" style="cursor: pointer;"></i>
             </a>
           </li>
         @endauth

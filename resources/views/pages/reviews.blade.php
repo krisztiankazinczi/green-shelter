@@ -75,21 +75,22 @@
 
       @isset($reviews)
         @foreach($reviews as $review)
-          <div class="card w-75 mb-3" id="review-card" style="box-shadow: 0 0 10px 4px rgba(0, 0, 0, .15);">
+          <div class="mb-3 card w-75" id="review-card" style="box-shadow: 0 0 10px 4px rgba(0, 0, 0, .15);">
             <div class="card-body d-flex justify-content-center align-items-center" id="review-card">
-              <img 
-                src="{{$review->adoption->user->avatar_uri ? '/images/' . $review->adoption->user->avatar_uri : '/images/users/default-profile-image.jpg'}}"
-                class="rounded-circle avatar img-thumbnail" 
-                width="100px" 
-              />
-              <div>
-                <div class="d-flex ml-5 justify-content-start align-items-center" id="review-rating">
-                  <p class="card-text mr-2 mb-0">{{ $review->adoption->user->name }}</p>
+                <img 
+                  src="{{$review->adoption->user->avatar_uri ? '/images/' . $review->adoption->user->avatar_uri : '/images/users/default-profile-image.jpg'}}"
+                  class="rounded-circle avatar img-thumbnail" 
+                  width="100px"
+                  height="100px" 
+                />
+              <div class="flex-grow-1">
+                <div class="ml-5 d-flex justify-content-start align-items-start" id="review-rating">
+                  <p class="mb-0 mr-2 card-text">{{ $review->adoption->user->name }}</p>
                   {!! str_repeat('<i class="fas fa-star" style="color: orange;"></i>', $review->rating)  !!}
                   {!! str_repeat('<i class="far fa-star" style="color: orange;"></i>', 5 - $review->rating)  !!}
                 </div>
 
-                <p class="card-text ml-5" id="review-text">
+                <p class="ml-5 card-text" id="review-text">
                   <span style="font-size: 1rem;">“</span>
                   {{ $review->review }}
                   <span style="font-size: 1rem;">”</span>
@@ -186,8 +187,8 @@
               />
             @endif
 
-            <div class="form-group mb-0">
-              <div class="d-flex justify-content-end">
+            <div class="mb-0 form-group">
+              <div class="d-flex justify-content-start">
                   <button type="submit" class="btn btn-primary d-block">
                       {{ $myReview != null ? __('Vélemény módosítása') : __('Vélemény közzététele')}}
                   </button>
@@ -195,6 +196,15 @@
             </div>
 
           </form>
+          {{-- @if($myReview != null)
+            <div class="mb-0 mr-3 form-group">
+              <div class="d-flex justify-content-end">
+                  <button type="submit" class="btn btn-danger d-block">
+                      {{__('Vélemény törlése')}}
+                  </button>
+              </div>
+            </div>
+          @endif --}}
         </div>
       </div>
   </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,7 @@ Route::group(['middleware' => 'getMenu'], function(){
 
         Route::post('/add-review', [ReviewController::class, 'addReview'])->name('add.review');
         Route::post('/edit-review', [ReviewController::class, 'editReview'])->name('edit.review');
+        Route::get('/messages', [MessageController::class, 'index'])->name('show.messages');
     });
  
     Route::get('/animals/{page}', [AnimalController::class, 'index'])->name('show.list.pages');
