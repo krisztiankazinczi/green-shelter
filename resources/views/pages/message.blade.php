@@ -16,73 +16,111 @@
           <p class="mt-2 ml-3 mr-3 h5 bold">{{ Date::parse($message->created_at)->format('F j') }}</p>
       </div>
       <div class="card-body">
+        <div class="d-flex justify-content-end">
+          <a 
+            class="mb-3 card-link" 
+            style="cursor: pointer;"
+            href="{{ 
+              !$message->animal->adopted ? 
+              route('show.advertisement', ['page' => $message->animal->menu->route, 'id' => $message->animal->id]) :
+              route('success.story', ['id' => $message->animal->id])
+              }}"
+            >
+            Hirdetés megtekintése
+          </a>
+        </div>
+        
         <h5 class="mb-3 card-title">{{ $message->subject }}</h5>
         <p class="card-text">{{$message->message}}</p>
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <a class="card-link">Válasz</a>
-            @if (!$message->archived)
+            @if (!$message->inTrash)
+              <a class="card-link">Válasz</a>
+              @if (!$message->archived)
+                <a 
+                  class="card-link" 
+                  style="cursor: pointer;"
+                  data-toggle="modal" 
+                  data-target="#{{ $message->id . '-archive' }}"
+                >
+                  Archiválás
+                </a>
+                @include(
+                'partials.modal_confirm', 
+                [
+                  'id' => $message->id . '-archive',
+                  'question' => 'Biztosan archiválod ezt az üzenetet?',
+                  'route' => 'archive.message',
+                  'method' => 'PUT',
+                  'route_params' => [$message->id],
+                  'action_button_text' => 'Archiválom',
+                  'action_button_class' => 'btn btn-success'
+                ])    
+              @else 
+                <a 
+                  class="card-link" 
+                  style="cursor: pointer;"
+                  data-toggle="modal" 
+                  data-target="#{{ $message->id . '-revert-archive' }}"
+                >
+                  Archiválás visszavonása
+                </a>
+                @include(
+                'partials.modal_confirm', 
+                [
+                  'id' => $message->id . '-revert-archive',
+                  'question' => 'Biztosan visszavonod az archiválást erről az üzenetről?',
+                  'route' => 'revert.archive.message',
+                  'method' => 'PUT',
+                  'route_params' => [$message->id],
+                  'action_button_text' => 'Archiválást visszavonom',
+                  'action_button_class' => 'btn btn-success'
+                ])   
+              @endif
+            @endif
+          </div>
+          <div>
+            @if (!$message->inTrash)
               <a 
-                class="card-link" 
+                class="card-link text-danger" 
                 style="cursor: pointer;"
                 data-toggle="modal" 
-                data-target="#{{ $message->id . '-archive' }}"
+                data-target="#{{ $message->id . '-delete' }}"
               >
-                Archiválás
+                Törlés
               </a>
               @include(
               'partials.modal_confirm', 
               [
-                'id' => $message->id . '-archive',
-                'question' => 'Biztosan archiválod ezt az üzenetet?',
-                'route' => 'archive.message',
+                'id' => $message->id . '-delete',
+                'question' => 'Biztosan törlöd ezt az üzenetet?',
+                'route' => 'trash.message',
                 'method' => 'PUT',
                 'route_params' => [$message->id],
-                'action_button_text' => 'Archiválom',
-                'action_button_class' => 'btn btn-success'
+                'action_button_text' => 'Törlöm',
+                'action_button_class' => 'btn btn-danger'
               ])    
             @else 
               <a 
                 class="card-link" 
                 style="cursor: pointer;"
                 data-toggle="modal" 
-                data-target="#{{ $message->id . '-revert-archive' }}"
+                data-target="#{{ $message->id . '-revert-delete' }}"
               >
-                Archiválás visszavonása
+                Áthelyezem a bejövő üzenetekhez
               </a>
               @include(
               'partials.modal_confirm', 
               [
-                'id' => $message->id . '-revert-archive',
-                'question' => 'Biztosan visszavonod az archiválást erről az üzenetről?',
-                'route' => 'revert.archive.message',
+                'id' => $message->id . '-revert-delete',
+                'question' => 'Biztosan visszahelyezed az inboxba az üzenetet?',
+                'route' => 'revert.trash.message',
                 'method' => 'PUT',
                 'route_params' => [$message->id],
-                'action_button_text' => 'Archiválást visszavonom',
+                'action_button_text' => 'Áthelyezem',
                 'action_button_class' => 'btn btn-success'
-              ])   
+              ])  
             @endif
-          </div>
-          <div>
-            <a 
-              class="card-link text-danger" 
-              style="cursor: pointer;"
-              data-toggle="modal" 
-              data-target="#{{ $message->id . '-delete' }}"
-            >
-              Törlés
-            </a>
-            @include(
-            'partials.modal_confirm', 
-            [
-              'id' => $message->id . '-delete',
-              'question' => 'Biztosan törlöd ezt az üzenetet?',
-              'route' => 'trash.message',
-              'method' => 'PUT',
-              'route_params' => [$message->id],
-              'action_button_text' => 'Törlöm',
-              'action_button_class' => 'btn btn-danger'
-            ])    
           </div>
         </div>
       </div>

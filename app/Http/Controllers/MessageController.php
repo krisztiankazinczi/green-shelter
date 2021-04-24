@@ -52,7 +52,7 @@ class MessageController extends Controller
 
     public function showMessage ($type, $id) {
         Date::setLocale('hu');
-        $message = Message::with('from', 'to', 'animal')->where('id', $id)->first();
+        $message = Message::with('from', 'to', 'animal', 'animal.menu')->where('id', $id)->first();
         // return ha nem letezik
         return view('pages.message', compact('message'));
     }
@@ -74,7 +74,7 @@ class MessageController extends Controller
         }
         $message->archived = false;
         $message->save();
-        return redirect('messages/inbox')->with('success', 'Sikeresen visszavontad az archiválást.');
+        return redirect('messages/inbox')->with('success', 'Sikeresen áthelyezted a bejövő üzenetekhez.');
     }
 
     public function trashMessage($id) {
@@ -85,5 +85,15 @@ class MessageController extends Controller
         $message->inTrash = true;
         $message->save();
         return redirect('messages/inbox')->with('success', 'Az üzenetet áthelyeztük a kukába.');
+    }
+
+    public function revertTrashMessage ($id) {
+        $message = Message::where('id', $id)->first();
+        if (!$message) {
+            return redirect()->back()->with('error', 'Ez az üzenet nem létezik az adatbázisban.');
+        }
+        $message->inTrash = false;
+        $message->save();
+        return redirect('messages/inbox')->with('success', 'Sikeresen áthelyezted a bejövő üzenetekhez.');
     }
 }
