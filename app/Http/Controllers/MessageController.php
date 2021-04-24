@@ -17,10 +17,10 @@ class MessageController extends Controller
         $isDesktop = $agent->isDesktop();
         $messages = null;
         if ($type == 'inbox') {
-            $messages = Message::with('from', 'to')->where('to_id', Auth::user()->id)->get();
+            $messages = Message::with('from', 'to')->where('to_id', Auth::user()->id)->where('archived', false)->get();
         }
         if ($type == 'sent') {
-            $messages = Message::with('from', 'to')->where('from_id', Auth::user()->id)->get();
+            $messages = Message::with('from', 'to')->where('from_id', Auth::user()->id)->where('archived', false)->get();
         }
         if ($type == 'archived') {
             $messages = Message::with('from', 'to')->where(function ($query) {
@@ -43,5 +43,15 @@ class MessageController extends Controller
         $message = Message::with('from', 'to', 'animal')->where('id', $id)->first();
         // return ha nem letezik
         return view('pages.message', compact('message'));
+    }
+
+    public function archiveMessage ($id) {
+        $message = Message::where('id', $id)->first();
+        if (!$message) {
+            return redirect()->back()->with('error', 'Ez az üzenet nem létezik az adatbázisban.');
+        }
+        $message->archived = true;
+        $message->save();
+        return redirect('messages/inbox')->with('success', 'Az üzenet archiválva.');
     }
 }

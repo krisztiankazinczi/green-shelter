@@ -18,8 +18,26 @@
       <div class="card-body">
         <h5 class="mb-3 card-title">{{ $message->subject }}</h5>
         <p class="card-text">{{$message->message}}</p>
-        <a href="#" class="card-link">Válasz</a>
-        <a href="#" class="card-link">Archiválás</a>
+        <a class="card-link">Válasz</a>
+        <a 
+          class="card-link" 
+          style="cursor: pointer;"
+          data-toggle="modal" 
+          data-target="#{{ $message->id . '-archive' }}"
+        >
+          Archiválás
+        </a>
+        @include(
+        'partials.modal_confirm', 
+        [
+          'id' => $message->id . '-archive',
+          'question' => 'Biztosan archiválod ezt az üzenetet?',
+          'route' => 'archive.message',
+          'method' => 'PUT',
+          'route_params' => [$message->id],
+          'action_button_text' => 'Archiválom',
+          'action_button_class' => 'btn btn-success'
+        ])    
       </div>
     </div>
   </div>
