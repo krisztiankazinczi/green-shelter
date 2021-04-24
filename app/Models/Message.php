@@ -31,4 +31,14 @@ class Message extends Model
             $model->id = Str::uuid()->toString();
         });
     }
+
+    public function from()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function to()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

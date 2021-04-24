@@ -1,70 +1,71 @@
-@extends('layouts.index')
+@extends('partials.messages')
 
-@section('title', 'Üzeneteim')
-
-@section('cdn-files')
-  <style>
-    .active-option {
-      color: red;
-    }
-    .active-option:hover {
-      color: darkred;
-      text-decoration: none;
-    }
-    .border-on-last:last-child {
-      border-bottom: 1px solid #DEE2E6;
-    }
-  </style>
+@section('message_content')
+  @if ($isDesktop) 
+    <table class="table">
+      <tbody class="border-on-last">
+        @isset($messages)
+          @foreach($messages as $message)
+            <tr class="table-row">
+              <td class="p-2">
+                <p class="ellipsis-10">
+                  {{ $message->from->name }}
+                </p>
+              </td>
+              <td class="p-2">
+                <p class="ellipsis-20">
+                  {{ $message->subject }}
+                </p>
+              </td>
+              <td class="p-2">
+                <p class="ellipsis-60">
+                  {{ $message->message }}
+                </p>
+              </td>
+              <td class="p-2">
+                <p class="ellipsis-10">
+                  {{ Date::parse($message->created_at)->format('F j') }}
+                </p>
+              </td>
+            </tr>
+          @endforeach
+        @else
+          <div class="d-flex justify-content-center align-items-center">
+            <h3>Nem található üzenet ebben a mappában</h3>
+          </div>
+        @endisset
+      </tbody>
+    </table>
+  @else 
+    <table class="table mt-2">
+      <tbody class="border-on-last">
+        @isset($messages)
+          @foreach($messages as $message)
+            <tr>
+              <td class="p-2">
+                <p class="ellipsis-10">
+                  {{ $message->from->name }}
+                </p>
+              </td>
+              <td class="p-2">
+                <p class="ellipsis-20">
+                  {{ $message->subject }}
+                </p>
+              </td>
+              <td class="p-2">
+                  <p class="ellipsis-10">
+                    {{ Date::parse($message->created_at)->format('F j') }}
+                  </p>
+              </td>
+            </tr>
+          @endforeach
+        @else
+          <div class="d-flex justify-content-center align-items-center">
+            <h3>Nem található üzenet ebben a mappában</h3>
+          </div>
+        @endisset
+      </tbody>
+    </table>
+  @endif
 @endsection
 
-@section('content')
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2 d-flex flex-column">
-        <a 
-          href="{{ route('show.messages', ['type' => 'inbox']) }}"
-          class="text-decoration-none {{ last(request()->segments()) == 'inbox' ? 'active-option' : '' }}"
-        >
-          <h5>Beérkező üzenetek</h5>
-        </a>
-        <a 
-          href="{{ route('show.messages', ['type' => 'sent']) }}"
-          class="text-decoration-none {{ last(request()->segments()) == 'sent' ? 'active-option' : '' }}"
-        >
-          <h5>Elküldött üzenetek</h5>
-        </a>
-        <a 
-          href="{{ route('show.messages', ['type' => 'archived']) }}"
-          class="text-decoration-none {{ last(request()->segments()) == 'archived' ? 'active-option' : '' }}"
-        >
-          <h5>Archivált üzenetek</h5>
-        </a>
-      </div>
-      <div class="col-md-10">
-        <table class="table mt-2">
-          <tbody class="border-on-last">
-            <tr>
-              <td>Username</td>
-              <td>Subject subject</td>
-              <td>Message egy reszeMessage egy reszeMessage egy reszeMessage egy resze</td>
-              <td>Apr 23.</td>
-            </tr>
-            <tr>
-              <td>Username</td>
-              <td>Subject subject</td>
-              <td>Message egy reszeMessage egy reszeMessage egy reszeMessage egy resze</td>
-              <td>Apr 23.</td>
-            </tr>
-            <tr>
-              <td>Username</td>
-              <td>Subject subject</td>
-              <td>Message egy reszeMessage egy reszeMessage egy reszeMessage egy resze</td>
-              <td>Apr 23.</td>
-            </tr>
-            
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-@endsection
