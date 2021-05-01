@@ -20,7 +20,8 @@ class Message extends Model
         'archived',
         'from_id',
         'to_id',
-        'inTrash'
+        'inTrash',
+        'animal_id',
     ];
 
     protected $casts = [

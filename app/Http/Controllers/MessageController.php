@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Message;
+use App\Models\User;
+use App\Models\Animal;
 use Jenssegers\Date\Date;
 
 
@@ -108,6 +110,36 @@ class MessageController extends Controller
     }
 
     public function sendMessage(Request $request) {
-        dd($request);
+        $rules = [
+            'from_id'=>'required',
+            'to_id'=>'required',
+            'animal_id'=>'required',
+            'subject'=>'required|max:150',
+            'message'=>'required',
+        ];
+        $customMessages = [
+            'required' => 'A mezőt kötelező kitölteni.',
+            'max' => 'Meghaladtad a maximális karakterhosszt (:max).',
+        ];
+        $this->validate($request, $rules, $customMessages);
+
+        $from = User::where('id', $request->from_id)->first();
+        $to = User::where('id', $request->to_id)->first();
+        $animal = Animal::where('id', $request->animal_id)->first();
+
+        if (!$from || !$to || !$animal) {
+            return redirect()->back()->with('error', 'Adatbázis hiba, kárünk próbáld meg később');
+        }
+
+        Message::create([
+            'from_id' => $request->from_id,
+            'to_id' => $request->to_id,
+            'animal_id' => $request->animal_id,
+            'subject' => $request->subject,
+            'message' => $request->message,
+        ]);
+
+        return redirect()->back()->with('success', 'Üzenet sikeresen elküldve');
+
     }
 }

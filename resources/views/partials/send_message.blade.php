@@ -7,11 +7,11 @@
   @csrf
   <div class="form-group row d-flex justify-content-center">
     <input style="width: 95%;" id="subject" placeholder="Tárgy" type="text" class="form-control @error('subject') is-invalid @enderror" name="subject" value="{{ old('subject') }}" autofocus>
-    @error('subject')
+      @error('subject')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>
-    @enderror
+      @enderror
   </div>
   <div class="form-group">
     <input type="hidden" name="from_id" value="{{ $from_id }}" />

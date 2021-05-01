@@ -3,6 +3,12 @@
 @section('message_content')
   <div class="mt-5 w-100 d-flex justify-content-center">
     <div class="card" style="width: 600px;">
+      @if(!empty(Session::get('success')))
+        <div class="alert alert-success"> {{ Session::get('success') }}</div>
+      @endif
+      @if(!empty(Session::get('error')))
+        <div class="alert alert-danger"> {{ Session::get('error') }}</div>
+      @endif
       <div class="mt-3 ml-3 d-flex justify-content-between align-items-center">
         <div class="d-flex justify-content-center align-items-center">
           <img 
@@ -39,7 +45,7 @@
           @method('PUT')
           <button style="display: none;" type="submit"></button>
         </form>
-        <div class="d-flex justify-content-between align-items-center" id="action-buttons">
+        <div class="d-flex justify-content-between align-items-center" id="action-buttons" style="visibility: @if ($errors->any()) hidden @else visible; @endif">
           <div>
             @if (!$message->inTrash)
               <a class="card-link" style="cursor: pointer;" onclick="showMessageBox()">Válasz</a>
@@ -130,7 +136,7 @@
             @endif
           </div>
         </div>
-        <div id="response-container" style="display: none;">
+        <div id="response-container" style="display: @if ($errors->any()) block @else none; @endif">
           @include('partials.send_message', [
             'from_id' => $message->to_id,
             'to_id' => $message->from_id,
