@@ -55,10 +55,15 @@
               <i class="mb-0 far fa-user-circle h4" style="cursor: pointer;"></i>
             </a>
           </li>
-          <li class="nav-item {{ Request::is('messages') || Request::is('messages'. '/*') ? 'active' : '' }}">
+          <li class="nav-item position-relative {{ Request::is('messages') || Request::is('messages'. '/*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('show.messages', ['type' => 'inbox']) }}">
               <i class="mb-0 far fa-envelope h4" style="cursor: pointer;"></i>
             </a>
+            @if (Auth::user())
+              <span class="badge badge-danger position-absolute" style="bottom: 5px; right: 0;">
+                {{ Auth::user()->unreadMessages() }}
+              </span>
+            @endif
           </li>
         @endauth
       </ul>

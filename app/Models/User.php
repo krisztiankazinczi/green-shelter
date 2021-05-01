@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -72,5 +73,18 @@ class User extends Authenticatable
             ->where('animal_id', $animal_id)
             ->where('user_id', $this->id)
             ->first();
+    }
+
+    public function messages(){
+        return $this->hasMany(Message::class, 'to_id');
+    }
+
+    public function unreadMessages()
+    {
+        return $this->messages()
+            ->where('read', false)
+            ->where('archived', false)
+            ->where('inTrash', false)
+            ->count();
     }
 }
