@@ -12,7 +12,7 @@
       <tbody class="border-on-last">
         @isset($messages)
           @foreach($messages as $message)
-              <tr class="table-row">
+              <tr class="table-row" style="{{ $message->read ? 'color: rgb(243, 247, 247)' : 'color: white !important; font-weight: bold;' }}">
                 <td class="p-2">
                   <a class="text-decoration-none" href="{{ route('show.message', ['type' => last(request()->segments()), 'id' => $message->id]) }}">
                     <p class="ellipsis-10">
@@ -87,5 +87,6 @@
       </tbody>
     </table>
   @endif
+
 @endsection
 

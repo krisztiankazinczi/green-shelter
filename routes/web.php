@@ -74,6 +74,7 @@ Route::group(['middleware' => 'getMenu'], function(){
         Route::put('/revert-archive-message/{id}', [MessageController::class, 'revertArchiveMessage'])->name('revert.archive.message');
         Route::put('/trash-message/{id}', [MessageController::class, 'trashMessage'])->name('trash.message');
         Route::put('/revert-trash-message/{id}', [MessageController::class, 'revertTrashMessage'])->name('revert.trash.message');
+        Route::put('/read-message/{id}', [MessageController::class, 'readMessage'])->name('read.message');
     });
  
     Route::get('/animals/{page}', [AnimalController::class, 'index'])->name('show.list.pages');

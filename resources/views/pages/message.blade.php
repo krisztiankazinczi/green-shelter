@@ -32,6 +32,13 @@
         
         <h5 class="mb-3 card-title">{{ $message->subject }}</h5>
         <p class="card-text">{{$message->message}}</p>
+        <input type="hidden" id="message-id" value="{{ $message->id }}" />
+        <input type="hidden" id="message-read" value="{{ $message->read }}" />
+        <form action="{{ route( 'read.message', ['id' => $message->id]) }}" method="POST" id="read-message">
+          @csrf
+          @method('PUT')
+          <button style="display: none;" type="submit"></button>
+        </form>
         <div class="d-flex justify-content-between align-items-center">
           <div>
             @if (!$message->inTrash)
@@ -126,4 +133,36 @@
       </div>
     </div>
   </div>
+  
+
+  <script>
+    window.onload = () => {
+      const isRead = document.getElementById('message-read').value;
+      if (!isRead) {
+        document.getElementById('read-message').submit();
+      }
+    }
+  </script>
+  {{-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> --}}
+  {{-- <script>
+  
+   window.onload = () => {
+    const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    const id = document.getElementById('message-id').value;
+    fetch(`/api/read-message/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRF-Token": CSRF_TOKEN,
+        },
+        method: "GET",
+        credentials: "same-origin",
+        //body: JSON.stringify({ id })
+      })
+      .then(response => console.log(response))
+      //.then(res => console.log(res));
+    }
+
+</script> --}}
 @endsection

@@ -96,4 +96,14 @@ class MessageController extends Controller
         $message->save();
         return redirect('messages/inbox')->with('success', 'Sikeresen áthelyezted a bejövő üzenetekhez.');
     }
+
+    public function readMessage($id) {
+        $message = Message::where('id', $id)->first();
+        if (!$message) {
+            return redirect()->back();
+        }
+        $message->read = true;
+        $message->save();
+        return redirect()->back();
+    }
 }
