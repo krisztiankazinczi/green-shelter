@@ -106,4 +106,8 @@ class MessageController extends Controller
         $message->save();
         return redirect()->back();
     }
+
+    public function sendMessage(Request $request) {
+        dd($request);
+    }
 }

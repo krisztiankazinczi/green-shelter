@@ -78,7 +78,7 @@
 @section('content')
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-2 d-flex flex-column">
+      <div class="col-md-2 d-flex flex-column" style="max-width: 200px;">
         <a 
           href="{{ route('show.messages', ['type' => 'inbox']) }}"
           class="text-decoration-none {{ Request::is('messages/inbox') || Request::is('messages/inbox'. '/*') ? 'active-option' : '' }}"

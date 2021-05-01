@@ -39,10 +39,10 @@
           @method('PUT')
           <button style="display: none;" type="submit"></button>
         </form>
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center" id="action-buttons">
           <div>
             @if (!$message->inTrash)
-              <a class="card-link">Válasz</a>
+              <a class="card-link" style="cursor: pointer;" onclick="showMessageBox()">Válasz</a>
               @if (!$message->archived)
                 <a 
                   class="card-link" 
@@ -130,10 +130,18 @@
             @endif
           </div>
         </div>
+        <div id="response-container" style="display: none;">
+          @include('partials.send_message', [
+            'from_id' => $message->to_id,
+            'to_id' => $message->from_id,
+            'animal_id' => $message->animal_id,
+            'subject' => $message->subject,
+            'cbFunction' => 'deleteMessageBox()'
+          ])
+        </div>
       </div>
     </div>
   </div>
-  
 
   <script>
     window.onload = () => {
@@ -141,6 +149,15 @@
       if (!isRead) {
         document.getElementById('read-message').submit();
       }
+    }
+
+    const showMessageBox = () => {
+      document.getElementById('response-container').style.display = 'block';
+      document.getElementById('action-buttons').style.visibility = 'hidden';
+    }
+    const deleteMessageBox = () => {
+      document.getElementById('response-container').style.display = 'none';
+      document.getElementById('action-buttons').style.visibility = 'visible';
     }
   </script>
   {{-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> --}}
