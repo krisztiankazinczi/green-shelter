@@ -46,7 +46,7 @@
   </form>
 </form>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace( 'message' );
 </script>

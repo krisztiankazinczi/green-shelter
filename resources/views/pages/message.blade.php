@@ -26,6 +26,8 @@
           <a 
             class="mb-3 card-link" 
             style="cursor: pointer;"
+            target="_blank" 
+            rel="noopener noreferrer"
             href="{{ 
               !$message->animal->adopted ? 
               route('show.advertisement', ['page' => $message->animal->menu->route, 'id' => $message->animal->id]) :
@@ -35,9 +37,8 @@
             Hirdetés megtekintése
           </a>
         </div>
-        
         <h5 class="mb-3 card-title">{{ $message->subject }}</h5>
-        <p class="card-text">{{$message->message}}</p>
+        <p class="card-text">{!! $message->message !!}</p>
         <input type="hidden" id="message-id" value="{{ $message->id }}" />
         <input type="hidden" id="message-read" value="{{ $message->read }}" />
         <form action="{{ route( 'read.message', ['id' => $message->id]) }}" method="POST" id="read-message">
