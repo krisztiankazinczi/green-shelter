@@ -153,7 +153,10 @@
   <script>
     window.onload = () => {
       const isRead = document.getElementById('message-read').value;
-      if (!isRead) {
+      var url_segments = {!! json_encode(request()->segments()) !!}
+      // var APP_URL = {!! json_encode(url('/')) !!} - kesobb kelleni fog
+      // ez egy tomb es a masodik eleme mondja meg hogy ez elkuldott uzenet e vagy sem
+     if (!isRead && url_segments[1] !== 'sent') {
         document.getElementById('read-message').submit();
       }
     }

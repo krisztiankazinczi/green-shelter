@@ -29,12 +29,6 @@
       @enderror
     </div>
   </div>
-    @if(!empty(Session::get('success')))
-      <div class="alert alert-success"> {{ Session::get('success') }}</div>
-    @endif
-    @if(!empty(Session::get('error')))
-      <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-    @endif
     <div class="form-group mb-0">
       <div class="d-flex justify-content-between">
           <a class="card-link text-danger" style="cursor: pointer;" onclick="{{ $cbFunction }}" >Mégse</a>

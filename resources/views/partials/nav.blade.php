@@ -58,9 +58,11 @@
           <li class="nav-item position-relative {{ Request::is('messages') || Request::is('messages'. '/*') ? 'active' : '' }}">
             <a class="nav-link" style="cursor: pointer;" href="{{ route('show.messages', ['type' => 'inbox']) }}">
               <i class="mb-0 far fa-envelope h4"></i>
-              <span class="badge badge-danger position-absolute" style="bottom: 7px; right: 2px;">
-                {{ Auth::user()->unreadMessages() }}
-              </span>
+              @if (Auth::user()->unreadMessages())
+                <span class="badge badge-danger position-absolute" style="bottom: 7px; right: 2px;">
+                  {{ Auth::user()->unreadMessages() }}
+                </span>
+              @endif
             </a>
           </li>
         @endauth

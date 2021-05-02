@@ -29,7 +29,7 @@
         @auth
           <div>
             <i 
-              class="far fa-question-circle mt-3 mb-0 ml-2 h2"
+              class="far fa-envelope-open mt-3 mb-0 ml-2 h2"
               style="cursor: pointer; color: #38C172"
               data-toggle="modal" 
               data-target="#send-message-{{ $animal->id }}"
