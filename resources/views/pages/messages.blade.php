@@ -29,7 +29,7 @@
                 </td>
                 <td class="p-2">
                   <a class="text-decoration-none" href="{{ route('show.message', ['type' => last(request()->segments()), 'id' => $message->id]) }}">
-                    <p class="ellipsis-60">
+                    <p class="ellipsis-60 formatted-p">
                       {{ $message->message }}
                     </p>
                   </a>
@@ -87,6 +87,16 @@
       </tbody>
     </table>
   @endif
+
+<style>
+  .formatted-p > p {
+    margin: 0;
+    padding: 0;
+  }
+  .formatted-p:not(:first-child) {
+    display: none;
+  }
+</style>
 
 @endsection
 

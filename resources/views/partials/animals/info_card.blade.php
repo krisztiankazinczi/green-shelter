@@ -26,22 +26,24 @@
           'icon_classes' => 'mt-3 mb-0 ml-2 h3',
           'is_count' => true
         ])
-        <div>
-          <i 
-            class="far fa-question-circle mt-3 mb-0 ml-2 h2"
-            style="cursor: pointer; color: #38C172"
-            data-toggle="modal" 
-            data-target="#send-message-{{ $animal->id }}"
-          ></i>
-          @include('partials.modal_send_message', [
-            'modal_id' => "send-message-" . $animal->id,
-            'from_id' => Auth::user()->id,
-            'to_id' => $animal->user_id,
-            'animal_id' => $animal->id,
-            'subject' => '',
-            'cbFunction' => 'closeModal("{{send-message-$animal->id}}")'
-          ])
-        </div>
+        @auth
+          <div>
+            <i 
+              class="far fa-question-circle mt-3 mb-0 ml-2 h2"
+              style="cursor: pointer; color: #38C172"
+              data-toggle="modal" 
+              data-target="#send-message-{{ $animal->id }}"
+            ></i>
+            @include('partials.modal_send_message', [
+              'modal_id' => "send-message-" . $animal->id,
+              'from_id' => Auth::user()->id,
+              'to_id' => $animal->user_id,
+              'animal_id' => $animal->id,
+              'subject' => '',
+              'cbFunction' => 'closeModal("{{send-message-$animal->id}}")'
+            ])
+          </div>
+        @endauth
       </div>
     </div>
   </div>

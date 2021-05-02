@@ -23,9 +23,9 @@
     </div>
     <div>
       @error('message')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
       @enderror
     </div>
   </div>
@@ -38,7 +38,7 @@
     <div class="form-group mb-0">
       <div class="d-flex justify-content-between">
           <a class="card-link text-danger" style="cursor: pointer;" onclick="{{ $cbFunction }}" >Mégse</a>
-          <button type="submit" class="btn btn-primary btn-sm d-block">
+          <button type="submit" class="btn btn-primary btn-sm d-block" onclick="validateForm(event)">
               {{ __('Küldés') }}
           </button>
       </div>
@@ -46,7 +46,46 @@
   </form>
 </form>
 
-<script src="https://cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace( 'message' );
+  const validateForm = (event) => {
+    event.preventDefault();
+    const subject = document.getElementById('subject');
+    const message = document.getElementById('message');
+    const subjectParent = subject.parentElement;
+    const messageParent = message.parentElement;
+    subject.classList.remove('is-invalid');
+    message.classList.remove('is-invalid');
+    if (subjectParent.childNodes[3]) {
+      subjectParent.removeChild(subjectParent.childNodes[3]);    
+    }
+    if (messageParent.childNodes[3]) {
+      messageParent.removeChild(messageParent.childNodes[3]);    
+    }
+
+
+    if (!subject.value) {
+      subject.classList.add('is-invalid');
+      const node = document.createElement("SPAN");
+      node.className = 'invalid-feedback ml-4 subject-error';                
+      const textnode = document.createTextNode("A mező értékét kötelező kitölteni");         
+      node.appendChild(textnode);                             
+      subjectParent.appendChild(node);
+    }
+
+    if (!message.value) {
+      message.classList.add('is-invalid');
+      const node = document.createElement("SPAN");
+      node.className = 'invalid-feedback ml-1 subject-error';                
+      const textnode = document.createTextNode("A mező értékét kötelező kitölteni");         
+      node.appendChild(textnode);                             
+      messageParent.appendChild(node);
+    }
+
+    if (!subject.value || !message.value) {
+      return false;
+    }
+
+    const form = subjectParent.parentElement;
+    form.submit();
+  }
 </script>
