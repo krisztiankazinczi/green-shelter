@@ -177,6 +177,7 @@ return [
 
         Jenssegers\Agent\AgentServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
     ],
 
     /*
@@ -231,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Date' => Jenssegers\Date\Date::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ],
 
 ];

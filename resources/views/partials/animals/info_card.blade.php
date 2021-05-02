@@ -29,7 +29,7 @@
         @auth
           <div>
             <i 
-              class="far fa-envelope-open mt-3 mb-0 ml-2 h2"
+              class="far fa-envelope-open mt-3 mb-0 ml-2 h3"
               style="cursor: pointer; color: #38C172"
               data-toggle="modal" 
               data-target="#send-message-{{ $animal->id }}"
@@ -44,6 +44,10 @@
             ])
           </div>
         @endauth
+        @include('partials.social_share', [
+          'main_icon_classes' => 'mt-3 mb-0 ml-2 h3',
+          'collapse_id' => $animal->id . '-collapse'
+        ])
       </div>
     </div>
   </div>
