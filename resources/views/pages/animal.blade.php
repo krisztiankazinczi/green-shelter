@@ -50,7 +50,7 @@
         @auth
           <div>
             <i 
-              class="far fa-envelope-open mr-3 mb-0 h2"
+              class="far fa-envelope-open mr-3 mb-0 h3"
               style="cursor: pointer; color: #38C172"
               data-toggle="modal" 
               data-target="#send-message-{{ $animal->id }}"
@@ -65,6 +65,11 @@
             ])
           </div>
         @endauth
+        @include('partials.social_share', [
+          'main_icon_classes' => 'mr-3 mb-0 h3',
+          'collapse_id' => $animal->id . '-collapse',
+          'url' => Request::url(),
+        ])
         @if (!$animal->adopted && Auth::user())
           @if ($adoptionRequest)
             <button 

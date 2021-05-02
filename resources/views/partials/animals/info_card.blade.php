@@ -46,7 +46,8 @@
         @endauth
         @include('partials.social_share', [
           'main_icon_classes' => 'mt-3 mb-0 ml-2 h3',
-          'collapse_id' => $animal->id . '-collapse'
+          'collapse_id' => $animal->id . '-collapse',
+          'url' => Request::url() . '/' . $animal->id,
         ])
       </div>
     </div>
