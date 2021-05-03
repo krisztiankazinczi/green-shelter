@@ -4,10 +4,7 @@
 
 @section('content')
 
-<div 
-  {{-- class="row mb-3 mt-4 d-flex flex-row justify-content-center"  --}}
-  id="photos"
->
+<div id="photos">
   @isset($images)
     @foreach ($images as $image)
         <div
@@ -16,14 +13,10 @@
           data-toggle="modal" 
           data-target="#{{ $image->animal->id . $image->id }}"
         >
-          <img src="/images/{{$image->filename}}"  class="img-thumbnail"
-            {{-- style="height: 300px; margin-right: 15px; margin-bottom:15px; max-width: 600px; object-fit: cover;" alt="{{$image->animal->title}}"  --}}
-          />
+          <img src="/images/{{$image->filename}}"  class="img-thumbnail" />
           <div class="button">
-            <a 
-              href="{{ $image->route }}/{{ $image->animal->id }}"
-            >
-              <button class="btn btn-primary " >
+            <a href="{{ $image->animal->adopted ? '/success-stories' : '/animals/' . $image->animal->menu->route }}/{{ $image->animal->id }}">
+              <button class="btn btn-primary" >
                 Részletek
               </button>
             </a>
@@ -33,9 +26,11 @@
           'id' => $image->animal->id . $image->id,
           'image_path' => '/images/' . $image->filename,
           'image_alt' => $image->animal->title,
-          'link_to_advertisement' => $image->route . '/' . $image->animal->id
+          'link_to_advertisement' => $image->animal->adopted ? '/success-stories/' . $image->animal->id : '/animals/' . $image->animal->menu->route . '/' . $image->animal->id
         ])
     @endforeach
+    @else
+    <h2>Adatbázis hiba. Dolgozunk a problémán.</h2>
   @endisset
 </div> 
 

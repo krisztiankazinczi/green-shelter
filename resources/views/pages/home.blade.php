@@ -3,6 +3,12 @@
 @section('title', 'Kezdőlap')
 
 @section('content')
+  @if(!empty(Session::get('success')))
+    <div class="alert alert-success"> {{ Session::get('success') }}</div>
+  @endif
+  @if(!empty(Session::get('error')))
+    <div class="alert alert-danger"> {{ Session::get('error') }}</div>
+  @endif
   <div class="jumbotron jumbotron-fluid" style="background: url({{ URL::to('/') . '/images/home_banner.jpg' }}) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 90vh;">
         <div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
             <div class="w-50">

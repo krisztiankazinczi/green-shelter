@@ -32,6 +32,7 @@ class UserController extends Controller
         ];
         $this->validate($request, $rules, $customMessages);
 
+        // if user changed the email address
         if ($request->email !== Auth::user()->email) {
             $isEmailExists = User::where('email', $request->email)->first();
             if ($isEmailExists) {

@@ -46,7 +46,10 @@ class ReviewController extends Controller
         $this->validate($request, $rules, $customMessages);
 
         $myAdoption = Adoption::where('user_id', Auth::user()->id)->where('status', 'adopted')->first();
-        // redirect if not exists
+        if (!$myAdoption) {
+            return redirect()->back()->with('error', 'Amíg nem fogadtál be egy kiskedvencet, nem írhatsz véleményt rólunk');
+        }
+
         Review::create([
             'adoption_id' => $myAdoption->id,
             'rating' => $request->rating,

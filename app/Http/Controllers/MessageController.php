@@ -55,14 +55,17 @@ class MessageController extends Controller
     public function showMessage ($type, $id) {
         Date::setLocale('hu');
         $message = Message::with('from', 'to', 'animal', 'animal.menu')->where('id', $id)->first();
-        // return ha nem letezik
+        if (!$message) {
+            return redirect('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
+        }
+
         return view('pages.message', compact('message'));
     }
 
     public function archiveMessage ($id) {
         $message = Message::where('id', $id)->first();
         if (!$message) {
-            return redirect()->back()->with('error', 'Ez az üzenet nem létezik az adatbázisban.');
+            return redirect('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
         }
         $message->archived = true;
         $message->save();
@@ -72,7 +75,7 @@ class MessageController extends Controller
     public function revertArchiveMessage ($id) {
         $message = Message::where('id', $id)->first();
         if (!$message) {
-            return redirect()->back()->with('error', 'Ez az üzenet nem létezik az adatbázisban.');
+            return redirect('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
         }
         $message->archived = false;
         $message->save();
@@ -82,7 +85,7 @@ class MessageController extends Controller
     public function trashMessage($id) {
         $message = Message::where('id', $id)->first();
         if (!$message) {
-            return redirect()->back()->with('error', 'Ez az üzenet nem létezik az adatbázisban.');
+            return redirect('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
         }
         $message->inTrash = true;
         $message->save();
@@ -128,7 +131,7 @@ class MessageController extends Controller
         $animal = Animal::where('id', $request->animal_id)->first();
 
         if (!$from || !$to || !$animal) {
-            return redirect()->back()->with('error', 'Adatbázis hiba, kárünk próbáld meg később');
+            return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbáld meg később');
         }
 
         Message::create([
