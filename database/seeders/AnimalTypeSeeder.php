@@ -40,6 +40,11 @@ class AnimalTypeSeeder extends Seeder
                 'description' => 'Some description',
                 'image_uri' => 'types/golden_retriever.jpg'
             ],
+            [ 
+                'name' => 'Tacskó',
+                'description' => 'Some description',
+                'image_uri' => 'types/tacsko.jpg'
+            ],
         ];
 
         foreach ($types as $type) {

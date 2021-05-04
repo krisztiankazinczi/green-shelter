@@ -19,13 +19,16 @@ class ImagesSeeder extends Seeder
         $animal2 = Animal::where('title', 'Buksit keresem!')->first();
         $animal3 = Animal::where('title', 'Szilveszter óta keressük Micit')->first();
         $animal4 = Animal::where('title', 'Elveszett szeretett kiskutyám!')->first();
-        $animal5 = Animal::where('title', 'Szilveszter óta keressük Micit2')->first();
-        $animal6 = Animal::where('title', 'Elveszett szeretett kiskutyám3!')->first();
-        $animal7 = Animal::where('title', 'Elveszett szeretett kiskutyám2!')->first();
+        $animal5 = Animal::where('title', 'Pénteken (07.22.) délután eltűnt Mogyoródon a kutyusunk Szuszi')->first();
+        $animal6 = Animal::where('title', '08.12-én elszökött Szotyi!')->first();
+        $animal7 = Animal::where('title', 'Pehely')->first();
+        $animal8 = Animal::where('title', 'Gizike')->first();
+
+
 
         $images = [
             [ 
-                'filename' => 'dog1.jpg',
+                'filename' => 'leonbergi.jpg',
                 'main' => true,
                 'animal_id' => $animal1->id
             ],
@@ -90,7 +93,7 @@ class ImagesSeeder extends Seeder
                 'animal_id' => $animal5->id
             ],
             [ 
-                'filename' => 'dog14.jpg',
+                'filename' => 'szotyi.jpeg',
                 'main' => true,
                 'animal_id' => $animal6->id
             ],
@@ -105,9 +108,14 @@ class ImagesSeeder extends Seeder
                 'animal_id' => $animal6->id
             ],
             [ 
-                'filename' => 'dog17.jpg',
+                'filename' => 'pehely.jpg',
                 'main' => true,
                 'animal_id' => $animal7->id
+            ],
+            [ 
+                'filename' => 'gizike.jpg',
+                'main' => true,
+                'animal_id' => $animal8->id
             ],
         ];
 

@@ -27,12 +27,14 @@ class AnimalController extends Controller
     public function index(Request $request, $page)
     {
         $menu = Menu::where('route', $page)->first();
+        if (!$menu) {
+            return redirect('home')->with('error', 'A megnyitni próbált oldal nem létezik, ezért visszairányítottunk a főoldalra');
+        }
         // in front-end I will check if user has access to create this kind of advertisement or not
         $create_menu = Menu::where('route', $page . '/create')->first();
         $create_button_role_id = $create_menu->role_id;
         // redirect if not exists
         $category = Category::with('menu')->where('menu_id', $menu->id)->first();
-        // joinolni a tablakat!!!!
         $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')->where('menu_id', $menu->id)->where('adopted', false)->get();
         return view('pages/animals', compact('animals', 'category', 'menu', 'create_button_role_id'));
     }
@@ -161,9 +163,7 @@ class AnimalController extends Controller
      */
     public function edit($page, $id)
     {
-        $animal = Animal::with('images')->where('id', $id)->first();
-        $menu = Menu::where('id', $animal->menu_id)->first();
-        $animal->{"menu"} = $menu;
+        $animal = Animal::with('images', 'menu')->where('id', $id)->first();
         $animal_types = AnimalType::all();
         return view('pages/edit_animal', compact('animal', 'page', 'animal_types'));
     }
@@ -286,7 +286,6 @@ class AnimalController extends Controller
     public function successStories() {
         $animals = Animal::with('images', 'menu', 'animalType')->where('adopted', true)->get();
         $category = Category::with('menu')->where('id', 4)->first();
-        // ez igy nem helyes, csinald vissza a modelt es joinold ezt
         if (!$animals || !$category) {
             return redirect('home')->with('error', 'Az oldal jelenleg nem elérhető, ezért visszairányítottunk a főoldalra..');
         }
@@ -313,24 +312,21 @@ class AnimalController extends Controller
     }
 
     public function withdrawAdopt($id) {
-        $animal = Animal::where('id', $id)->first();
+        $animal = Animal::with('menu')->where('id', $id)->first();
         if (!$animal) {
             return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
-        $menu = Menu::where('id', $animal->menu_id)->first();
         $animal->adopted = false;
         $animal->save();
-        return redirect($menu->route . '/' . $id)->with('success', 'Visszavontuk a befogadást a rendszerünkben.');
+        return redirect($animal->menu->route . '/' . $id)->with('success', 'Visszavontuk a befogadást a rendszerünkben.');
     }
 
     public function animalOfWeek () {
-        $animal = Animal::with('images')->where('animal_of_the_week', true)->first();
+        $animal = Animal::with('images', 'menu')->where('animal_of_the_week', true)->first();
         if (!$animal) {
             return redirect('home')->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
-        $menu = Menu::where('id', $animal->menu_id)->first();
-        $animal->{"menu"} = $menu;
-        $split = explode('/',$menu->route);
+        $split = explode('/',$animal->menu->route);
         $page = end($split);
 
         $adoptionRequest = null;
