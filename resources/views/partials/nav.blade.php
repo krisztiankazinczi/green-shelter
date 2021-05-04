@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b2ec5d">
   <a class="navbar-brand" href="#"><img alt="logo" src="http://localhost:8000/images/logo.png"
-         width="70" height="70"></a>
+         width="35" height="35"></a>
   <!-- Logot majd ide -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
