@@ -85,6 +85,8 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::get('/gallery', [ImageController::class, 'gallery'])->name('gallery');
     Route::get('/animal-of-week', [AnimalController::class, 'animalOfWeek'])->name('animal.of.week');
     Route::get('/type/{type_id}', [AnimalTypeController::class, 'index'])->name('anymal.type');
+    Route::view('/about-us', 'pages.about_us')->name('about.us');
+    Route::view('/about-us/contact-details', 'pages.contact_details')->name('contact.details');
     Route::get('/about-us/reviews', [ReviewController::class, 'index'])->name('reviews');
 });
 

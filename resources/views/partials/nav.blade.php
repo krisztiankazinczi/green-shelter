@@ -70,14 +70,14 @@
       </ul>
       <div class="ml-auto">
         @auth
-          <a class="nav-item nav-link text-white" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Kijelentkezés</a>
+          <a class="nav-item nav-link text-white on-hover" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Kijelentkezés</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
           </form> 
         @else
           <div class="d-flex">
-            <a class="nav-item nav-link d-block text-white" href="{{ route('login') }}">Bejelentkezés</a>
-            <a class="nav-item nav-link d-block text-white" href="{{ route('register') }}">Regisztráció</a>
+            <a class="nav-item nav-link d-block text-white on-hover" href="{{ route('login') }}">Bejelentkezés</a>
+            <a class="nav-item nav-link d-block text-white on-hover" href="{{ route('register') }}">Regisztráció</a>
           </div>
         @endauth
       </div>
@@ -86,6 +86,9 @@
 
 <style>
   ul > li:hover {
+    background-color: #f3969a;
+  }
+  .on-hover:hover {
     background-color: #f3969a;
   }
 </style>

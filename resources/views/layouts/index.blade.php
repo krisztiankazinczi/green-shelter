@@ -18,9 +18,10 @@
       <script src="{{ asset('js/share.js') }}"></script> <!-- for social share package -->
     </head>
     <body style="overflow-x: hidden;">
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column vh-100">
         @include('partials.nav')
         <main class="flex-grow-1">@yield('content')</main>
+        @include('partials.footer')
       </div>
      
     </body>
