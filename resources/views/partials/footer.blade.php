@@ -19,7 +19,7 @@
       @include('partials.small.footer_option', [ 'route' => route('contact.details'), 'text' => 'Kapcsolat' ])
     </div>
     <div class="row bg-primary mt-3">
-      <h6 class="mx-auto text-dark mb-0 py-2 ">Az redeti oldal: 
+      <h6 class="mx-auto text-dark mb-0 py-2 ">Az eredeti oldal: 
         <a href="http://www.zoldmenedek.hu" class="text-dark">
           Zöldmenedek.hu
         </a>

@@ -10,6 +10,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ContactFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,7 +87,8 @@ Route::group(['middleware' => 'getMenu'], function(){
     Route::get('/animal-of-week', [AnimalController::class, 'animalOfWeek'])->name('animal.of.week');
     Route::get('/type/{type_id}', [AnimalTypeController::class, 'index'])->name('anymal.type');
     Route::view('/about-us', 'pages.about_us')->name('about.us');
-    Route::view('/about-us/contact-details', 'pages.contact_details')->name('contact.details');
+    Route::get('/about-us/contact-details', [ContactFormController::class, 'index'])->name('contact.details');
+    Route::post('/send-message-to-admin', [ContactFormController::class, 'sendMessage'])->name('send.message.admin');
     Route::get('/about-us/reviews', [ReviewController::class, 'index'])->name('reviews');
 });
 
