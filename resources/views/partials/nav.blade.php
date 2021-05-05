@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary py-0" >
-  <a class="navbar-brand" href="#"><img alt="logo" src="http://localhost:8000/images/logo.png"
+  <a class="navbar-brand" href="{{ route('home') }}"><img alt="logo" src="http://localhost:8000/images/logo.png"
          width="30" height="30"></a>
   <!-- Logot majd ide -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

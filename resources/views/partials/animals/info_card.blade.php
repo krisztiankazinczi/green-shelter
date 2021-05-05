@@ -3,7 +3,9 @@
   <div class="card w-75" style="min-width: 17rem; max-width: 25rem; box-shadow: 0 0 10px 4px rgba(0, 0, 0, .15);">
     @foreach ($animal->images as $image)
       @if ($image->main)
-        <img class="card-img-top img-fluid" style="height: 15rem;" src="/images/{{ $image->filename }}" alt={{ $animal->title }}>
+      <div class="d-flex justify-content-center">
+        <img  style="height: 12rem; width: auto; max-width: 100%;" src="/images/{{ $image->filename }}" alt={{ $animal->title }}>
+      </div>
       @endif
     @endforeach
     <div class="pb-2 card-body d-flex flex-column justify-content-between">
