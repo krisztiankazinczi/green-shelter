@@ -15,7 +15,7 @@
                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ $item->name }}
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
                   @foreach ($menuItems as $item1)
                     @if ($item->id == $item1->parent)
                       @if ($item1->role_id > 1)
@@ -38,7 +38,7 @@
                   </li>
                 @endif
               @else 
-                <li class="nav-item py-2 {{ Request::path() == $item->route ? 'active' : '' }}">
+                <li class="nav-item py-2 {{ Request::path() == $item->route ? 'bg-secondary' : '' }}">
                   <a class="nav-link text-white" href="/{{$item->route}}">{{ $item->name }}<span class="sr-only">(current)</span></a>
                 </li>
               @endif
@@ -83,3 +83,9 @@
       </div>
   </div>
 </nav>
+
+<style>
+  ul > li:hover {
+    background-color: #f3969a;
+  }
+</style>
