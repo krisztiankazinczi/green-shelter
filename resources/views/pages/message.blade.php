@@ -12,14 +12,18 @@
       <div class="mt-3 ml-3 d-flex justify-content-between align-items-center">
         <div class="d-flex justify-content-center align-items-center">
           <img 
-            src="{{$message->from->avatar_uri ? '/images/' . $message->from->avatar_uri : '/images/users/default-profile-image.jpg'}}"
+            @if (request()->segments()[1] == 'sent')
+              src="{{$message->to->avatar_uri ? '/images/' . $message->to->avatar_uri : '/images/users/default-profile-image.jpg'}}"
+            @else
+              src="{{$message->from->avatar_uri ? '/images/' . $message->from->avatar_uri : '/images/users/default-profile-image.jpg'}}"
+            @endif
             class="rounded-circle avatar" 
             width="50px"
             height="50px" 
           />
-          <p class="mt-2 ml-3 h5 bold">{{ $message->from->name }}</p>
+          <p class="mt-2 ml-3 h5 bold">{{request()->segments()[1] != 'sent' ? $message->from->name : $message->to->name }}</p>
         </div>
-          <p class="mt-2 ml-3 mr-3 h5 bold">{{ Date::parse($message->created_at)->format('F j') }}</p>
+          <p class="mt-2 ml-3 mr-3 h5 bold">{{ Date::parse($message->created_at)->format('Y F j @ H:i') }}</p>
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-end">
@@ -50,97 +54,101 @@
           <div>
             @if (!$message->inTrash)
               <a class="card-link" style="cursor: pointer;" onclick="showMessageBox()">Válasz</a>
-              @if (!$message->archived)
+              @if (request()->segments()[1] != 'sent')
+                @if (!$message->archived)
+                  <a 
+                    class="card-link" 
+                    style="cursor: pointer;"
+                    data-toggle="modal" 
+                    data-target="#{{ $message->id . '-archive' }}"
+                  >
+                    Archiválás
+                  </a>
+                  @include(
+                  'partials.modal_confirm', 
+                  [
+                    'id' => $message->id . '-archive',
+                    'question' => 'Biztosan archiválod ezt az üzenetet?',
+                    'route' => 'archive.message',
+                    'method' => 'PUT',
+                    'route_params' => [$message->id],
+                    'action_button_text' => 'Archiválom',
+                    'action_button_class' => 'btn btn-success'
+                  ])    
+                @else 
+                  <a 
+                    class="card-link" 
+                    style="cursor: pointer;"
+                    data-toggle="modal" 
+                    data-target="#{{ $message->id . '-revert-archive' }}"
+                  >
+                    Archiválás visszavonása
+                  </a>
+                  @include(
+                  'partials.modal_confirm', 
+                  [
+                    'id' => $message->id . '-revert-archive',
+                    'question' => 'Biztosan visszavonod az archiválást erről az üzenetről?',
+                    'route' => 'revert.archive.message',
+                    'method' => 'PUT',
+                    'route_params' => [$message->id],
+                    'action_button_text' => 'Archiválást visszavonom',
+                    'action_button_class' => 'btn btn-success'
+                  ])   
+                @endif
+              @endif
+            @endif
+          </div>
+          <div>
+            @if (request()->segments()[1] != 'sent')
+              @if (!$message->inTrash)
                 <a 
-                  class="card-link" 
+                  class="card-link text-danger" 
                   style="cursor: pointer;"
                   data-toggle="modal" 
-                  data-target="#{{ $message->id . '-archive' }}"
+                  data-target="#{{ $message->id . '-delete' }}"
                 >
-                  Archiválás
+                  Törlés
                 </a>
                 @include(
                 'partials.modal_confirm', 
                 [
-                  'id' => $message->id . '-archive',
-                  'question' => 'Biztosan archiválod ezt az üzenetet?',
-                  'route' => 'archive.message',
+                  'id' => $message->id . '-delete',
+                  'question' => 'Biztosan törlöd ezt az üzenetet?',
+                  'route' => 'trash.message',
                   'method' => 'PUT',
                   'route_params' => [$message->id],
-                  'action_button_text' => 'Archiválom',
-                  'action_button_class' => 'btn btn-success'
+                  'action_button_text' => 'Törlöm',
+                  'action_button_class' => 'btn btn-danger'
                 ])    
               @else 
                 <a 
                   class="card-link" 
                   style="cursor: pointer;"
                   data-toggle="modal" 
-                  data-target="#{{ $message->id . '-revert-archive' }}"
+                  data-target="#{{ $message->id . '-revert-delete' }}"
                 >
-                  Archiválás visszavonása
+                  Áthelyezem a bejövő üzenetekhez
                 </a>
                 @include(
                 'partials.modal_confirm', 
                 [
-                  'id' => $message->id . '-revert-archive',
-                  'question' => 'Biztosan visszavonod az archiválást erről az üzenetről?',
-                  'route' => 'revert.archive.message',
+                  'id' => $message->id . '-revert-delete',
+                  'question' => 'Biztosan visszahelyezed az inboxba az üzenetet?',
+                  'route' => 'revert.trash.message',
                   'method' => 'PUT',
                   'route_params' => [$message->id],
-                  'action_button_text' => 'Archiválást visszavonom',
+                  'action_button_text' => 'Áthelyezem',
                   'action_button_class' => 'btn btn-success'
-                ])   
+                ])  
               @endif
-            @endif
-          </div>
-          <div>
-            @if (!$message->inTrash)
-              <a 
-                class="card-link text-danger" 
-                style="cursor: pointer;"
-                data-toggle="modal" 
-                data-target="#{{ $message->id . '-delete' }}"
-              >
-                Törlés
-              </a>
-              @include(
-              'partials.modal_confirm', 
-              [
-                'id' => $message->id . '-delete',
-                'question' => 'Biztosan törlöd ezt az üzenetet?',
-                'route' => 'trash.message',
-                'method' => 'PUT',
-                'route_params' => [$message->id],
-                'action_button_text' => 'Törlöm',
-                'action_button_class' => 'btn btn-danger'
-              ])    
-            @else 
-              <a 
-                class="card-link" 
-                style="cursor: pointer;"
-                data-toggle="modal" 
-                data-target="#{{ $message->id . '-revert-delete' }}"
-              >
-                Áthelyezem a bejövő üzenetekhez
-              </a>
-              @include(
-              'partials.modal_confirm', 
-              [
-                'id' => $message->id . '-revert-delete',
-                'question' => 'Biztosan visszahelyezed az inboxba az üzenetet?',
-                'route' => 'revert.trash.message',
-                'method' => 'PUT',
-                'route_params' => [$message->id],
-                'action_button_text' => 'Áthelyezem',
-                'action_button_class' => 'btn btn-success'
-              ])  
             @endif
           </div>
         </div>
         <div id="response-container" style="display: @if ($errors->any()) block @else none; @endif">
           @include('partials.send_message', [
-            'from_id' => $message->to_id,
-            'to_id' => $message->from_id,
+            'from_id' => request()->segments()[1] != 'sent' ? $message->to_id : $message->from_id,
+            'to_id' => request()->segments()[1] != 'sent' ? $message->from_id : $message->to_id,
             'animal_id' => $message->animal_id,
             'subject' => $message->subject,
             'cbFunction' => 'deleteMessageBox()'

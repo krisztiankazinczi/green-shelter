@@ -6,16 +6,16 @@
 
 <div id="photos">
   @isset($images)
-    @foreach ($images as $image)
+    @foreach ($images as $data)
         <div
         class="position-relative"
           style="cursor: pointer;"
           data-toggle="modal" 
-          data-target="#{{ $image->animal->id . $image->id }}"
+          data-target="#{{ $data->animal_id . $data->id }}"
         >
-          <img src="/images/{{$image->filename}}"  class="img-thumbnail" />
+          <img src="/images/{{$data->filename}}"  class="img-thumbnail" />
           <div class="button">
-            <a href="{{ $image->animal->adopted ? '/success-stories' : '/animals/' . $image->animal->menu->route }}/{{ $image->animal->id }}">
+            <a href="{{ $data->adopted ? '/success-stories' : '/animals/' . $data->route }}/{{ $data->animal_id }}">
               <button class="btn btn-primary" >
                 Részletek
               </button>
@@ -23,10 +23,10 @@
           </div>
         </div>
         @include('partials.modal_image', [
-          'id' => $image->animal->id . $image->id,
-          'image_path' => '/images/' . $image->filename,
-          'image_alt' => $image->animal->title,
-          'link_to_advertisement' => $image->animal->adopted ? '/success-stories/' . $image->animal->id : '/animals/' . $image->animal->menu->route . '/' . $image->animal->id
+          'id' => $data->animal_id . $data->id,
+          'image_path' => '/images/' . $data->filename,
+          'image_alt' => $data->title,
+          'link_to_advertisement' => $data->adopted ? '/success-stories/' . $data->animal_id : '/animals/' . $data->route . '/' . $data->animal_id
         ])
     @endforeach
     @else

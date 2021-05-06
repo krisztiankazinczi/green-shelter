@@ -47,7 +47,13 @@ class ImageController extends Controller
     }
 
     public function gallery () {
-        $images = Image::with('animal', 'animal.menu')->get();
+        $images = DB::table('images')
+            ->join('animals', 'animals.id', '=', 'images.animal_id')
+            ->join('menus', 'animals.menu_id', '=', 'menus.id')
+            ->select('images.id', 'filename', 'animal_id', 'title', 'adopted', 'route')
+            ->orderBy('animals.created_at', 'DESC')
+            ->get();
+        // $images = Image::with('animal', 'animal.menu')->get();
         return view('pages/gallery', compact('images'));
     }
 }

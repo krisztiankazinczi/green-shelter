@@ -1,10 +1,3 @@
-const validateField = (value) => {
-  if (!value) {
-    return false;
-  }
-  return true;
-}
-
 const validateFields = (fields) => {
   const errors = [];
   fields.forEach((field) => {
