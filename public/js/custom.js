@@ -49,13 +49,13 @@ const clearFormErrors = (htmlInputFields) => {
 // {
 //   field: HTMLInputElement | HTMLTextAreaElement,
 //   error: string,
-//   type: 'input' | 'textarea'
+//   type: 'small' | 'big'
 // }[]
 const createVisualErrors = (htmlInputFields) => {
   htmlInputFields.forEach(field => {
     field.field.classList.add('is-invalid');
     const node = document.createElement("SPAN");
-    node.className = `invalid-feedback ${field.type === 'input' ? 'ml-4' : 'ml-1'} subject-error`;                
+    node.className = `invalid-feedback ${field.margin === 'big' ? 'ml-4' : 'ml-1'} subject-error`;                
     const textnode = document.createTextNode(field.error);         
     node.appendChild(textnode);                             
     field.field.parentElement.appendChild(node);
@@ -69,8 +69,8 @@ const validateSendMessageForm = (event) => {
   clearFormErrors([subject, message]);
 
   const fields = [
-    { field: subject, type: 'input', rules: {'max': 150} },
-    { field: message, type: 'textarea', rules: {} }
+    { field: subject, margin: 'big', rules: {'max': 150} },
+    { field: message, margin: 'small', rules: {} }
   ];
 
   const errors = validateFields(fields);
@@ -93,10 +93,10 @@ const validateContactForm = (event) => {
   clearFormErrors([name, email, subject, message]);
 
   const fields = [
-    { field: name, type: 'input', rules: {'max': 255, 'min': 5} },
-    { field: email, type: 'input', rules: {'max': 255, 'min': 5, 'email': 'email'} },
-    { field: subject, type: 'input', rules: {'max': 255, 'min': 5} },
-    { field: message, type: 'textarea', rules: {} }
+    { field: name, margin: 'small', rules: {'max': 255, 'min': 5} },
+    { field: email, margin: 'small', rules: {'max': 255, 'min': 5, 'email': 'email'} },
+    { field: subject, margin: 'small', rules: {'max': 255, 'min': 5} },
+    { field: message, margin: 'small', rules: {} }
   ];
 
   const errors = validateFields(fields);
@@ -106,6 +106,6 @@ const validateContactForm = (event) => {
     return false;
   }
 
-  const form = subject.parentElement.parentElement;
+  const form = subject.parentElement.parentElement.parentElement;
   form.submit();
 }

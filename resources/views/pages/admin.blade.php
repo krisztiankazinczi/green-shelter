@@ -8,7 +8,7 @@
 
 @section('content')
 
-<div id="adminSideNav" class="sidenav">
+<div id="adminSideNav" class="sidenav bg-primary">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a 
     href="{{ route('admin.adoption', ['type' => 'requested']) }}"
@@ -30,6 +30,10 @@
     href="{{ route('anymal.types') }}"
     class="{{ last(request()->segments()) == 'species-list' ? 'active-admin-menu' : '' }}"  
   >Állat fajták</a>
+  <a 
+    href="{{ route('contact.messages') }}"
+    class="{{ last(request()->segments()) == 'contact_messages' ? 'active-admin-menu' : '' }}"  
+  >Üzenetek az oldalról</a>
 </div>
 
 <i class="fas fa-bars" id="sidenav-open" onclick="openNav()"></i>
@@ -53,6 +57,10 @@
       @isset($animal_types)
         @include('partials.admin.species_list', ['animal_types', $animal_types])
       @endisset
+    @elseif (last(request()->segments()) == 'contact_messages')
+      @isset($contact_messages)
+        @include('partials.admin.contact_messages', ['contact_messages', $contact_messages])
+      @endisset
     @endif
 </div>
 
@@ -65,7 +73,6 @@
   z-index: 2; 
   top: 0; 
   left: 0;
-  background-color: #111; 
   overflow-x: hidden; 
   padding-top: 60px; 
   transition: 0.5s;

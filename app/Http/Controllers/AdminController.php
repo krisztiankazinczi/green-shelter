@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Adoption;
 use App\Models\AnimalType;
+use App\Models\ContactForm;
+use Jenssegers\Date\Date;
 
 class AdminController extends Controller
 {
@@ -27,5 +29,11 @@ class AdminController extends Controller
     public function animalTypes() {
         $animal_types = AnimalType::all();
         return view('pages/admin', compact('animal_types'));
+    }
+
+    public function contactMessages() {
+        Date::setLocale('hu');
+        $contact_messages = ContactForm::orderBy('created_at', 'DESC')->get();
+        return view('pages/admin', compact('contact_messages'));
     }
 }
