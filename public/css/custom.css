@@ -1,0 +1,12 @@
+
+ /* Kapcsolat page */
+@media (max-width: 1020px) {
+  #contact-form-container {
+    width: 75% !important;
+  }
+}
+@media (max-width: 600px) {
+  #contact-form-container {
+    width: 100% !important;
+  }
+}

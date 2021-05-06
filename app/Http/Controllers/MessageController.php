@@ -117,12 +117,13 @@ class MessageController extends Controller
             'from_id'=>'required',
             'to_id'=>'required',
             'animal_id'=>'required',
-            'subject'=>'required|max:150',
+            'subject'=>'required|min:5|max:150',
             'message'=>'required',
         ];
         $customMessages = [
             'required' => 'A mezőt kötelező kitölteni.',
             'max' => 'Meghaladtad a maximális karakterhosszt (:max).',
+            'min' => 'Nem érted el a minimális karakterhosszt (:min).',
         ];
         $this->validate($request, $rules, $customMessages);
 

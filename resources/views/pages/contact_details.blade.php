@@ -14,7 +14,7 @@
 <h1>Kapcsolat</h1>
 ................................................................
 
- <div class="container mt-4 w-50">
+ <div class="container mt-4 w-50" id="contact-form-container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -73,7 +73,7 @@
 
                     <div class="form-group mb-0">
                       <div class="d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary d-block">
+                          <button type="submit" class="btn btn-primary d-block" onclick="validateContactForm(event)">
                               {{ __('Üzenet küldése') }}
                           </button>
                       </div>
@@ -84,5 +84,9 @@
         </div>
     </div>
   </div>
+
+<style>
+ 
+</style>
 
 @endsection
