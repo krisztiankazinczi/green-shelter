@@ -18,6 +18,7 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="{{ asset('js/share.js') }}"></script> <!-- for social share package -->
       <script src="{{ asset('js/custom.js') }}"></script>
+      <script src="{{ asset('js/validation.js') }}"></script>
     </head>
     <body style="overflow-x: hidden;">
       <div class="d-flex flex-column vh-100">

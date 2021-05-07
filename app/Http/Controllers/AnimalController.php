@@ -37,9 +37,24 @@ class AnimalController extends Controller
         $category = Category::with('menu')->where('menu_id', $menu->id)->first();
         $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')
             ->where('menu_id', $menu->id)
-            ->where('adopted', false)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
+            ->where('adopted', false);
+        
+        if ($request->query('t')) {
+            $searchFor = $request->query('t');
+            $animals = $animals->where(function ($q) use ($searchFor) {
+                $q->where('title', 'like', "%{$searchFor}%")
+                    ->orWhere('description', 'like', "%{$searchFor}%");
+            });
+        }
+        if ($request->query('filter')) {
+            if ($request->query('order')) {
+                $animals = $animals->orderBy($request->query('filter'), $request->query('order'))->get();
+            } else {
+                $animals = $animals->orderBy($request->query('filter'), 'DESC')->get();
+            }
+        } else {
+            $animals = $animals->orderBy('updated_at', 'DESC')->get();
+        }
         return view('pages/animals', compact('animals', 'category', 'menu', 'create_button_role_id'));
     }
 
