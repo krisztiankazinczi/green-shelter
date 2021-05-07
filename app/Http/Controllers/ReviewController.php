@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class ReviewController extends Controller
 {
     public function index() {
-        $reviews = Review::with('adoption', 'adoption.user')->get();
+        $reviews = Review::with('adoption', 'adoption.user')->orderBy('updated_at', 'DESC')->get();
         
         $buttonFunction = null;
         $myReview = null;

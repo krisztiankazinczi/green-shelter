@@ -24,9 +24,6 @@ class LikeController extends Controller
     }
 
     public function myLikes() {
-        // $animals = Animal::join('likes', 'animals.id', '=', 'likes.animal_id')->with('images', 'animalType', 'menu', 'likesCount')
-        // ->where('likes.user_id', Auth::user()->id)
-        // ->get();
         $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')->whereHas('likedByMe')->get();
         return view('pages/my_likes', compact('animals'));
     }

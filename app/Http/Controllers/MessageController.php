@@ -23,6 +23,7 @@ class MessageController extends Controller
                 ->where('to_id', Auth::user()->id)
                 ->where('archived', false)
                 ->where('inTrash', false)
+                ->orderBy('created_at', 'DESC')
                 ->get();
         }
         if ($type == 'sent') {
@@ -30,6 +31,7 @@ class MessageController extends Controller
                 ->where('from_id', Auth::user()->id)
                 ->where('archived', false)
                 ->where('inTrash', false)
+                ->orderBy('created_at', 'DESC')
                 ->get();
         }
         if ($type == 'archived') {
@@ -38,6 +40,7 @@ class MessageController extends Controller
                     ->orWhere('to_id', Auth::user()->id);
             })->where('archived', true)
             ->where('inTrash', false)
+            ->orderBy('created_at', 'DESC')
             ->get();
         }
         if ($type == 'trash') {
@@ -46,6 +49,7 @@ class MessageController extends Controller
                     ->orWhere('to_id', Auth::user()->id);
             })->where('archived', false)
             ->where('inTrash', true)
+            ->orderBy('created_at', 'DESC')
             ->get();
         }
 

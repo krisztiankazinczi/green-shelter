@@ -35,7 +35,11 @@ class AnimalController extends Controller
         $create_button_role_id = $create_menu->role_id;
         // redirect if not exists
         $category = Category::with('menu')->where('menu_id', $menu->id)->first();
-        $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')->where('menu_id', $menu->id)->where('adopted', false)->get();
+        $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')
+            ->where('menu_id', $menu->id)
+            ->where('adopted', false)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
         return view('pages/animals', compact('animals', 'category', 'menu', 'create_button_role_id'));
     }
 
@@ -45,7 +49,7 @@ class AnimalController extends Controller
      */
     public function create($page)
     {
-        $animal_types = AnimalType::all();
+        $animal_types = AnimalType::orderBy('name')->get();
         return view('pages/create_animal', compact('animal_types', 'page'));
     }
 
@@ -164,7 +168,7 @@ class AnimalController extends Controller
     public function edit($page, $id)
     {
         $animal = Animal::with('images', 'menu')->where('id', $id)->first();
-        $animal_types = AnimalType::all();
+        $animal_types = AnimalType::orderBy('name',)->get();
         return view('pages/edit_animal', compact('animal', 'page', 'animal_types'));
     }
 
@@ -284,7 +288,10 @@ class AnimalController extends Controller
     }
 
     public function successStories() {
-        $animals = Animal::with('images', 'menu', 'animalType')->where('adopted', true)->get();
+        $animals = Animal::with('images', 'menu', 'animalType')
+            ->where('adopted', true)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
         $category = Category::with('menu')->where('id', 4)->first();
         if (!$animals || !$category) {
             return redirect('home')->with('error', 'Az oldal jelenleg nem elérhető, ezért visszairányítottunk a főoldalra..');
