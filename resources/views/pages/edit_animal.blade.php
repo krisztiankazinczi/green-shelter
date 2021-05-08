@@ -32,7 +32,7 @@
                     <div class="form-group row">
                       <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Leírás') }}</label>
                       <div class="col-md-10">
-                          <div style="@error('description') border: 1px solid red; @enderror">
+                          <div class="@error('description') special-input-error @enderror">
                             <textarea id="description" class="form-control" name="description">{{ old('description', $animal->description) }}</textarea>
                           </div>
                           <div>
@@ -69,7 +69,7 @@
                       <label for="images" class="col-md-2 col-form-label text-md-right">{{ __('Képek') }}</label>
                       <div class="col-md-10">
                           <div class="input-group">
-                            <div class="custom-file" style="@error('images') border: 1px solid red; @enderror">
+                            <div class="custom-file @error('images') special-input-error @enderror">
                               <input type="file" class="custom-file-input" id="images" name="images[]" accept="image/*" multiple>
                               <label class="custom-file-label" for="images" id="file-names"></label>
                             </div>
@@ -89,21 +89,14 @@
                            @foreach ($errors->getMessages() as $key => $message)
                               {{$key}}
                           @endforeach
-                        <div class="row user-image mb-3 text-center mt-4">
+                        <div class="mt-4 mb-3 text-center row user-image">
                           <div class="imgPreview">
                           
                           </div>
-                          
                         </div>   
                       </div>
                     </div>
-                    @if(!empty(Session::get('success')))
-                      <div class="alert alert-success"> {{ Session::get('success') }}</div>
-                    @endif
-                    @if(!empty(Session::get('error')))
-                      <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-                    @endif
-                    <div class="form-group mb-0">
+                    <div class="mb-0 form-group">
                       <div class="d-flex justify-content-end">
                           <button type="submit" class="btn btn-primary d-block">
                               {{ __('Hirdetés Módosítása') }}
@@ -112,7 +105,7 @@
                     </div>
                   </form>
 
-                    <div class="row user-image mb-3 text-center mt-4 ml-4">
+                    <div class="mt-4 mb-3 ml-4 text-center row user-image">
                       @foreach( $animal->images as $image )
                         <div class="position-relative">
                           <img src="/images/{{$image->filename}}" style="height: 200px; margin-right: 10px; margin-bottom:10px; max-width: 400px; {{ $image->main ? 'border: 10px solid blue;' : '' }}" />

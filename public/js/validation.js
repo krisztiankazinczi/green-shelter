@@ -102,3 +102,36 @@ const validateContactForm = (event) => {
   const form = subject.parentElement.parentElement.parentElement;
   form.submit();
 }
+
+// const validateCreateSpeciesForm = (event) => {
+//   event.preventDefault();
+//   const name = document.getElementById('name');
+//   const description = CKEDITOR.instances['description'].getData();
+//   const image = document.getElementById('image');
+
+//   clearFormErrors([name, image]);
+
+//   const fields = [
+//     { field: name, margin: 'small', rules: {'max': 255, 'min': 5} },
+//     // { field: image, margin: 'small', rules: {} },
+//   ];
+
+//   const errors = validateFields(fields);
+//   createVisualErrors(errors);
+//   console.log(image);
+//   createVisualErrorsForImageInput(image);
+//   // console.log(description)
+//   // console.log(image.value);
+//   // console.log(name.value);
+// }
+
+// const createVisualErrorsForImageInput = (htmlInputField) => {
+//     const inputContainer = document.getElementById('image-container');
+//     console.log(inputContainer);
+//     inputContainer.classList.add('image-input-error');
+//     const node = document.createElement("SPAN");
+//     node.className = `invalid-feedback subject-error`;                
+//     const textnode = document.createTextNode('valamilyen hiba');         
+//     node.appendChild(textnode);                             
+//     inputContainer.parentEElement.append(node);
+// }

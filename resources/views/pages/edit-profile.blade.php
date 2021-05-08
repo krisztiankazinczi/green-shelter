@@ -59,7 +59,7 @@
             <div class="form-group row">
               <label for="image" class="col-md-2 col-form-label text-md-right">{{ __('Profilkép') }}</label>
               <div class="col-md-10">
-                <div class="input-group">
+                <div class="input-group @error('image') special-input-error @enderror">
                   <div class="custom-file" style="@error('images') border: 1px solid red; @enderror">
                     <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
                     <label class="custom-file-label" for="image" id="file-name"></label>

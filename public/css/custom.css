@@ -3,6 +3,12 @@
   cursor: pointer;
 }
 
+.special-input-error {
+  border: 1.5px solid #ff7851;
+  border-radius: 8px;
+  z-index: 2;
+}
+
 /* Global Messages From Server */
 #message-from-server > div:first-child {
   top: -30px; 
