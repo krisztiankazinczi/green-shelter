@@ -325,7 +325,7 @@ class AnimalController extends Controller
             ->where('adopted', true)
             ->orderBy('updated_at', 'DESC')
             ->get();
-        $category = Category::with('menu')->where('id', 4)->first();
+        $category = Category::with('menu')->where('id', 6)->first();
         if (!$animals || !$category) {
             return redirect('home')->with('error', 'Az oldal jelenleg nem elérhető, ezért visszairányítottunk a főoldalra..');
         }
@@ -337,7 +337,7 @@ class AnimalController extends Controller
         if (!$animal) {
             return redirect('home')->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
-        return view('pages/adopted', compact('animal'));
+        return view('pages/animal', compact('animal'));
     }
 
     public function adopt($page, $id) {

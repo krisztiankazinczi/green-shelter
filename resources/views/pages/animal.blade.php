@@ -3,8 +3,10 @@
 @section('title', $animal->title)
 
 @section('content')
-  <div class="container">
-    <div class="d-flex justify-content-center">
+<div class="mt-5 mb-5 d-flex justify-content-center">
+  <div class="mx-3 card animal-card">
+    <div class="card-body">
+      <div class="d-flex justify-content-center">
       @if(!empty(Session::get('success')))
         <div class="alert alert-success"> {{ Session::get('success') }}</div>
       @endif
@@ -24,33 +26,20 @@
     <div class="d-flex justify-content-center">
       <h1>{{ $animal->title }}</h1>
     </div>
-    <div class="d-flex justify-content-center">
-      <h3 class="mt-5">{!! $animal->description !!}</h3>
+    <div class="mt-2 d-flex justify-content-end">
+      <h5 class="font-italic">Hirdetés feladása: <span class="font-weight-bold">{{ Date::parse($animal->updated_at)->format('Y F j.') }}</span></h5>
     </div>
-    <div class="mt-5 container-fluid">
-      <div class="mt-4 mb-3 text-center row user-image">
-        @foreach ($animal->images as $image)
-            <img src="/images/{{$image->filename}}" alt="{{ $animal->title }}" style="height: 300px; margin-right: 10px; margin-bottom:10px; max-width: 600px; {{ $image->main ? 'border: 10px solid blue;' : '' }}" />
-        @endforeach
-      </div>
-    </div>
-    
-    <div class="d-flex justify-content-between">
-      <a href="{{ url()->previous() }}">
-        <button class="btn btn-primary" >
-          Vissza
-        </button>
-      </a>
-      <div class="d-flex justify-content-end align-items-center">
+    <div class="d-flex justify-content-center animal-action-container">
+      <div class="mt-4 d-flex justify-content-center align-items-center">
         @include('partials.like_icon_count', [
           'likesCount' => $animal->likesCount, 
           'animal_id' => $animal->id,
-          'icon_classes' => 'mr-3 mb-0 h3',
+          'icon_classes' => 'mr-4 mb-0 h3',
         ])
         @auth
           <div>
             <i 
-              class="far fa-envelope-open mr-3 mb-0 h3"
+              class="mb-0 mr-4 far fa-envelope-open h3"
               style="cursor: pointer; color: #38C172"
               data-toggle="modal" 
               data-target="#send-message-{{ $animal->id }}"
@@ -66,7 +55,7 @@
           </div>
         @endauth
         @include('partials.social_share', [
-          'main_icon_classes' => 'mr-3 mb-0 h3',
+          'main_icon_classes' => 'mr-4 mb-0 h3',
           'collapse_id' => $animal->id . '-collapse',
           'url' => Request::url(),
         ])
@@ -74,7 +63,7 @@
           @if ($adoptionRequest)
             <button 
               type="submit" 
-              class="mr-3 btn btn-danger" 
+              class="mr-4 btn btn-danger" 
               data-toggle="modal" 
               data-target="#{{ $animal->id . '-adopt-revert' }}"
             >
@@ -94,7 +83,7 @@
           @else
             <button 
               type="submit" 
-              class="mr-3 btn btn-success" 
+              class="mr-4 btn btn-success" 
               data-toggle="modal" 
               data-target="#{{ $animal->id . '-adopt' }}"
             >
@@ -113,11 +102,13 @@
             ])    
           @endif
         @endif
+      </div>
+      <div class="mt-4 d-flex justify-content-center align-items-center">
         <div class="flex-row d-flex">
           @if (Auth::user() && Auth::user()->role_id == 3)
             @if (!$animal->animal_of_the_week)
               <button 
-                class="mr-3 btn btn-success" 
+                class="mr-4 btn btn-success" 
                 data-toggle="modal" 
                 data-target="#{{ $animal->id . '-animal-of-week' }}"
               >
@@ -139,7 +130,7 @@
           @endif
           @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
             <a href="{{ Request::url() }}/edit">
-              <button class="mr-3 btn btn-warning" >
+              <button class="mr-4 btn btn-warning" >
                 Szerkesztés
               </button>
             </a>
@@ -165,9 +156,34 @@
                 ])  
             @endif    
           @endif
-      
-      </div>
+        
+        </div>
       </div>
     </div>
+    <div class="d-flex justify-content-center">
+      <h4 class="mx-4 mt-5 text-justify" style="line-height: 30px;">{!! $animal->description !!}</h4>
+    </div>
+    <div class="mt-5 container-fluid">
+      <div class="mt-4 mb-3 user-image animal-photos">
+        @foreach ($animal->images as $image)
+            <img 
+              src="/images/{{$image->filename}}" 
+              alt="{{ $animal->title }}" 
+              style="{{ $image->main ? 'border: 10px solid;' : '' }} box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;" 
+              class="{{ $image->main ? 'border-secondary' : '' }}"
+            />
+        @endforeach
+      </div>
+    </div>
+    
+    <div class="d-flex justify-content-between">
+      <a href="{{ url()->previous() }}">
+        <button class="btn btn-primary" >
+          Vissza
+        </button>
+      </a>
+      
+    </div>
   </div>
+</div>
 @endsection

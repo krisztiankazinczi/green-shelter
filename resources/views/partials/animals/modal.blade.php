@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <a href="/animals/{{ $animal->menu->route }}/{{ $animal->id }}">
+        <a href="{{ !$animal->adopted ? '/animals/' . $animal->menu->route : '/success-stories' }}/{{ $animal->id }}">
           <button type="button" class="btn btn-secondary">Megtekintés</button>
         </a>
         @if (Auth::user() && ($animal->user_id == Auth::user()->id || Auth::user()->role_id == 3))
