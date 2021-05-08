@@ -3,7 +3,7 @@
   cursor: pointer;
 }
 
- /* Kapcsolat page */
+ /* Contact Details page */
 @media (max-width: 1020px) {
   #contact-form-container {
     width: 75% !important;
@@ -12,6 +12,17 @@
 @media (max-width: 600px) {
   #contact-form-container {
     width: 100% !important;
+  }
+}
+
+@media (max-width: 750px) {
+  .contact-details-container {
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .contact-details-container > div:nth-child(2) {
+    margin-top: 3rem;
   }
 }
 
@@ -164,6 +175,17 @@
     font-size: 1rem;
   }
 }
+
+.create-advertisement-button {
+  bottom: 40px;
+  right: 40px; 
+  z-index: 1000; 
+  padding: 10px; 
+  font-size: 40px; 
+  border-radius: 50%; 
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, .15);
+}
+
 
 
 

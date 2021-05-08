@@ -8,7 +8,7 @@
 
 @section('content')
 
-<div id="adminSideNav" class="sidenav bg-primary">
+<div id="adminSideNav" class="sidenav bg-secondary">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a 
     href="{{ route('admin.adoption', ['type' => 'requested']) }}"

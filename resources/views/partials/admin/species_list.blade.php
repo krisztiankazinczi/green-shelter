@@ -13,7 +13,7 @@
         </button>
       </a>
     </div>
-    <table class="table mt-3">
+    <table class="table mt-3 table-striped">
         <thead>
             <tr>
               <th scope="col">Kép</th>

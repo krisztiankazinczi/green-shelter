@@ -34,8 +34,6 @@ class AnimalController extends Controller
      */
     public function index(Request $request, $page)
     {
-        Date::setLocale('hu');
-
         $searchFor = $request->query('t');
         $filter_by = $request->query('filter');
         $order = $request->query('order');

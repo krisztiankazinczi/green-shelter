@@ -1,6 +1,6 @@
 <div class="mt-5 container-fluid">
     <h2>{{ $title }}</h2>
-    <table class="table mt-3">
+    <table class="table mt-3 table-striped">
         <thead>
             <tr>
               <th scope="col">Hirdetés címe</th>
