@@ -3,7 +3,7 @@
 @section('title', 'Profil - ' . Auth::user()->name)
 
 @section('content')
-  <div class="container">
+  <div class="container mt-4">
     <div class="row">
       <div class="col-12 col-sm-5 col-md-3 col-lg-2">
         <div class="d-flex justify-content-center align-items-center flex-column">
@@ -15,25 +15,25 @@
           <a href="{{ route('edit.profile') }}">
             <button 
               type="button"
-              class="btn btn-secondary btn-sm mt-4"
+              class="mt-4 btn btn-secondary btn-sm"
             >Szerkesztés</button>
           </a>
           <a href="#">
             <button 
               type="button"
-              class="btn btn-secondary btn-sm mt-2"
+              class="mt-2 btn btn-secondary btn-sm"
             >Jelszó változtatás</button>
           </a>
           <a href="#">
             <button 
               type="button"
-              class="btn btn-danger btn-sm mt-2"
+              class="mt-2 btn btn-danger btn-sm"
             >Profil törlése</button>
           </a>
         </div>
       </div>
       <div class="col-12 col-sm-7 col-md-9 col-lg-10">
-        <div class="row ml-3 mt-3">
+        <div class="mt-3 ml-3 row">
           <div class="col-md-2">
             Name 
           </div>
@@ -41,7 +41,7 @@
             {{ Auth::user()->name }}
           </div>
         </div>
-        <div class="row ml-3 mt-3">
+        <div class="mt-3 ml-3 row">
           <div class="col-md-2">
             Email 
           </div>
@@ -49,7 +49,7 @@
             {{ Auth::user()->email }}
           </div>
         </div>
-        <div class="row ml-3 mt-3">
+        <div class="mt-3 ml-3 row">
           <div class="col-md-2">
             Bio 
           </div>

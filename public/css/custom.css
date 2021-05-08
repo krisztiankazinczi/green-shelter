@@ -146,5 +146,24 @@
   color: #ff5700;
 }
 
+/* Animals Jumbotron */
+.animals-jumbotron-title {
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-inline-start: 1rem solid; 
+  border-inline-start-color: #78C2AD;
+}
+
+.animals-jumbotron-description {
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-inline-end: 1rem solid; 
+  border-inline-end-color: #78C2AD;
+}
+
+@media (max-width: 970px) {
+  .animals-jumbotron-description {
+    font-size: 1rem;
+  }
+}
+
 
 
