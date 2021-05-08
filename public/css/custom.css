@@ -186,6 +186,13 @@
   box-shadow: 0 0 10px 4px rgba(0, 0, 0, .15);
 }
 
-
-
+/* Animal Type Page */
+.animal-type-border-bottom {
+  box-shadow: 
+    rgba(234, 79, 86, 0.4) 0px 5px, 
+    rgba(234, 79, 86, 0.3) 0px 10px, 
+    rgba(234, 79, 86, 0.2) 0px 15px, 
+    rgba(234, 79, 86, 0.1) 0px 20px, 
+    rgba(234, 79, 86, 0.05) 0px 25px;
+}
 
