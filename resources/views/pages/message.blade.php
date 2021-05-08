@@ -3,12 +3,6 @@
 @section('message_content')
   <div class="mt-5 w-100 d-flex justify-content-center">
     <div class="card" style="width: 600px;">
-      @if(!empty(Session::get('success')))
-        <div class="alert alert-success"> {{ Session::get('success') }}</div>
-      @endif
-      @if(!empty(Session::get('error')))
-        <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-      @endif
       <div class="mt-3 ml-3 d-flex justify-content-between align-items-center">
         <div class="d-flex justify-content-center align-items-center">
           <img 

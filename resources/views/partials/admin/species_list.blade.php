@@ -1,10 +1,4 @@
 <div class="mt-5 container-fluid">
-  @if(!empty(Session::get('success')))
-      <div class="alert alert-success"> {{ Session::get('success') }}</div>
-  @endif
-  @if(!empty(Session::get('error')))
-      <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-  @endif
     <div class="d-flex justify-content-between">
       <h2>Regisztrált állatfajták az oldalon</h2>
       <a href="{{ route('show.create.species') }}" class="text-decoration-none">

@@ -44,14 +44,8 @@
 @section('content')
   <div class="container">
     <div class="d-flex justify-content-center align-items-center flex-column">
-      @if(!empty(Session::get('success')))
-        <div class="alert alert-success"> {{ Session::get('success') }}</div>
-      @endif
-      @if(!empty(Session::get('error')))
-        <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-      @endif
       <div class="position-relative w-100 d-flex justify-content-center align-items-center">
-        <h1 class="mb-4">Rólunk mondták</h1>
+        <h1 class="mt-4 mb-4">Rólunk mondták</h1>
         @if ($buttonFunction == 'create')
           <button 
             type="button" 

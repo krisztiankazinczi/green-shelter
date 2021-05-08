@@ -6,7 +6,8 @@
       <title>@yield('title') - Zöldmenedék</title>
       <!-- Fonts -->
       <link rel="dns-prefetch" href="//fonts.gstatic.com">
-      <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+      {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
+      <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans" rel="stylesheet">
       <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
       <link rel="stylesheet" href="{{asset('css/app.css')}}"> 
       <link rel="stylesheet" href="{{asset('css/custom.css')}}">
@@ -23,9 +24,20 @@
     <body style="overflow-x: hidden;">
       <div class="d-flex flex-column vh-100">
         @include('partials.nav')
+        @if (!empty(Session::get('success')) || !empty(Session::get('error')))
+          <div class="d-flex justify-content-center position-relative" id="message-from-server">
+            <div class="p-4 rounded {{ !empty(Session::get('success')) ? 'bg-success' : 'bg-danger' }} position-absolute w-50">
+              <h3 class="text-white">{{ !empty(Session::get('success')) ? 'Sikeres' : 'Hiba' }}</h3>
+              <h5 class="mt-2 text-white">{{ !empty(Session::get('success')) ? Session::get('success') : Session::get('error') }}</h5>
+            </div>
+            <button type="button" class="mb-1 ml-2 close position-absolute" aria-label="Close" onclick="closeMessageFromServer()">
+              <span class="text-white h1" aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        @endif
         <main class="flex-grow-1">@yield('content')</main>
         @include('partials.footer')
       </div>
-     
+
     </body>
 </html> 

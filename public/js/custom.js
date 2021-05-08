@@ -24,3 +24,9 @@ const createUrlFromSearchParams = (searchFor, filter_by, order) => {
 const closeModal = (modal_id) => {
   $(`#${modal_id}`).modal('hide');
 }
+
+const closeMessageFromServer = () => {
+  const serverMessage = document.getElementById('message-from-server');
+  serverMessage.remove();
+
+}

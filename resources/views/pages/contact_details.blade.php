@@ -4,12 +4,6 @@
 
 @section('content')
 <div class="d-flex justify-content-center">
-  @if(!empty(Session::get('success')))
-    <div class="alert alert-success"> {{ Session::get('success') }}</div>
-  @endif
-  @if(!empty(Session::get('error')))
-    <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-  @endif
 </div>
 <div class="mt-4 d-flex justify-content-center align-items-center flex-column">
   <h1><span class="border-bottom border-primary" style="border-width: 5px !important;">Elérhetőségeink</span></h1>

@@ -3,6 +3,34 @@
   cursor: pointer;
 }
 
+/* Global Messages From Server */
+#message-from-server > div:first-child {
+  top: -30px; 
+  right: 25%; 
+  z-index: 10000; 
+  box-shadow: 
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, 
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, 
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+#message-from-server > button {
+  top: -30px; 
+  right: 27%; 
+  z-index: 11000;
+}
+
+@media (max-width: 800px) {
+  #message-from-server > div:first-child {
+    width: 90% !important;
+    right: 5% !important;
+  }
+  #message-from-server > button {
+    right: 8% !important;
+  }
+}
+
+
  /* Contact Details page */
 @media (max-width: 1020px) {
   #contact-form-container {

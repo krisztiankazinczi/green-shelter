@@ -7,12 +7,6 @@
   <div class="mx-3 card animal-card">
     <div class="card-body">
       <div class="d-flex justify-content-center">
-      @if(!empty(Session::get('success')))
-        <div class="alert alert-success"> {{ Session::get('success') }}</div>
-      @endif
-      @if(!empty(Session::get('error')))
-        <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-      @endif
     </div>
     <p class="text text-danger">
       @isset($animal->adoptions)

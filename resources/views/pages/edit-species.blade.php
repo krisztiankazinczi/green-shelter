@@ -75,14 +75,6 @@
                   </button>
               </div>
             </div>
-
-            @if(!empty(Session::get('success')))
-              <div class="alert alert-success"> {{ Session::get('success') }}</div>
-            @endif
-            @if(!empty(Session::get('error')))
-              <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-            @endif
-
           </form>
         </div>
       </div>

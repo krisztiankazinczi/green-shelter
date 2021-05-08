@@ -2,12 +2,6 @@
 
 @section('message_content')
   @if ($isDesktop) 
-      @if(!empty(Session::get('success')))
-        <div class="alert alert-success"> {{ Session::get('success') }}</div>
-      @endif
-      @if(!empty(Session::get('error')))
-        <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-      @endif
     <table class="table" id="messages-container">
       <tbody class="border-on-last">
         @isset($messages)

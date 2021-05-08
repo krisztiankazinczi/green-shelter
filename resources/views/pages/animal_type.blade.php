@@ -3,12 +3,6 @@
 @section('title', $animal_type->name)
 
 @section('content')
-  @if(!empty(Session::get('success')))
-    <div class="alert alert-success"> {{ Session::get('success') }}</div>
-  @endif
-  @if(!empty(Session::get('error')))
-    <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-  @endif
   <div class="row animal-type-border-bottom">
     <div class="col-12 col-md-6">
       <div class="mt-5 mb-2 d-flex justify-content-center align-items-center" style="max-width: 100%;">

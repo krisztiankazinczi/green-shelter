@@ -79,15 +79,7 @@
               </div>   
               </div>
             </div>
-
-
-            @if(!empty(Session::get('success')))
-              <div class="alert alert-success"> {{ Session::get('success') }}</div>
-            @endif
-            @if(!empty(Session::get('error')))
-              <div class="alert alert-danger"> {{ Session::get('error') }}</div>
-            @endif
-            <div class="form-group mb-0">
+            <div class="mb-0 form-group">
               <div class="d-flex justify-content-end">
                   <button type="submit" class="btn btn-primary d-block">
                       {{ __('Profil Módosítása') }}
