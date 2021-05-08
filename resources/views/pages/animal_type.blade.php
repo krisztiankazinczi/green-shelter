@@ -19,5 +19,8 @@
         <h5 class="p-3 mt-4 mr-3 text-white animals-jumbotron-description">{{ $animal_type->description }}</h5>
     </div>
   </div>
-    @include('partials.grid', ['animals' => $animals])
+  <div class="mt-5">
+    @include('partials.search_order')
+  </div>
+  @include('partials.grid', ['animals' => $animals])
 @endsection

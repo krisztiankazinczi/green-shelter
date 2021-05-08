@@ -4,7 +4,7 @@
 
 @section('content')
   <div class="container mt-4">
-    <div class="row">
+    <div class="p-5 row animal-card">
       <div class="col-12 col-sm-5 col-md-3 col-lg-2">
         <div class="d-flex justify-content-center align-items-center flex-column">
           <img

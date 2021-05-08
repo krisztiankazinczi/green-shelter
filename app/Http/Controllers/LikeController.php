@@ -23,8 +23,30 @@ class LikeController extends Controller
         return redirect()->back();
     }
 
-    public function myLikes() {
-        $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')->whereHas('likedByMe')->get();
+    public function myLikes(Request $request) {
+        $searchFor = $request->query('t');
+        $filter_by = $request->query('filter');
+        $order = $request->query('order');
+
+        $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')->whereHas('likedByMe');
+        if ($searchFor) {
+            $animals = $animals->where(function ($q) use ($searchFor) {
+                $q->where('title', 'like', "%{$searchFor}%")
+                    ->orWhere('description', 'like', "%{$searchFor}%");
+            });
+        }
+        if ($filter_by) {
+            if ($order) {
+                $animals = $animals->orderBy($filter_by, $order)->get();
+            } else {
+                $animals = $animals->orderBy($filter_by, 'DESC')->get();
+            }
+        } elseif ($order) {
+            $animals = $animals->orderBy('updated_at', $order)->get();
+        } else {
+            $animals = $animals->orderBy('updated_at', 'DESC')->get();
+        }
+        
         return view('pages/my_likes', compact('animals'));
     }
 }

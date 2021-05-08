@@ -10,12 +10,32 @@ use Illuminate\Support\Str;
 
 class AnimalTypeController extends Controller
 {
-    public function index($type_id) {
+    public function index(Request $request, $type_id) {
+        $searchFor = $request->query('t');
+        $filter_by = $request->query('filter');
+        $order = $request->query('order');
+
         $animals = Animal::with('images', 'animalType', 'menu')
-            ->where('animal_type_id', $type_id)
-            ->where('adopted', false)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
+            ->where('animal_type_id', $type_id);
+
+        if ($searchFor) {
+            $animals = $animals->where(function ($q) use ($searchFor) {
+                $q->where('title', 'like', "%{$searchFor}%")
+                    ->orWhere('description', 'like', "%{$searchFor}%");
+            });
+        }
+        if ($filter_by) {
+            if ($order) {
+                $animals = $animals->orderBy($filter_by, $order)->get();
+            } else {
+                $animals = $animals->orderBy($filter_by, 'DESC')->get();
+            }
+        } elseif ($order) {
+            $animals = $animals->orderBy('updated_at', $order)->get();
+        } else {
+            $animals = $animals->orderBy('updated_at', 'DESC')->get();
+        }
+
         $animal_type = AnimalType::where('id', $type_id)->first();
         return view('pages/animal_type', compact('animals', 'animal_type'));
     }

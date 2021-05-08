@@ -55,7 +55,7 @@ class AnimalController extends Controller
         $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')
             ->where('menu_id', $menu->id)
             ->where('adopted', false);
-        
+
         if ($searchFor) {
             $animals = $animals->where(function ($q) use ($searchFor) {
                 $q->where('title', 'like', "%{$searchFor}%")
@@ -320,11 +320,33 @@ class AnimalController extends Controller
         return redirect('home')->with('success', 'Sikeresen töröltük a hirdetést az adatbázisból.');
     }
 
-    public function successStories() {
-        $animals = Animal::with('images', 'menu', 'animalType')
-            ->where('adopted', true)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
+    public function successStories(Request $request) {
+        $searchFor = $request->query('t');
+        $filter_by = $request->query('filter');
+        $order = $request->query('order');
+
+        $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')
+            ->where('adopted', true);
+
+        if ($searchFor) {
+            $animals = $animals->where(function ($q) use ($searchFor) {
+                $q->where('title', 'like', "%{$searchFor}%")
+                    ->orWhere('description', 'like', "%{$searchFor}%");
+            });
+        }
+        if ($filter_by) {
+            if ($order) {
+                $animals = $animals->orderBy($filter_by, $order)->get();
+            } else {
+                $animals = $animals->orderBy($filter_by, 'DESC')->get();
+            }
+        } elseif ($order) {
+            $animals = $animals->orderBy('updated_at', $order)->get();
+        } else {
+            $animals = $animals->orderBy('updated_at', 'DESC')->get();
+        }
+
+
         $category = Category::with('menu')->where('id', 6)->first();
         if (!$animals || !$category) {
             return redirect('home')->with('error', 'Az oldal jelenleg nem elérhető, ezért visszairányítottunk a főoldalra..');
