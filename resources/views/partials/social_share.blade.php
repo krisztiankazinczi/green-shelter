@@ -9,37 +9,17 @@
   <div class="collapsing position-absolute social-popover" id="{{ $collapse_id }}">
     <div class="card" style="border-radius: 100px;">
       <div class="d-flex">
-        {!! Share::page($url, null, ['class' => 'social-icons'])
+        {!! Share::page($url, null, ['class' => 'social-icons facebook'])
           ->facebook() !!}
-        {!! Share::page($url, null, ['class' => 'social-icons'])
+        {!! Share::page($url, null, ['class' => 'social-icons twitter'])
           ->twitter() !!}
-        {!! Share::page($url, null, ['class' => 'social-icons'])
+        {!! Share::page($url, null, ['class' => 'social-icons whatsapp'])
           ->whatsapp() !!}
-        {!! Share::page($url, null, ['class' => 'social-icons'])
+        {!! Share::page($url, null, ['class' => 'social-icons pinterest'])
           ->pinterest() !!}
-        {!! Share::page($url, null, ['class' => 'social-icons'])
+        {!! Share::page($url, null, ['class' => 'social-icons reddit'])
           ->reddit() !!}
       </div>
     </div>
   </div>
 </div>
-
-<style>
- #social-links > ul {
-  margin-bottom: 0;
-  padding: 5px;
-  padding-left: 10px;
-  padding-bottom: 3px;
-}
-.social-icons > span {
-  font-size: 30px;
-}
-
-.social-popover {
-  top: -40px; 
-  left: -170px; 
-  width: 220px; 
-  z-index: 1000;
-}
-
-</style>

@@ -8,8 +8,7 @@
       @csrf
       @method('PUT')
         <i 
-          class="@isset($icon_classes) {{ $icon_classes }} @endisset fas fa-heart" 
-          style="cursor: pointer; color: red;"
+          class="@isset($icon_classes) {{ $icon_classes }} @endisset fas fa-heart text-secondary cursor-pointer" 
           onclick="submitLike('{{$animal->id}}')"
         ></i>
     </form>
@@ -22,8 +21,7 @@
     @csrf
     @method('PUT')
       <i 
-        class="@isset($icon_classes) {{ $icon_classes }} @endisset far fa-heart" 
-        @if (Auth::user()) style="cursor: pointer;" @endif
+        class="@isset($icon_classes) {{ $icon_classes }} @endisset far fa-heart @if (Auth::user()) cursor-pointer @endif" 
         @if (Auth::user()) onclick="submitLike('{{$animal->id}}')" @endif
       ></i>
   </form>

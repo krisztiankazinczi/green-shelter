@@ -15,9 +15,17 @@ use App\Models\Image;
 use App\Models\AnimalType;
 use App\Models\Adoption;
 
+use Jenssegers\Date\Date;
+
 
 class AnimalController extends Controller
 {
+
+    public function __construct()
+    {
+        Date::setLocale('hu');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +34,17 @@ class AnimalController extends Controller
      */
     public function index(Request $request, $page)
     {
+        Date::setLocale('hu');
+
+        $searchFor = $request->query('t');
+        $filter_by = $request->query('filter');
+        $order = $request->query('order');
+
+        // if (($filter_by && ($filter_by != 'created_at' || $filter_by != 'title')) && 
+        // ($order && ($order != 'desc' || $order != 'asc'))) {
+        //     return redirect('home')->with('error', 'Érvénytelen url');
+        // }
+
         $menu = Menu::where('route', $page)->first();
         if (!$menu) {
             return redirect('home')->with('error', 'A megnyitni próbált oldal nem létezik, ezért visszairányítottunk a főoldalra');
@@ -39,19 +58,20 @@ class AnimalController extends Controller
             ->where('menu_id', $menu->id)
             ->where('adopted', false);
         
-        if ($request->query('t')) {
-            $searchFor = $request->query('t');
+        if ($searchFor) {
             $animals = $animals->where(function ($q) use ($searchFor) {
                 $q->where('title', 'like', "%{$searchFor}%")
                     ->orWhere('description', 'like', "%{$searchFor}%");
             });
         }
-        if ($request->query('filter')) {
-            if ($request->query('order')) {
-                $animals = $animals->orderBy($request->query('filter'), $request->query('order'))->get();
+        if ($filter_by) {
+            if ($order) {
+                $animals = $animals->orderBy($filter_by, $order)->get();
             } else {
-                $animals = $animals->orderBy($request->query('filter'), 'DESC')->get();
+                $animals = $animals->orderBy($filter_by, 'DESC')->get();
             }
+        } elseif ($order) {
+            $animals = $animals->orderBy('updated_at', $order)->get();
         } else {
             $animals = $animals->orderBy('updated_at', 'DESC')->get();
         }

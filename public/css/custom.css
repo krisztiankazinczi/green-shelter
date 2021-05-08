@@ -1,3 +1,7 @@
+/* Generic */
+.cursor-pointer {
+  cursor: pointer;
+}
 
  /* Kapcsolat page */
 @media (max-width: 1020px) {
@@ -89,3 +93,58 @@
     width: 95% !important;
   }
 }
+
+/* Info_card component */
+.info-card {
+  min-width: 17rem; 
+  max-width: 21rem; 
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, .15);
+}
+.info-card-img-container {
+  border-radius: 6px 6px 0 0; 
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(94, 182, 157, 0.3) 0px 18px 36px -18px inset;
+}
+
+.info-card-img-container > img {
+  border-radius: 6px 6px 0 0; 
+  height: 12rem; 
+  width: auto; 
+  max-width: 100%;
+}
+
+/* Social Share */
+#social-links > ul {
+  margin-bottom: 0;
+  padding: 5px;
+  padding-left: 10px;
+  padding-bottom: 3px;
+}
+.social-icons > span {
+  font-size: 30px;
+}
+
+.social-popover {
+  top: -40px; 
+  left: -75px; 
+  width: 220px; 
+  z-index: 1000;
+}
+
+.facebook {
+  color: #3b5998;
+}
+.twitter {
+  color: #00aced;
+}
+.whatsapp {
+  color: #25d366;
+}
+.pinterest {
+  color: #cb2027;
+}
+.reddit {
+  color: #ff5700;
+}
+
+
+

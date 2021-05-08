@@ -1,10 +1,9 @@
+// Search component's funtions
 const redirectToSearchUrl = () => {
   const searchFor = document.getElementById('search-input');
   const filter_by = document.getElementById('filter_by');
   const order = document.getElementById('order');
-  console.log(searchFor.value);
-  console.log(filter_by.value);
-  console.log(order.value);
+
   const newUrl = createUrlFromSearchParams(
     searchFor.value, 
     filter_by.value, 
@@ -19,4 +18,9 @@ const createUrlFromSearchParams = (searchFor, filter_by, order) => {
   if (filter_by) newUrl += 'filter=' + filter_by + '&';
   if (order) newUrl += 'order=' + order;
   return newUrl;
+}
+
+// Hide send message modal on Info_card component 
+const closeModal = (modal_id) => {
+  $(`#${modal_id}`).modal('hide');
 }
