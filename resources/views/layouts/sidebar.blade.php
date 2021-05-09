@@ -6,17 +6,16 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg" class="img-circle"
-                     alt="User Image"/>
+                <img 
+                    src="{{Auth::user()->avatar_uri ? '/images/' . Auth::user()->avatar_uri : '/images/users/default-profile-image.jpg'}}" 
+                    class="img-circle"
+                    width="100"
+                    height="100"
+                    alt="User Image"/>
+                    
             </div>
-            <div class="pull-left info">
-                @if (Auth::guest())
-                <p>InfyOm</p>
-                @else
-                    <p>{{ Auth::user()->name}}</p>
-                @endif
-                <!-- Status -->
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            <div class="pull-left info mt-3">
+                <p>{{ Auth::user()->name}}</p>
             </div>
         </div>
 

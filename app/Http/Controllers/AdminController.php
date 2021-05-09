@@ -22,6 +22,21 @@ class AdminController extends Controller
         return view('pages/admin', compact('requests'));
     }
 
+    public function adoptionRequests() {
+        $requests = Adoption::with('animal', 'user')->where('status', 'requested')->get();
+        return view('pages.admin.adoption_requests', compact('requests'));
+    }
+
+    public function adoptedAnimals() {
+        $requests = Adoption::with('animal', 'user')->where('status', 'adopted')->get();
+        return view('pages.admin.adopted_requests', compact('requests'));
+    }
+
+    public function rejectedAdoptionRequests() {
+        $requests = Adoption::with('animal', 'user')->where('status', 'rejected')->get();
+        return view('pages.admin.rejected_requests', compact('requests'));
+    }
+
     public function createSpecies() {
         return view('pages/admin');
     }

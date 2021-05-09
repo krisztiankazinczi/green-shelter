@@ -1,5 +1,8 @@
+@extends('layouts.admin')
+
+@section('content')
 <div class="mt-5 container-fluid">
-    <h2>{{ $title }}</h2>
+    <h2>Befogadások</h2>
     <table class="table mt-3 table-striped">
         <thead>
             <tr>
@@ -42,3 +45,4 @@
         </tbody>
     </table>
   </div>
+@endsection

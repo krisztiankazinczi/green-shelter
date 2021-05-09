@@ -53,7 +53,10 @@ Route::group(['middleware' => 'getMenu'], function(){
 
         Route::middleware('isAdmin')->group(function () {
             Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-            Route::get('/admin-dashboard/adoption/{type}', [AdminController::class, 'adoptions'])->name('admin.adoption');
+            // Route::get('/admin-dashboard/adoption/{type}', [AdminController::class, 'adoptions'])->name('admin.adoption');
+            Route::get('/admin-dashboard/adoption/requests', [AdminController::class, 'adoptionRequests'])->name('admin.adoption.requests');
+            Route::get('/admin-dashboard/adoption/rejected', [AdminController::class, 'rejectedAdoptionRequests'])->name('admin.rejected.adoptions');
+            Route::get('/admin-dashboard/adoption/adopted', [AdminController::class, 'adoptedAnimals'])->name('admin.adopteds');
             Route::put('approve-adoption/{id}', [AdoptionController::class, 'approveAdoption'])->name('approve.adoption');
             Route::put('reject-adoption/{id}', [AdoptionController::class, 'rejectAdoption'])->name('reject.adoption');
             Route::put('revert-rejection/{id}', [AdoptionController::class, 'revertAdoptionRejection'])->name('revert.adoption.rejection');
