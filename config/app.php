@@ -233,6 +233,9 @@ return [
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Date' => Jenssegers\Date\Date::class,
         'Share' => Jorenvh\Share\ShareFacade::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Flash' => Laracasts\Flash\Flash::class,
     ],
 
 ];
