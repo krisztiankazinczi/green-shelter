@@ -10,6 +10,14 @@ use Jenssegers\Date\Date;
 
 class AdminController extends Controller
 {
+    protected $adoption;
+
+    public function __construct()
+    {
+        Date::setLocale('hu');
+        $this->adoption = new Adoption();
+    }
+
     public function index() {
         return view('pages/admin');
     }
@@ -28,8 +36,19 @@ class AdminController extends Controller
     }
 
     public function adoptedAnimals() {
+        $adoption = new Adoption();
+        $adoptionsLast7Days = $adoption->adoptionsLastWeek();
+        $adoptionsLast30Days = $adoption->adoptionsLastMonth();
+        $adoptionsLast365Days = $adoption->adoptionsLastYear();
+        $allAdoptions = $adoption->adoptionsAllTime();
         $requests = Adoption::with('animal', 'user')->where('status', 'adopted')->get();
-        return view('pages.admin.adopted_requests', compact('requests'));
+        return view('pages.admin.adopted_requests', compact(
+            'requests', 
+            'adoptionsLast7Days', 
+            'adoptionsLast30Days', 
+            'adoptionsLast365Days', 
+            'allAdoptions'
+        ));
     }
 
     public function rejectedAdoptionRequests() {
@@ -47,7 +66,6 @@ class AdminController extends Controller
     }
 
     public function contactMessages() {
-        Date::setLocale('hu');
         $contact_messages = ContactForm::orderBy('created_at', 'DESC')->get();
         return view('pages/admin', compact('contact_messages'));
     }

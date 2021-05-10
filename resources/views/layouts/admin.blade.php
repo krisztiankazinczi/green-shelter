@@ -65,7 +65,7 @@
                                          width="150" height="150" class="img-circle" alt="User Image"/>
                                     <p>
                                         {{ Auth::user()->name }}
-                                        <small>{{ Auth::user()->created_at->format('M. Y') . ' óta tag' }}</small>
+                                        <small>{{ Date::parse(Auth::user()->created_at)->format('Y F') . ' óta tag' }}</small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->

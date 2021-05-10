@@ -3,6 +3,9 @@
 @section('content')
 <div class="mt-5 container-fluid">
     <h2>Befogadási Kérések</h2>
+
+   
+
     <table class="table mt-3 table-striped">
         <thead>
             <tr>

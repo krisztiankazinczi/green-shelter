@@ -1,8 +1,51 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="mt-5 container-fluid">
+<div class="container-fluid">
     <h2>Befogadások</h2>
+
+     <div class="row" style="margin-top: 20px;">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-aqua"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Befogadások utolsó 7 napban</span>
+              <span class="info-box-number">{{ $adoptionsLast7Days }}</span>
+            </div> 
+          </div> 
+        </div> 
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-red"></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Befogadások utolsó 30 napban</span>
+              <span class="info-box-number">{{ $adoptionsLast30Days }}</span>
+            </div> 
+          </div> 
+        </div> 
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Befogadások az elmúlt évben</span>
+              <span class="info-box-number">{{ $adoptionsLast365Days }}</span>
+            </div> 
+          </div> 
+        </div> 
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Összes befogadás</span>
+              <span class="info-box-number">{{ $allAdoptions }}</span>
+            </div> 
+          </div> 
+        </div> 
+    </div>
+
+<div class="table-responsive">
     <table class="table mt-3 table-striped">
         <thead>
             <tr>
@@ -21,13 +64,13 @@
                 <td>{{ $request->user->email }}</td>
                 <td>{{ $request->updated_at }}</td>
                 <td>
-                  <button 
-                    class="mr-3 btn btn-danger" 
+                  <p 
+                    class="mr-3 btn btn-link" 
                     data-toggle="modal" 
                     data-target="#{{ $request->id . '-adoption-revert' }}"
                   >
                     Befogadás visszavonása
-                  </button>
+                  </p>
                   @include(
                   'partials.modal_confirm', 
                   [
@@ -45,4 +88,5 @@
         </tbody>
     </table>
   </div>
+</div>
 @endsection
