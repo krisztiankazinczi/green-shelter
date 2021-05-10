@@ -4,8 +4,18 @@
 <div class="mt-5 container-fluid">
     <h2>Befogadási Kérések</h2>
 
-   
+    @include('partials.admin.adoption_info_boxes', [
+      'firstBoxText' => 'Utolsó 7 napban',
+      'secondBoxText' => 'Utolsó 30 napban',
+      'thirdBoxText' => 'Utolsó 365 napban',
+      'fourthBoxText' => 'Összes',
+      'last7DaysCount' => $requestedAdoptionsLast7Days,
+      'last30DaysCount' => $requestedAdoptionsLast30Days,
+      'last365DaysCount' => $requestedAdoptionsLast365Days,
+      'allCount' => $allRequestedAdoptions,
+    ])
 
+  <div class="table-responsive" style="margin-top: 30px;">
     <table class="table mt-3 table-striped">
         <thead>
             <tr>
@@ -66,5 +76,6 @@
             @endforeach            
         </tbody>
     </table>
+    </div>
   </div>
   @endsection

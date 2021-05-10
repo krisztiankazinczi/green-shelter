@@ -2,50 +2,20 @@
 
 @section('content')
 <div class="container-fluid">
-    <h2>Befogadások</h2>
+  <h2>Befogadások</h2>
 
-     <div class="row" style="margin-top: 20px;">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Befogadások utolsó 7 napban</span>
-              <span class="info-box-number">{{ $adoptionsLast7Days }}</span>
-            </div> 
-          </div> 
-        </div> 
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Befogadások utolsó 30 napban</span>
-              <span class="info-box-number">{{ $adoptionsLast30Days }}</span>
-            </div> 
-          </div> 
-        </div> 
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Befogadások az elmúlt évben</span>
-              <span class="info-box-number">{{ $adoptionsLast365Days }}</span>
-            </div> 
-          </div> 
-        </div> 
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Összes befogadás</span>
-              <span class="info-box-number">{{ $allAdoptions }}</span>
-            </div> 
-          </div> 
-        </div> 
-    </div>
+  @include('partials.admin.adoption_info_boxes', [
+    'firstBoxText' => 'Utolsó 7 napban',
+    'secondBoxText' => 'Utolsó 30 napban',
+    'thirdBoxText' => 'Utolsó 365 napban',
+    'fourthBoxText' => 'Összes',
+    'last7DaysCount' => $adoptionsLast7Days,
+    'last30DaysCount' => $adoptionsLast30Days,
+    'last365DaysCount' => $adoptionsLast365Days,
+    'allCount' => $allAdoptions,
+  ])
 
-<div class="table-responsive">
+<div class="table-responsive" style="margin-top: 30px;">
     <table class="table mt-3 table-striped">
         <thead>
             <tr>

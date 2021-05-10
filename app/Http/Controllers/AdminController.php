@@ -31,8 +31,19 @@ class AdminController extends Controller
     }
 
     public function adoptionRequests() {
+        $adoption = new Adoption();
+        $requestedAdoptionsLast7Days = $adoption->requestedAdoptionsLastWeek();
+        $requestedAdoptionsLast30Days = $adoption->requestedAdoptionsLastMonth();
+        $requestedAdoptionsLast365Days = $adoption->requestedAdoptionsLastYear();
+        $allRequestedAdoptions = $adoption->requestedAdoptionsAllTime();
         $requests = Adoption::with('animal', 'user')->where('status', 'requested')->get();
-        return view('pages.admin.adoption_requests', compact('requests'));
+        return view('pages.admin.adoption_requests', compact(
+            'requests', 
+            'requestedAdoptionsLast7Days', 
+            'requestedAdoptionsLast30Days', 
+            'requestedAdoptionsLast365Days', 
+            'allRequestedAdoptions'
+        ));
     }
 
     public function adoptedAnimals() {
@@ -52,8 +63,19 @@ class AdminController extends Controller
     }
 
     public function rejectedAdoptionRequests() {
+        $adoption = new Adoption();
+        $rejectedAdoptionsLast7Days = $adoption->rejectedAdoptionsLastWeek();
+        $rejectedAdoptionsLast30Days = $adoption->rejectedAdoptionsLastMonth();
+        $rejectedAdoptionsLast365Days = $adoption->rejectedAdoptionsLastYear();
+        $allRejectedAdoptions = $adoption->rejectedAdoptionsAllTime();
         $requests = Adoption::with('animal', 'user')->where('status', 'rejected')->get();
-        return view('pages.admin.rejected_requests', compact('requests'));
+        return view('pages.admin.rejected_requests', compact(
+            'requests', 
+            'rejectedAdoptionsLast7Days', 
+            'rejectedAdoptionsLast30Days', 
+            'rejectedAdoptionsLast365Days', 
+            'allRejectedAdoptions'
+        ));
     }
 
     public function createSpecies() {
