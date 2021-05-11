@@ -74,7 +74,7 @@ class AnimalTypeController extends Controller
             }
             return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
-        return redirect()->back()->with('success', 'Sikeresen elmentettük az adatbázisban az új fajtát.');
+        return redirect('/admin-dashboard/species-list')->with('success', 'Sikeresen elmentettük az adatbázisban az új fajtát.');
     }
 
     public function show($id) {

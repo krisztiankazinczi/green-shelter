@@ -46,16 +46,16 @@ class AdminController extends Controller
 
 
     public function createSpecies() {
-        return view('pages/admin');
+        return view('pages.admin.create_species');
     }
 
     public function animalTypes() {
         $animal_types = AnimalType::all();
-        return view('pages/admin', compact('animal_types'));
+        return view('pages.admin.species_list', compact('animal_types'));
     }
 
     public function contactMessages() {
         $contact_messages = ContactForm::orderBy('created_at', 'DESC')->get();
-        return view('pages/admin', compact('contact_messages'));
+        return view('pages.admin.contact_messages', compact('contact_messages'));
     }
 }

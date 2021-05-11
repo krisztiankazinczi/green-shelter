@@ -1,3 +1,6 @@
+@extends('layouts.admin')
+
+@section('content')
 <div class="mt-5 container-fluid">
     <div class="d-flex justify-content-between">
       <h2>Regisztrált állatfajták az oldalon</h2>
@@ -29,18 +32,18 @@
                 <td>
                   <div class="d-flex flex-column">
                     <a href="{{ route('anymal.type', ['type_id' => $type->id]) }}" class="text-decoration-none">
-                      <button class="mb-2 btn btn-primary btn-sm btn-block">
+                      <button class="mb-2 btn btn-sm btn-link">
                         Megtekintés
                       </button>
                     </a>
                     {{-- <a href="/type/{{ $type->id }}/edit" class="text-decoration-none"> --}}
                     <a href="{{ route('anymal.type.show', ['id' => $type->id]) }}" class="text-decoration-none">
-                      <button class="mb-2 btn btn-success btn-sm btn-block">
+                      <button class="mb-2 btn btn-sm btn-link">
                         Szerkesztés
                       </button>
                     </a>
                     <button 
-                      class="mb-2 btn btn-danger btn-sm" 
+                      class="mb-2 btn btn-sm btn-link" 
                       data-toggle="modal" 
                       data-target="#{{ $type->id . '-delete-species' }}"
                     >
@@ -64,3 +67,4 @@
         </tbody>
     </table>
   </div>
+@endsection

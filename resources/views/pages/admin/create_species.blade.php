@@ -1,4 +1,9 @@
-<div class="container">
+@extends('layouts.index')
+
+@section('title', 'Új állatfajta létrehozása')
+
+@section('content')
+<div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="card">
@@ -102,3 +107,4 @@
 
 
 </script>
+@endsection
