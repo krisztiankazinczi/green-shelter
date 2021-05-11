@@ -78,13 +78,17 @@
               const result = createWeeklyData(chartData.data);
               xAxisLabels = result.xLabels;
               numberOfRequests = result.numberOfRequests;
+            } else if (chartData.period === 'month') {
+              const result = createMonthlyData(chartData.data);
+              xAxisLabels = result.xLabels;
+              numberOfRequests = result.numberOfRequests;
             }
 
 
             var requestData = {
             label: {!! json_encode($title) !!} + ' száma (db)',
             data: numberOfRequests,
-            backgroundColor: 'rgba(0, 99, 132, 0.6)',
+            backgroundColor: 'rgba(77, 167, 91, 0.6)',
             borderWidth: 0,
             yAxisID: "number-of-requests"
             };

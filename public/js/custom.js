@@ -56,5 +56,70 @@ const createWeeklyData = (dates) => {
   return {
     xLabels: xAxisLabels.reverse(),
     numberOfRequests: numberOfRequests.reverse()
+  }
 }
+
+const createMonthlyData = (dates) => {
+  const xAxisLabels = [];
+  const numberOfRequests = [0,0,0,0,0,0,0,0,0,0];
+  let month = new Date().getMonth() + 1;
+  let day = new Date().getDate();
+  for (let i = 0; i < 10; i++) {
+    if (day - 2 > 0) {
+      xAxisLabels.push(`${month}.${day - 2} - ${month}.${day}`);
+      day -= 3;
+    } else {
+      const newDay = day === 2 ? 30 : day === 1 ? 29 : 28
+      xAxisLabels.push(`${month - 1}.${newDay} - ${month}.${day}`);
+      day = newDay - 1;
+      month--;
+    }
+  }
+  dates.forEach(({ updated_at }) => {
+    const requestDate = new Date(updated_at);
+    const requestMonth = requestDate.getMonth() + 1;
+    const requestDay = requestDate.getDate();
+    const dateLabel = `${requestMonth}.${requestDay}`;
+    xAxisLabels.forEach((label, index) => {
+      const twoEndDate = label.split(' - ');
+      if (twoEndDate[0].split('.')[1] === 30) {
+        twoEndDate.push(`${+twoEndDate[0].split('.')[0] + 1}.1`);
+      } else {
+        twoEndDate.push(`${twoEndDate[0].split('.')[0]}.${+twoEndDate[0].split('.')[1] + 1}`)
+      }
+
+      if (twoEndDate.includes(dateLabel)) numberOfRequests[index] += 1;
+    });
+  })
+  return {
+    xLabels: xAxisLabels.reverse(),
+    numberOfRequests: numberOfRequests.reverse()
+  }
+}
+
+const createYearlyData = (dates) => {
+  const xAxisLabels = [];
+  const numberOfRequests = [0,0,0,0,0,0,0];
+  let month = new Date().getMonth() + 1;
+  let day = new Date().getDate();
+  for (let i = 0; i < 7; i++) {
+    xAxisLabels.push(`${month}.${day}`);
+    if (day !== 1) {
+      day--;
+    } else {
+      day = 30;
+      month--;
+    }
+  }
+
+  dates.forEach(({ updated_at }) => {
+    const requestDate = new Date(updated_at);
+    const dateLabel = `${requestDate.getMonth() + 1}.${requestDate.getDate()}`;
+    const index = xAxisLabels.findIndex(label => label === dateLabel);
+    if (index > -1) numberOfRequests[index] += 1;
+  })
+  return {
+    xLabels: xAxisLabels.reverse(),
+    numberOfRequests: numberOfRequests.reverse()
+  }
 }
