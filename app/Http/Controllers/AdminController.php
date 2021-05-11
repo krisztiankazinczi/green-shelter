@@ -22,61 +22,28 @@ class AdminController extends Controller
         return view('pages/admin');
     }
 
-    public function adoptions($type) {
-        if ($type != 'requested' && $type != 'adopted' && $type != 'rejected') {
+    public function adoptions($type, $days) {
+        $acceptable_types = array('requested', 'rejected', 'adopted');
+        if (!in_array($type, $acceptable_types)) {
             return redirect('home')->with('error', 'Nem megfelelő típus');
         }
+        $last7DaysCount = $this->adoption->filteredAdoptionsByDays($type, 7);
+        $last30DaysCount = $this->adoption->filteredAdoptionsByDays($type, 30);
+        $last365DaysCount = $this->adoption->filteredAdoptionsByDays($type, 365);
+        $allCount = $this->adoption->allAdoptionsByType($type);
         $requests = Adoption::with('animal', 'user')->where('status', $type)->get();
-        return view('pages/admin', compact('requests'));
-    }
-
-    public function adoptionRequests() {
-        $adoption = new Adoption();
-        $requestedAdoptionsLast7Days = $adoption->requestedAdoptionsLastWeek();
-        $requestedAdoptionsLast30Days = $adoption->requestedAdoptionsLastMonth();
-        $requestedAdoptionsLast365Days = $adoption->requestedAdoptionsLastYear();
-        $allRequestedAdoptions = $adoption->requestedAdoptionsAllTime();
-        $requests = Adoption::with('animal', 'user')->where('status', 'requested')->get();
-        return view('pages.admin.adoption_requests', compact(
+        $title = $type == 'requested' ? 'Befogadási Kérések' : $type == 'adopted' ? 'Befogadások' : 'Elutasított befogadási kérések';
+        $page = $type == 'requested' ? 'pages.admin.adoption_requests' : $type == 'adopted' ? 'pages.admin.adopted_requests' : 'pages.admin.rejected_requests';
+        return view($page, compact(
             'requests', 
-            'requestedAdoptionsLast7Days', 
-            'requestedAdoptionsLast30Days', 
-            'requestedAdoptionsLast365Days', 
-            'allRequestedAdoptions'
+            'last7DaysCount', 
+            'last30DaysCount', 
+            'last365DaysCount', 
+            'allCount',
+            'title'
         ));
     }
 
-    public function adoptedAnimals() {
-        $adoption = new Adoption();
-        $adoptionsLast7Days = $adoption->adoptionsLastWeek();
-        $adoptionsLast30Days = $adoption->adoptionsLastMonth();
-        $adoptionsLast365Days = $adoption->adoptionsLastYear();
-        $allAdoptions = $adoption->adoptionsAllTime();
-        $requests = Adoption::with('animal', 'user')->where('status', 'adopted')->get();
-        return view('pages.admin.adopted_requests', compact(
-            'requests', 
-            'adoptionsLast7Days', 
-            'adoptionsLast30Days', 
-            'adoptionsLast365Days', 
-            'allAdoptions'
-        ));
-    }
-
-    public function rejectedAdoptionRequests() {
-        $adoption = new Adoption();
-        $rejectedAdoptionsLast7Days = $adoption->rejectedAdoptionsLastWeek();
-        $rejectedAdoptionsLast30Days = $adoption->rejectedAdoptionsLastMonth();
-        $rejectedAdoptionsLast365Days = $adoption->rejectedAdoptionsLastYear();
-        $allRejectedAdoptions = $adoption->rejectedAdoptionsAllTime();
-        $requests = Adoption::with('animal', 'user')->where('status', 'rejected')->get();
-        return view('pages.admin.rejected_requests', compact(
-            'requests', 
-            'rejectedAdoptionsLast7Days', 
-            'rejectedAdoptionsLast30Days', 
-            'rejectedAdoptionsLast365Days', 
-            'allRejectedAdoptions'
-        ));
-    }
 
     public function createSpecies() {
         return view('pages/admin');

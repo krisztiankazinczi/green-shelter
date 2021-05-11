@@ -25,73 +25,21 @@ class Adoption extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function adoptionsWithAnimalAndUser() {
-        return $this->with('animal', 'user');
+    public function filteredAdoptionsByDays($type, $days) {
+        $date = Carbon::today()->subDays($days);
+        if ($type == 'requested') {
+            return $this->where('updated_at', '>=', $date)->count(); 
+        } else {
+            return $this->where('status', $type)->where('updated_at', '>=', $date)->count(); 
+        }
     }
 
-    public function adoptions() {
-        return $this->where('status', 'adopted');
-    }
-
-    public function adoptionsLastWeek() {
-        $date = Carbon::today()->subDays(7);
-        return $this->adoptions()->where('updated_at', '>=', $date)->count();
-    }
-
-    public function adoptionsLastMonth() {
-        $date = Carbon::today()->subDays(30);
-        return $this->adoptions()->where('updated_at', '>=', $date)->count();
-    }
-
-    public function adoptionsLastYear() {
-        $date = Carbon::today()->subDays(365);
-        return $this->adoptions()->where('updated_at', '>=', $date)->count();
-    }
-
-    public function adoptionsAllTime() {
-        return $this->adoptions()->count();
-    }
-
-    public function rejectedAdoptions() {
-        return $this->where('status', 'rejected');
-    }
-
-    public function rejectedAdoptionsLastWeek() {
-        $date = Carbon::today()->subDays(7);
-        return $this->rejectedAdoptions()->where('updated_at', '>=', $date)->count();
-    }
-
-    public function rejectedAdoptionsLastMonth() {
-        $date = Carbon::today()->subDays(30);
-        return $this->rejectedAdoptions()->where('updated_at', '>=', $date)->count();
-    }
-
-    public function rejectedAdoptionsLastYear() {
-        $date = Carbon::today()->subDays(365);
-        return $this->rejectedAdoptions()->where('updated_at', '>=', $date)->count();
-    }
-
-    public function rejectedAdoptionsAllTime() {
-        return $this->rejectedAdoptions()->count();
-    }
-
-    public function requestedAdoptionsLastWeek() {
-        $date = Carbon::today()->subDays(7);
-        return $this->where('updated_at', '>=', $date)->count();
-    }
-
-    public function requestedAdoptionsLastMonth() {
-        $date = Carbon::today()->subDays(30);
-        return $this->where('updated_at', '>=', $date)->count();
-    }
-
-    public function requestedAdoptionsLastYear() {
-        $date = Carbon::today()->subDays(365);
-        return $this->where('updated_at', '>=', $date)->count();
-    }
-
-    public function requestedAdoptionsAllTime() {
-        return $this->count();
+    public function allAdoptionsByType($type) {
+        if ($type == 'requested') {
+            return $this->count();
+        } else {
+            return $this->where('status', $type)->count();
+        }
     }
 
 }

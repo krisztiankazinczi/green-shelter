@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="container-fluid">
-  <h2>Befogadások</h2>
-
+  <h2>{{ $title }}</h2>
+  
   @include('partials.admin.adoption_info_boxes', [
     'firstBoxText' => 'Utolsó 7 napban',
     'secondBoxText' => 'Utolsó 30 napban',
     'thirdBoxText' => 'Utolsó 365 napban',
     'fourthBoxText' => 'Összes',
-    'last7DaysCount' => $adoptionsLast7Days,
-    'last30DaysCount' => $adoptionsLast30Days,
-    'last365DaysCount' => $adoptionsLast365Days,
-    'allCount' => $allAdoptions,
+    'last7DaysCount' => $last7DaysCount,
+    'last30DaysCount' => $last30DaysCount,
+    'last365DaysCount' => $last365DaysCount,
+    'allCount' => $allCount,
   ])
 
 <div class="table-responsive" style="margin-top: 30px;">
