@@ -18,7 +18,7 @@
     'thirdBoxLink' => route('admin.adoption', ['type' => 'adopted', 'days' => 365]),
   ])
 
-<h3>Befogadások az elmúlt {{ $chartData['period'] == 'week' ? 'héten' : ($chartData['period'] == 'month' ? 'hónapban' : 'évben') }}</h3>
+<h3>{{ $title }} az elmúlt {{ $chartData['period'] == 'week' ? 'héten' : ($chartData['period'] == 'month' ? 'hónapban' : 'évben') }}</h3>
 <div style="height: 300px; width: 600px ">
     <canvas id="chart"></canvas>
 </div>
@@ -67,16 +67,14 @@
     </table>
   </div>
 </div>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <script>
-        window.onload = function() {
-            const requestsCanvas = document.getElementById("chart");
-            const chartData = {!! json_encode($chartData) !!}
-            const titleFromServer = {!! json_encode($title) !!};
-            generateChart(titleFromServer, chartData, requestsCanvas)
-        };
-    </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script>
+      window.onload = function() {
+          const requestsCanvas = document.getElementById("chart");
+          const chartData = {!! json_encode($chartData) !!}
+          const titleFromServer = {!! json_encode($title) !!};
+          generateChart(titleFromServer, chartData, requestsCanvas)
+      };
+  </script>
 
 @endsection
