@@ -98,28 +98,76 @@ const createMonthlyData = (dates) => {
 }
 
 const createYearlyData = (dates) => {
-  const xAxisLabels = [];
-  const numberOfRequests = [0,0,0,0,0,0,0];
-  let month = new Date().getMonth() + 1;
-  let day = new Date().getDate();
-  for (let i = 0; i < 7; i++) {
-    xAxisLabels.push(`${month}.${day}`);
-    if (day !== 1) {
-      day--;
-    } else {
-      day = 30;
-      month--;
-    }
-  }
+  const xAxisLabels = ['Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'];
+  const numberOfRequests = [0,0,0,0,0,0,0,0,0,0,0,0];
 
   dates.forEach(({ updated_at }) => {
-    const requestDate = new Date(updated_at);
-    const dateLabel = `${requestDate.getMonth() + 1}.${requestDate.getDate()}`;
-    const index = xAxisLabels.findIndex(label => label === dateLabel);
-    if (index > -1) numberOfRequests[index] += 1;
+    const requestMonth = new Date(updated_at).getMonth();
+    numberOfRequests[requestMonth] += 1
   })
+  let month = new Date().getMonth() + 1;
+  const labelSplice = xAxisLabels.splice(0, month);
+  const requestSplice = numberOfRequests.splice(0, month);
   return {
-    xLabels: xAxisLabels.reverse(),
-    numberOfRequests: numberOfRequests.reverse()
+    xLabels: [...xAxisLabels, ...labelSplice],
+    numberOfRequests: [...numberOfRequests, ...requestSplice]
   }
+}
+
+const generateChart = (title, chartData, requestsCanvas) => {
+  Chart.defaults.global.defaultFontFamily = "Lato";
+  Chart.defaults.global.defaultFontSize = 18;
+
+  let xAxisLabels;
+  let numberOfRequests;
+  if (chartData.period === 'week') {
+    const result = createWeeklyData(chartData.data);
+    xAxisLabels = result.xLabels;
+    numberOfRequests = result.numberOfRequests;
+  } else if (chartData.period === 'month') {
+    const result = createMonthlyData(chartData.data);
+    xAxisLabels = result.xLabels;
+    numberOfRequests = result.numberOfRequests;
+  } else {
+    // Yearly Chart Data
+    const result = createYearlyData(chartData.data);
+    xAxisLabels = result.xLabels;
+    numberOfRequests = result.numberOfRequests;
+  }
+
+  var requestData = {
+    label: title + ' száma (db)',
+    data: numberOfRequests,
+    backgroundColor: 'rgba(77, 167, 91, 0.6)',
+    borderWidth: 0,
+    yAxisID: "number-of-requests"
+    };
+
+    var adoptionData = {
+    labels: xAxisLabels,
+    datasets: [requestData]
+    };
+
+    var chartOptions = {
+        responsive: true,
+
+    scales: {
+        xAxes: [{
+        barPercentage: 1,
+        categoryPercentage: 0.6
+        }],
+        yAxes: [{
+        id: "number-of-requests"
+        }]
+    }
+    };
+
+    var barChart = new Chart(requestsCanvas, {
+    type: 'bar',
+    data: adoptionData,
+    options: chartOptions
+    });
+
+
+
 }

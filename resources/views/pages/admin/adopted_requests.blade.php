@@ -13,7 +13,15 @@
     'last30DaysCount' => $last30DaysCount,
     'last365DaysCount' => $last365DaysCount,
     'allCount' => $allCount,
+    'firstBoxLink' => route('admin.adoption', ['type' => 'adopted', 'days' => 7]),
+    'secondBoxLink' => route('admin.adoption', ['type' => 'adopted', 'days' => 30]),
+    'thirdBoxLink' => route('admin.adoption', ['type' => 'adopted', 'days' => 365]),
   ])
+
+<h3>Befogadások az elmúlt {{ $chartData['period'] == 'week' ? 'héten' : ($chartData['period'] == 'month' ? 'hónapban' : 'évben') }}</h3>
+<div style="height: 300px; width: 600px ">
+    <canvas id="chart"></canvas>
+</div>
 
 <div class="table-responsive" style="margin-top: 30px;">
     <table class="table mt-3 table-striped">
@@ -60,64 +68,14 @@
   </div>
 </div>
 
-<h3>Chart with Chart.js</h3>
-    <div style="height: 300px; width: 600px ">
-        <canvas id="chart"></canvas>
-    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script>
         window.onload = function() {
-            var densityCanvas = document.getElementById("chart");
-            Chart.defaults.global.defaultFontFamily = "Lato";
-            Chart.defaults.global.defaultFontSize = 18;
-
+            const requestsCanvas = document.getElementById("chart");
             const chartData = {!! json_encode($chartData) !!}
-            let xAxisLabels;
-            let numberOfRequests;
-            if (chartData.period === 'week') {
-              const result = createWeeklyData(chartData.data);
-              xAxisLabels = result.xLabels;
-              numberOfRequests = result.numberOfRequests;
-            } else if (chartData.period === 'month') {
-              const result = createMonthlyData(chartData.data);
-              xAxisLabels = result.xLabels;
-              numberOfRequests = result.numberOfRequests;
-            }
-
-
-            var requestData = {
-            label: {!! json_encode($title) !!} + ' száma (db)',
-            data: numberOfRequests,
-            backgroundColor: 'rgba(77, 167, 91, 0.6)',
-            borderWidth: 0,
-            yAxisID: "number-of-requests"
-            };
-
-            var adoptionData = {
-            labels: xAxisLabels,
-            datasets: [requestData]
-            };
-
-            var chartOptions = {
-                responsive: true,
-
-            scales: {
-                xAxes: [{
-                barPercentage: 1,
-                categoryPercentage: 0.6
-                }],
-                yAxes: [{
-                id: "number-of-requests"
-                }]
-            }
-            };
-
-            var barChart = new Chart(densityCanvas, {
-            type: 'bar',
-            data: adoptionData,
-            options: chartOptions
-            });
-
+            const titleFromServer = {!! json_encode($title) !!};
+            generateChart(titleFromServer, chartData, requestsCanvas)
         };
     </script>
 
