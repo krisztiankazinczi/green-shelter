@@ -42,4 +42,13 @@ class Adoption extends Model
         }
     }
 
+    public function getDatesOfAdoptionRequests($type, $days) {
+        $date = Carbon::today()->subDays($days);
+        if ($type == 'requested') {
+            return $this->where('updated_at', '>=', $date)->select('updated_at')->get();
+        } else {
+            return $this->where('status', $type)->where('updated_at', '>=', $date)->select('updated_at')->get(); 
+        }
+    }
+
 }

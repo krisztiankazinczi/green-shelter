@@ -27,20 +27,26 @@ class AdminController extends Controller
         if (!in_array($type, $acceptable_types)) {
             return redirect('home')->with('error', 'Nem megfelelő típus');
         }
-        $last7DaysCount = $this->adoption->filteredAdoptionsByDays($type, 7);
-        $last30DaysCount = $this->adoption->filteredAdoptionsByDays($type, 30);
-        $last365DaysCount = $this->adoption->filteredAdoptionsByDays($type, 365);
+        $last7DaysCount = $this->adoption->filteredAdoptionsByDays($type, 7 - 1);
+        $last30DaysCount = $this->adoption->filteredAdoptionsByDays($type, 30 - 1);
+        $last365DaysCount = $this->adoption->filteredAdoptionsByDays($type, 365 - 1);
         $allCount = $this->adoption->allAdoptionsByType($type);
         $requests = Adoption::with('animal', 'user')->where('status', $type)->get();
-        $title = $type == 'requested' ? 'Befogadási Kérések' : $type == 'adopted' ? 'Befogadások' : 'Elutasított befogadási kérések';
-        $page = $type == 'requested' ? 'pages.admin.adoption_requests' : $type == 'adopted' ? 'pages.admin.adopted_requests' : 'pages.admin.rejected_requests';
+        $data = $this->adoption->getDatesOfAdoptionRequests($type, $days);
+        $chartData = [
+            'data' => $data,
+            'period' => $days == 7 ? 'week' : ($days == 30 ? 'month' : 'year')
+        ];
+        $title = $type == 'requested' ? 'Befogadási Kérések' : ($type == 'adopted' ? 'Befogadások' : 'Elutasított befogadási kérések');
+        $page = $type == 'requested' ? 'pages.admin.adoption_requests' : ($type == 'adopted' ? 'pages.admin.adopted_requests' : 'pages.admin.rejected_requests');
         return view($page, compact(
             'requests', 
             'last7DaysCount', 
             'last30DaysCount', 
             'last365DaysCount', 
             'allCount',
-            'title'
+            'title',
+            'chartData'
         ));
     }
 

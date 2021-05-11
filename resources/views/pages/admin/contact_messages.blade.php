@@ -29,6 +29,11 @@
     </div>
   </div>
 
+  <script>
+    var messages = {!! json_encode($contact_messages) !!}
+    console.log(messages);
+  </script>
+
   {{-- <h3>Chart with Chart.js</h3>
     <div style="height: 300px; width: 600px ">
         <canvas id="chart"></canvas>
