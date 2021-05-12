@@ -99,7 +99,10 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © 2016 <a href="#">Company</a>.</strong> All rights reserved.
+            <strong>Az eredeti oldal: 
+                <a href="http://www.zoldmenedek.hu" class="text-dark">
+                Zöldmenedek.hu
+                </a></strong>
         </footer>
 
     </div>

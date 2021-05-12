@@ -62,17 +62,25 @@ class AdminController extends Controller
         return view('pages.admin.species_list', compact('animal_types'));
     }
 
-    public function contactMessages($days) {
+    public function contactMessages($type, $days) {
+        $acceptable_types = array('all', 'unread', 'completed', 'uncomplete');
+        if (!in_array($type, $acceptable_types)) {
+            return redirect('home')->with('error', 'Nem megfelelő típus');
+        }
+
         $last7DaysCount = $this->contact_messages->filteredMessagesByDays(7 - 1);
         $last30DaysCount = $this->contact_messages->filteredMessagesByDays(30 - 1);
         $last365DaysCount = $this->contact_messages->filteredMessagesByDays(365 - 1);
         $allCount = $this->contact_messages->allMessages();
-        $contact_messages = ContactForm::orderBy('created_at', 'DESC')->get();
-        $data = $this->contact_messages->getDatesOfMessages($days);
+        $contact_messages = $this->contact_messages->getMessagesByType($type, $days);
+        $data = $this->contact_messages->getDatesOfMessages($type, $days);
         $chartData = [
             'data' => $data,
             'period' => $days == 7 ? 'week' : ($days == 30 ? 'month' : 'year')
         ];
+        $unread_messages = $this->contact_messages->getUnreadMessagesCount();
+        $uncompleted_messages = $this->contact_messages->getUncompleteMessagesCount();
+        $completed_messages = $this->contact_messages->getCompletedMessagesCount();
         return view('pages.admin.contact_messages', compact(
             'contact_messages',
             'last7DaysCount', 
@@ -80,6 +88,9 @@ class AdminController extends Controller
             'last365DaysCount', 
             'allCount',
             'chartData',
+            'unread_messages',
+            'uncompleted_messages',
+            'completed_messages'
         ));
     }
 

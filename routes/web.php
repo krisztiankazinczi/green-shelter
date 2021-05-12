@@ -62,7 +62,7 @@ Route::group(['middleware' => 'getMenu'], function(){
             Route::get('/admin-dashboard/create-species', [AdminController::class, 'createSpecies'])->name('show.create.species');
             Route::post('/create-species', [AnimalTypeController::class, 'create'])->name('create.species');
             Route::get('/admin-dashboard/species-list', [AdminController::class, 'animalTypes'])->name('animal.types');
-            Route::get('/admin-dashboard/contact_messages/{days}', [AdminController::class, 'contactMessages'])->name('contact.messages');
+            Route::get('/admin-dashboard/contact_messages/{type}/{days}', [AdminController::class, 'contactMessages'])->name('contact.messages');
             Route::get('/admin-dashboard/contact_message/{id}', [AdminController::class, 'contactMessage'])->name('contact.message');
             Route::put('/admin-dashboard/read/contact_message/{id}', [ContactFormController::class, 'readContactMessage'])->name('read.contact.message');
             Route::put('/admin-dashboard/complete/contact_message/{id}', [ContactFormController::class, 'completeContactMessage'])->name('complete.contact.message');

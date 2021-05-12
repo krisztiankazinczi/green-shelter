@@ -33,8 +33,41 @@ class ContactForm extends Model
         return $this->count();
     }
 
-    public function getDatesOfMessages($days) {
+    public function getDatesOfMessages($type, $days) {
         $date = Carbon::today()->subDays($days);
-        return $this->where('updated_at', '>=', $date)->select('created_at')->get();
+        if ($type == 'all') {
+            return $this->where('updated_at', '>=', $date)->select('created_at')->get();
+        } elseif ($type == 'unread') {
+            return $this->where('updated_at', '>=', $date)->where('read', false)->select('created_at')->get();
+        } elseif ($type == 'uncomplete') {
+            return $this->where('updated_at', '>=', $date)->where('completed', false)->select('created_at')->get();
+        } elseif ($type == 'completed') {
+            return $this->where('updated_at', '>=', $date)->where('completed', true)->select('created_at')->get();
+        }
+    }
+
+    public function getUnreadMessagesCount() {
+        return $this->where('read', false)->count(); 
+    }
+
+    public function getUncompleteMessagesCount() {
+        return $this->where('completed', false)->count(); 
+    }
+
+    public function getCompletedMessagesCount() {
+        return $this->where('completed', true)->count(); 
+    }
+
+    public function getMessagesByType($type, $days) {
+        if ($type == 'all') {
+            $date = Carbon::today()->subDays($days);
+            return $this->where('updated_at', '>=', $date)->orderBy('created_at', 'DESC')->get();
+        } elseif ($type == 'unread') {
+            return $this->where('read', false)->orderBy('created_at', 'DESC')->get();
+        } elseif ($type == 'uncomplete') {
+            return $this->where('completed', false)->orderBy('created_at', 'DESC')->get();
+        } elseif ($type == 'completed') {
+            return $this->where('completed', true)->orderBy('created_at', 'DESC')->get();
+        }
     }
 }

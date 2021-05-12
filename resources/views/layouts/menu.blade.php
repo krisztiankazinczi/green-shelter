@@ -1,5 +1,5 @@
 <li class="{{ Request::segment(2) == 'contact_messages' ? 'active' : '' }}">
-    <a href="{{ route('contact.messages', ['days' => 7])}}"><i class="fa fa-envelope"></i><span>Üzenetek</span></a>
+    <a href="{{ route('contact.messages', ['type' => 'all', 'days' => 7])}}"><i class="fa fa-envelope"></i><span>Üzenetek</span></a>
 </li>
 <li class="{{ Request::segment(3) == 'requested' ? 'active' : '' }}">
     <a href="{{ route('admin.adoption', ['type' => 'requested', 'days' => 7])}}"><i class="fa fa-th-list"></i><span>Befogadási kérések</span></a>

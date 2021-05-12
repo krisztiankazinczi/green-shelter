@@ -13,18 +13,57 @@
       'last30DaysCount' => $last30DaysCount,
       'last365DaysCount' => $last365DaysCount,
       'allCount' => $allCount,
-      'firstBoxLink' => route('contact.messages', ['days' => 7]),
-      'secondBoxLink' => route('contact.messages', ['days' => 30]),
-      'thirdBoxLink' => route('contact.messages', ['days' => 365]),
+      'firstBoxLink' => route('contact.messages', ['type' => 'all', 'days' => 7]),
+      'secondBoxLink' => route('contact.messages', ['type' => 'all', 'days' => 30]),
+      'thirdBoxLink' => route('contact.messages', ['type' => 'all', 'days' => 365]),
     ])
+
+    <div class="row" style="margin-top: 20px;">
+        <a href="{{ route('contact.messages', ['type' => 'unread', 'days' => 365]) }}">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-maroon"><i class="fa fa-envelope"></i></span>
+                <div class="info-box-content">
+                <span class="info-box-text">Olvasatlan üzenetek</span>
+                <span class="info-box-number" style="font-size: 30px;">{{ $unread_messages }}</span>
+                </div> 
+            </div> 
+            </div> 
+        </a>
+
+        <a href="{{ route('contact.messages', ['type' => 'uncomplete', 'days' => 365]) }}">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-orange"><i class="fa fa-times-circle"></i></span>
+                <div class="info-box-content">
+                <span class="info-box-text">Még nem teljestett üzenetek</span>
+                <span class="info-box-number" style="font-size: 30px;">{{ $uncompleted_messages }}</span>
+                </div> 
+            </div> 
+            </div> 
+        </a>
+        <div class="clearfix visible-sm-block"></div>
+        <a href="{{ route('contact.messages', ['type' => 'completed', 'days' => 365]) }}">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-purple"><i class="fa fa-check-circle"></i></span>
+                <div class="info-box-content">
+                <span class="info-box-text">Teljestett üzenetek</span>
+                <span class="info-box-number" style="font-size: 30px;">{{ $completed_messages }}</span>
+                </div> 
+            </div> 
+            </div> 
+        </a>
+    </div>
 
     <h3>Megkeresések az oldalról az elmúlt {{ $chartData['period'] == 'week' ? 'héten' : ($chartData['period'] == 'month' ? 'hónapban' : 'évben') }}</h3>
     <div style="height: 300px; width: 600px ">
         <canvas id="chart"></canvas>
     </div>
 
+    <h2 style="margin-top: 40px;">Üzenetek</h2>
 
-    <div class="table-responsive-sm">
+    <div class="table-responsive-sm" style="margin-top: 20px;">
         <table class="table mt-3 table-striped">
             <thead>
                 <tr>
