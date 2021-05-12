@@ -65,6 +65,8 @@ Route::group(['middleware' => 'getMenu'], function(){
             Route::get('/admin-dashboard/contact_messages', [AdminController::class, 'contactMessages'])->name('contact.messages');
             Route::get('/admin-dashboard/contact_message/{id}', [AdminController::class, 'contactMessage'])->name('contact.message');
             Route::put('/admin-dashboard/read/contact_message/{id}', [ContactFormController::class, 'readContactMessage'])->name('read.contact.message');
+            Route::put('/admin-dashboard/complete/contact_message/{id}', [ContactFormController::class, 'completeContactMessage'])->name('complete.contact.message');
+            Route::put('/admin-dashboard/revert-complete/contact_message/{id}', [ContactFormController::class, 'revertCompleteContactMessage'])->name('revert.complete.contact.message');
             Route::get('/type/{id}/edit', [AnimalTypeController::class, 'show'])->name('anymal.type.show');
             Route::put('/type/{id}/edit', [AnimalTypeController::class, 'edit'])->name('animal.type.edit');
             Route::delete('/type/{id}/delete', [AnimalTypeController::class, 'destroy'])->name('animal.type.delete');

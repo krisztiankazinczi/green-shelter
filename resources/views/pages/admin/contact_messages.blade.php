@@ -43,8 +43,48 @@
                                 {{ Date::parse($message->created_at)->format('Y F j H:i') }}
                             </a>  
                         </td>
+                        <td>
+                            @if ($message->completed)
+                                <button 
+                                    class="btn btn-link" 
+                                    data-toggle="modal" 
+                                    data-target="#{{ $message->id . '-uncomplete' }}"
+                                >
+                                    Teljesítés visszavonása
+                                </button>
+                                @include(
+                                'partials.modal_confirm', 
+                                [
+                                    'id' => $message->id . '-uncomplete',
+                                    'question' => 'Biztosan visszavonod a teljesítést?',
+                                    'route' => 'revert.complete.contact.message',
+                                    'method' => 'PUT',
+                                    'route_params' => [$message->id],
+                                    'action_button_text' => 'Megerősítem',
+                                    'action_button_class' => 'btn btn-success'
+                                ])  
+                            @else
+                                <button 
+                                    class="btn btn-link" 
+                                    data-toggle="modal" 
+                                    data-target="#{{ $message->id . '-complete' }}"
+                                >
+                                    Teljesítés
+                                </button>
+                                @include(
+                                'partials.modal_confirm', 
+                                [
+                                    'id' => $message->id . '-complete',
+                                    'question' => 'Biztosan elvégeztél mindent a megkereséssel kapcsolatban?',
+                                    'route' => 'complete.contact.message',
+                                    'method' => 'PUT',
+                                    'route_params' => [$message->id],
+                                    'action_button_text' => 'Megerősítem',
+                                    'action_button_class' => 'btn btn-success'
+                                ])  
+                            @endif
+                        </td>
                     </tr>
-                </a>
                 @endforeach            
             </tbody>
         </table>
