@@ -74,7 +74,7 @@
           const requestsCanvas = document.getElementById("chart");
           const chartData = {!! json_encode($chartData) !!}
           const titleFromServer = {!! json_encode($title) !!};
-          generateChart(titleFromServer, chartData, requestsCanvas)
+          generateChart(titleFromServer, chartData, requestsCanvas, 'updated_at')
       };
 
   </script>

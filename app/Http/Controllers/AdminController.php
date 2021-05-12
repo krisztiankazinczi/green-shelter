@@ -11,11 +11,13 @@ use Jenssegers\Date\Date;
 class AdminController extends Controller
 {
     protected $adoption;
+    protected $contact_messages;
 
     public function __construct()
     {
         Date::setLocale('hu');
         $this->adoption = new Adoption();
+        $this->contact_messages = new ContactForm();
     }
 
     public function index() {
@@ -60,9 +62,25 @@ class AdminController extends Controller
         return view('pages.admin.species_list', compact('animal_types'));
     }
 
-    public function contactMessages() {
+    public function contactMessages($days) {
+        $last7DaysCount = $this->contact_messages->filteredMessagesByDays(7 - 1);
+        $last30DaysCount = $this->contact_messages->filteredMessagesByDays(30 - 1);
+        $last365DaysCount = $this->contact_messages->filteredMessagesByDays(365 - 1);
+        $allCount = $this->contact_messages->allMessages();
         $contact_messages = ContactForm::orderBy('created_at', 'DESC')->get();
-        return view('pages.admin.contact_messages', compact('contact_messages'));
+        $data = $this->contact_messages->getDatesOfMessages($days);
+        $chartData = [
+            'data' => $data,
+            'period' => $days == 7 ? 'week' : ($days == 30 ? 'month' : 'year')
+        ];
+        return view('pages.admin.contact_messages', compact(
+            'contact_messages',
+            'last7DaysCount', 
+            'last30DaysCount', 
+            'last365DaysCount', 
+            'allCount',
+            'chartData',
+        ));
     }
 
     public function contactMessage($id) {

@@ -34,7 +34,7 @@ const closeMessageFromServer = () => {
 // Related to charts
 const months = ['Jan', 'Feb', 'Már', 'Ápr', 'Máj', 'Jún', 'Júl', 'Aug', 'Szep', 'Okt', 'Nov', 'Dec'];
 
-const createWeeklyData = (dates) => {
+const createWeeklyData = (dates, dateKeyName) => {
   let xAxisLabels = [];
   const numberOfRequests = [0,0,0,0,0,0,0];
   let month = new Date().getMonth() + 1;
@@ -49,7 +49,8 @@ const createWeeklyData = (dates) => {
     }
   }
 
-  dates.forEach(({ updated_at }) => {
+  dates.forEach((date) => {
+    const updated_at = date[dateKeyName];
     const requestDate = new Date(updated_at);
     const dateLabel = `${requestDate.getMonth() + 1}.${requestDate.getDate()}`;
     const index = xAxisLabels.findIndex(label => label === dateLabel);
@@ -62,7 +63,7 @@ const createWeeklyData = (dates) => {
   }
 }
 
-const createMonthlyData = (dates) => {
+const createMonthlyData = (dates, dateKeyName) => {
   let xAxisLabels = [];
   const numberOfRequests = [0,0,0,0,0,0,0,0,0,0];
   let month = new Date().getMonth() + 1;
@@ -83,7 +84,8 @@ const createMonthlyData = (dates) => {
       month--;
     }
   }
-  dates.forEach(({ updated_at }) => {
+  dates.forEach((date) => {
+    const updated_at = date[dateKeyName];
     const requestDate = new Date(updated_at);
     const requestMonth = requestDate.getMonth() + 1;
     const requestDay = requestDate.getDate();
@@ -109,11 +111,12 @@ const createMonthlyData = (dates) => {
   }
 }
 
-const createYearlyData = (dates) => {
+const createYearlyData = (dates, dateKeyName) => {
   const xAxisLabels = [...months];
   const numberOfRequests = [0,0,0,0,0,0,0,0,0,0,0,0];
 
-  dates.forEach(({ updated_at }) => {
+  dates.forEach((date) => {
+    const updated_at = date[dateKeyName];
     const adoptionDate = new Date(updated_at);
     const requestMonth = adoptionDate.getMonth();
     // there will be a few dates which is in the same month as the actual one but last year, so I filter them out
@@ -134,23 +137,23 @@ const createYearlyData = (dates) => {
   }
 }
 
-const generateChart = (title, chartData, requestsCanvas) => {
+const generateChart = (title, chartData, requestsCanvas, dateKeyName) => {
   Chart.defaults.global.defaultFontFamily = "Lato";
   Chart.defaults.global.defaultFontSize = 18;
 
   let xAxisLabels;
   let numberOfRequests;
   if (chartData.period === 'week') {
-    const result = createWeeklyData(chartData.data);
+    const result = createWeeklyData(chartData.data, dateKeyName);
     xAxisLabels = result.xLabels;
     numberOfRequests = result.numberOfRequests;
   } else if (chartData.period === 'month') {
-    const result = createMonthlyData(chartData.data);
+    const result = createMonthlyData(chartData.data, dateKeyName);
     xAxisLabels = result.xLabels;
     numberOfRequests = result.numberOfRequests;
   } else {
     // Yearly Chart Data
-    const result = createYearlyData(chartData.data);
+    const result = createYearlyData(chartData.data, dateKeyName);
     xAxisLabels = result.xLabels;
     numberOfRequests = result.numberOfRequests;
   }

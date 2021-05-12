@@ -3,6 +3,27 @@
 @section('content')
 <div class="mt-5 container-fluid">
     <h2>Megkeresések az oldalról</h2>
+
+    @include('partials.admin.adoption_info_boxes', [
+      'firstBoxText' => 'Utolsó 7 napban',
+      'secondBoxText' => 'Utolsó 30 napban',
+      'thirdBoxText' => 'Utolsó 365 napban',
+      'fourthBoxText' => 'Összes',
+      'last7DaysCount' => $last7DaysCount,
+      'last30DaysCount' => $last30DaysCount,
+      'last365DaysCount' => $last365DaysCount,
+      'allCount' => $allCount,
+      'firstBoxLink' => route('contact.messages', ['days' => 7]),
+      'secondBoxLink' => route('contact.messages', ['days' => 30]),
+      'thirdBoxLink' => route('contact.messages', ['days' => 365]),
+    ])
+
+    <h3>Megkeresések az oldalról az elmúlt {{ $chartData['period'] == 'week' ? 'héten' : ($chartData['period'] == 'month' ? 'hónapban' : 'évben') }}</h3>
+    <div style="height: 300px; width: 600px ">
+        <canvas id="chart"></canvas>
+    </div>
+
+
     <div class="table-responsive-sm">
         <table class="table mt-3 table-striped">
             <thead>
@@ -91,8 +112,12 @@
     </div>
   </div>
 
-  <script>
-    var messages = {!! json_encode($contact_messages) !!}
-    console.log(messages);
-  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script>
+    window.onload = function() {
+        const requestsCanvas = document.getElementById("chart");
+        const chartData = {!! json_encode($chartData) !!}
+        generateChart('Üzenetek', chartData, requestsCanvas, 'created_at')
+    };
+</script>
 @endsection
