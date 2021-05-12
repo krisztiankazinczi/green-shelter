@@ -51,4 +51,9 @@ class Adoption extends Model
         }
     }
 
+    public function getAdoptionsWithAnimalAndUserByTypeAndDate($type, $days) {
+        $date = Carbon::today()->subDays($days);
+        return $this->with('animal', 'user')->where('status', $type)->where('updated_at', '>=', $date)->get();
+    }
+
 }

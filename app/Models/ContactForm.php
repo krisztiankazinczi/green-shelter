@@ -14,5 +14,12 @@ class ContactForm extends Model
         'email',
         'subject',
         'message',
+        'read',
+        'completed'
+    ];
+
+    protected $cast = [
+        'read' => 'boolean',
+        'completed' => 'boolean',
     ];
 }

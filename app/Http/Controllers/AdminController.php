@@ -31,7 +31,7 @@ class AdminController extends Controller
         $last30DaysCount = $this->adoption->filteredAdoptionsByDays($type, 30 - 1);
         $last365DaysCount = $this->adoption->filteredAdoptionsByDays($type, 365 - 1);
         $allCount = $this->adoption->allAdoptionsByType($type);
-        $requests = Adoption::with('animal', 'user')->where('status', $type)->get();
+        $requests = $this->adoption->getAdoptionsWithAnimalAndUserByTypeAndDate($type, $days);
         $data = $this->adoption->getDatesOfAdoptionRequests($type, $days);
         $chartData = [
             'data' => $data,
@@ -63,5 +63,13 @@ class AdminController extends Controller
     public function contactMessages() {
         $contact_messages = ContactForm::orderBy('created_at', 'DESC')->get();
         return view('pages.admin.contact_messages', compact('contact_messages'));
+    }
+
+    public function contactMessage($id) {
+        $contact_message = ContactForm::where('id', $id)->first();
+        if (!$contact_message) {
+            return redirect()->back()->with('error', 'A megtekinteni kívánt üzenet nem létezik az adatbázisban');
+        }
+        return view('pages.admin.contact_message', compact('contact_message'));
     }
 }

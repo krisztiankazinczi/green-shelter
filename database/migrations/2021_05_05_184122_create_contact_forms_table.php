@@ -19,6 +19,8 @@ class CreateContactFormsTable extends Migration
             $table->string('email');
             $table->string('subject');
             $table->longText('message');
+            $table->boolean('read')->default(false);
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

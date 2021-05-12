@@ -35,4 +35,14 @@ class ContactFormController extends Controller
 
         return redirect()->back()->with('success', 'Az üzenetet kézbesítve, hamarosan valaki felveszi a kapcsolatot');
     }
+
+    public function readContactMessage ($id) {
+        $message = ContactForm::where('id', $id)->first();
+        if (!$message) {
+            return redirect()->back();
+        }
+        $message->read = true;
+        $message->save();
+        return redirect()->back();
+    }
 }

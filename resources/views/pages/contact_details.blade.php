@@ -60,7 +60,7 @@
                     <div class="form-group row">
                       <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('Név') }}</label>
                       <div class="col-md-10">
-                          <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autofocus>
+                          <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
                           @error('name')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
@@ -72,7 +72,7 @@
                     <div class="form-group row">
                       <label for="email" class="col-md-2 col-form-label text-md-right">{{ __('Email') }}</label>
                       <div class="col-md-10">
-                          <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autofocus>
+                          <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
                           @error('email')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
@@ -84,7 +84,7 @@
                     <div class="form-group row">
                       <label for="subject" class="col-md-2 col-form-label text-md-right">{{ __('Tárgy') }}</label>
                       <div class="col-md-10">
-                          <input id="subject" type="subject" class="form-control @error('subject') is-invalid @enderror" name="subject" value="{{ old('subject') }}" autofocus>
+                          <input id="subject" type="subject" class="form-control @error('subject') is-invalid @enderror" name="subject" value="{{ old('subject') }}">
                           @error('subject')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
