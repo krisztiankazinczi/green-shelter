@@ -32,8 +32,10 @@ const closeMessageFromServer = () => {
 }
 
 // Related to charts
+const months = ['Jan', 'Feb', 'Már', 'Ápr', 'Máj', 'Jún', 'Júl', 'Aug', 'Szep', 'Okt', 'Nov', 'Dec'];
+
 const createWeeklyData = (dates) => {
-  const xAxisLabels = [];
+  let xAxisLabels = [];
   const numberOfRequests = [0,0,0,0,0,0,0];
   let month = new Date().getMonth() + 1;
   let day = new Date().getDate();
@@ -52,7 +54,8 @@ const createWeeklyData = (dates) => {
     const dateLabel = `${requestDate.getMonth() + 1}.${requestDate.getDate()}`;
     const index = xAxisLabels.findIndex(label => label === dateLabel);
     if (index > -1) numberOfRequests[index] += 1;
-  })
+  });
+  xAxisLabels = xAxisLabels.map(dateLabel => `${months[+dateLabel.split('.')[0] - 1]} ${dateLabel.split('.')[1]}`);
   return {
     xLabels: xAxisLabels.reverse(),
     numberOfRequests: numberOfRequests.reverse()
@@ -60,14 +63,19 @@ const createWeeklyData = (dates) => {
 }
 
 const createMonthlyData = (dates) => {
-  const xAxisLabels = [];
+  let xAxisLabels = [];
   const numberOfRequests = [0,0,0,0,0,0,0,0,0,0];
   let month = new Date().getMonth() + 1;
   let day = new Date().getDate();
   for (let i = 0; i < 10; i++) {
     if (day - 2 > 0) {
       xAxisLabels.push(`${month}.${day - 2} - ${month}.${day}`);
-      day -= 3;
+      if (day - 3 === 0) {
+        day = 30;
+        month--;
+      } else {
+        day -= 3;
+      }
     } else {
       const newDay = day === 2 ? 30 : day === 1 ? 29 : 28
       xAxisLabels.push(`${month - 1}.${newDay} - ${month}.${day}`);
@@ -90,6 +98,10 @@ const createMonthlyData = (dates) => {
 
       if (twoEndDate.includes(dateLabel)) numberOfRequests[index] += 1;
     });
+  });
+  xAxisLabels = xAxisLabels.map(dateLabel => {
+    const limits = dateLabel.split(' - ');
+    return `${months[+limits[0].split('.')[0] - 1]} ${limits[0].split('.')[1]} - ${months[+limits[1].split('.')[0] - 1]} ${limits[1].split('.')[1]}`
   })
   return {
     xLabels: xAxisLabels.reverse(),
@@ -98,12 +110,20 @@ const createMonthlyData = (dates) => {
 }
 
 const createYearlyData = (dates) => {
-  const xAxisLabels = ['Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'];
+  const xAxisLabels = [...months];
   const numberOfRequests = [0,0,0,0,0,0,0,0,0,0,0,0];
 
   dates.forEach(({ updated_at }) => {
-    const requestMonth = new Date(updated_at).getMonth();
-    numberOfRequests[requestMonth] += 1
+    const adoptionDate = new Date(updated_at);
+    const requestMonth = adoptionDate.getMonth();
+    // there will be a few dates which is in the same month as the actual one but last year, so I filter them out
+    if ( adoptionDate.getMonth() === new Date().getMonth()) {
+      if (adoptionDate.getFullYear() === new Date().getFullYear()) {
+        numberOfRequests[requestMonth] += 1;
+      }
+    } else {
+      numberOfRequests[requestMonth] += 1;
+    }
   })
   let month = new Date().getMonth() + 1;
   const labelSplice = xAxisLabels.splice(0, month);
@@ -167,7 +187,4 @@ const generateChart = (title, chartData, requestsCanvas) => {
     data: adoptionData,
     options: chartOptions
     });
-
-
-
 }

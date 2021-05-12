@@ -20,7 +20,7 @@
                     <td>{{ $message->name }}</td>
                     <td>{{ $message->email }}</td>
                     <td>{{ $message->subject }}</td>
-                    <td>{{ $message->message }}</td>
+                    <td>{{ substr( $message->message, 0, 100) . '...' }}</td>
                     <td>{{ Date::parse($message->created_at)->format('Y F j H:i') }}</td>
                 </tr>
                 @endforeach            

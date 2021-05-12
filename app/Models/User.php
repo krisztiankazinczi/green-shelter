@@ -47,6 +47,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->bio = '';
+        });
+    }
+
     public function role()
     {
         return $this->hasOne(Role::class);

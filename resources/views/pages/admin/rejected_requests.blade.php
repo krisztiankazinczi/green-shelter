@@ -23,7 +23,7 @@
     <canvas id="chart"></canvas>
 </div>
 
-  <div class="table-responsive" style="margin-top: 30px;">
+  <div id="request-table" class="table-responsive" style="margin-top: 30px;">
     <table class="table mt-3 table-striped">
         <thead>
             <tr>
@@ -76,5 +76,6 @@
           const titleFromServer = {!! json_encode($title) !!};
           generateChart(titleFromServer, chartData, requestsCanvas)
       };
+
   </script>
 @endsection

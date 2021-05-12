@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
   <h2>{{ $title }}</h2>
-  
+
   @include('partials.admin.adoption_info_boxes', [
     'firstBoxText' => 'Utolsó 7 napban',
     'secondBoxText' => 'Utolsó 30 napban',

@@ -129,7 +129,7 @@ class MenuSeeder extends Seeder
                 'role_id' => '1',
             ],
             [
-                'route' => 'admin-dashboard',
+                'route' => 'admin-dashboard/adoption/requested/7',
                 'name' => 'Admin Felület',
                 'role_id' => '3',
             ],
