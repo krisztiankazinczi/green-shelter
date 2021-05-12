@@ -57,8 +57,13 @@
     </div>
 
     <h3>Megkeresések az oldalról az elmúlt {{ $chartData['period'] == 'week' ? 'héten' : ($chartData['period'] == 'month' ? 'hónapban' : 'évben') }}</h3>
-    <div style="height: 300px; width: 600px ">
-        <canvas id="chart"></canvas>
+    <div style="display: flex;" id="charts">
+        <div style="height: 300px; width: 600px ">
+            <canvas id="chart"></canvas>
+        </div>
+        <div style="height: 300px; width: 500px ">
+            <canvas id="pie-chart"></canvas>
+        </div>
     </div>
 
     <h2 style="margin-top: 40px;">Üzenetek</h2>
@@ -151,12 +156,41 @@
     </div>
   </div>
 
+  <style>
+   /* charts */
+ @media (max-width: 1280px) {
+  #charts {
+    flex-direction: column;
+  }
+}
+  </style>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script>
     window.onload = function() {
         const requestsCanvas = document.getElementById("chart");
         const chartData = {!! json_encode($chartData) !!}
-        generateChart('Üzenetek', chartData, requestsCanvas, 'created_at')
+        generateChart('Üzenetek', chartData, requestsCanvas, 'created_at');
+
+        const uncompletedMessages = {!! json_encode($uncompleted_messages) !!};
+        const completedMessages = {!! json_encode($completed_messages) !!};
+        new Chart(document.getElementById("pie-chart"), {
+            type: 'pie',
+            data: {
+            labels: ['Megválaszolt', 'Megválaszolatlan'],
+            datasets: [{
+                label: "Üzenetek (db)",
+                backgroundColor: ["#3e95cd", "#8e5ea2"],
+                data: [completedMessages,uncompletedMessages]
+            }]
+            },
+            options: {
+            title: {
+                display: true,
+                text: 'Üzenetek kezelése'
+            }
+            }
+        });
     };
 </script>
 @endsection
