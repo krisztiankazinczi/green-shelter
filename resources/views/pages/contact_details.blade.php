@@ -59,71 +59,31 @@
             
               <div class="col-md-6">
                 <div class="col-md-12">
-                  <div class="form-group row">
-                        <input 
-                          id="name" 
-                          placeholder="Név" 
-                          type="text" 
-                          class="contact_form_input remove-border form-control @error('name') is-invalid @enderror" 
-                          name="name" 
-                          value="{{ old('name') }}"
-                        >
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                  <div class="form-group row">
-                    <input 
-                      id="email"
-                      placeholder="Email" 
-                      type="text" 
-                      class="contact_form_input remove-border form-control @error('email') is-invalid @enderror" 
-                      name="email" 
-                      value="{{ old('email') }}"
-                    >
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                
-                  <div class="form-group row">
-                        <input 
-                          id="subject" 
-                          placeholder="Tárgy"
-                          type="subject" 
-                          class="contact_form_input remove-border form-control @error('subject') is-invalid @enderror" 
-                          name="subject" 
-                          value="{{ old('subject') }}"
-                        >
-                        @error('subject')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+                  @include('partials.small.input_field', [
+                    'field_name' => 'name',
+                    'placeholder' => 'Név',
+                    'type' => 'text'
+                  ])
+                  @include('partials.small.input_field', [
+                    'field_name' => 'email',
+                    'placeholder' => 'Email',
+                    'type' => 'text'
+                  ])
+                  @include('partials.small.input_field', [
+                    'field_name' => 'subject',
+                    'placeholder' => 'Tárgy',
+                    'type' => 'text'
+                  ])
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="col-md-12">
-                  <div class="form-group row">
-                      <textarea 
-                        placeholder="Üzenet"  
-                        class="contact_form_textarea remove-border form-control w-100 @error('message') is-invalid @enderror" 
-                        id="message" 
-                        rows="5" 
-                        name="message"
-                      >{{ old('message') }}</textarea>
-                      @error('message')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                      @enderror
-                    </div>
+                  @include('partials.small.textarea', [
+                    'field_name' => 'message',
+                    'placeholder' => 'Üzenet',
+                    'rows' => '5'
+                  ])
                 </div>
               </div>
             </div>
@@ -131,7 +91,11 @@
               <div class="col-md-12">
                 <div class="mt-3 mb-4 form-group w-100">
                   <div class="d-flex justify-content-center">
-                      <button type="submit" class="p-2 contact_form_button btn btn-primary d-block w-50" onclick="validateContactForm(event)">
+                      <button 
+                        type="submit" 
+                        class="p-2 contact_form_button btn btn-primary d-block w-50" 
+                        onclick="validateContactForm(event)"
+                      >
                           {{ __('Üzenet küldése') }}
                       </button>
                   </div>
