@@ -85,9 +85,9 @@
                 </div>
 
                 <p class="ml-5 card-text" id="review-text">
-                  <span style="font-size: 1rem;">“</span>
+                  <span style="font-size: 1.5rem;">	&#10077;</span>
                   {{ $review->review }}
-                  <span style="font-size: 1rem;">”</span>
+                  <span style="font-size: 1.5rem;">&#10078;</span>
                 </p>
               </div>
             </div>

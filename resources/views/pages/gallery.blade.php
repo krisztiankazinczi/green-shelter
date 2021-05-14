@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div id="photos">
+<div id="photos" class="mt-4">
   @isset($images)
     @foreach ($images as $data)
         <div

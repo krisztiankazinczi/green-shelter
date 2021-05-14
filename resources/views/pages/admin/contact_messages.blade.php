@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mt-5 container-fluid">
-    <h2>Megkeresések az oldalról</h2>
+    <h2>Üzenetek az oldalról</h2>
 
     @include('partials.admin.adoption_info_boxes', [
       'firstBoxText' => 'Utolsó 7 napban',
@@ -36,7 +36,7 @@
             <div class="info-box">
                 <span class="info-box-icon bg-orange"><i class="fa fa-times-circle"></i></span>
                 <div class="info-box-content">
-                <span class="info-box-text">Még nem teljestett üzenetek</span>
+                <span class="info-box-text">Megválaszolatlan üzenetek</span>
                 <span class="info-box-number" style="font-size: 30px;">{{ $uncompleted_messages }}</span>
                 </div> 
             </div> 
@@ -48,7 +48,7 @@
             <div class="info-box">
                 <span class="info-box-icon bg-purple"><i class="fa fa-check-circle"></i></span>
                 <div class="info-box-content">
-                <span class="info-box-text">Teljestett üzenetek</span>
+                <span class="info-box-text">Megválaszolt üzenetek</span>
                 <span class="info-box-number" style="font-size: 30px;">{{ $completed_messages }}</span>
                 </div> 
             </div> 
@@ -56,7 +56,7 @@
         </a>
     </div>
 
-    <h3>Megkeresések az oldalról az elmúlt {{ $chartData['period'] == 'week' ? 'héten' : ($chartData['period'] == 'month' ? 'hónapban' : 'évben') }}</h3>
+    <h3>{{ Request::segment(3) == 'unread' ? 'Olvasatlan' : (Request::segment(3) == 'completed' ? 'Megválaszolt' : (Request::segment(3) == 'uncomplete' ? 'Megválaszolatlan' : '')) }}  Üzenetek az oldalról az elmúlt {{ $chartData['period'] == 'week' ? 'héten' : ($chartData['period'] == 'month' ? 'hónapban' : 'évben') }}</h3>
     <div style="display: flex;" id="charts">
         <div style="height: 300px; width: 600px ">
             <canvas id="chart"></canvas>
