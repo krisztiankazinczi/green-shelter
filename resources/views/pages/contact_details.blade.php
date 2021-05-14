@@ -45,82 +45,103 @@
   </div>
 </div>
 
+<div style="background-color: #F1F1F1;">
+
 <div class="mt-5 d-flex justify-content-center">
-  <h1><span class="border-bottom border-primary" style="border-width: 5px !important;">Kapcsolat</span></h1>
+  <h1 class="pt-4 pb-2"><span class="border-bottom border-primary" style="border-width: 5px !important;">Kapcsolat</span></h1>
 </div>
- <div class="container mt-4 w-50" id="contact-form-container">
+<div class="container mt-4 w-75 banner position-relative" id="contact-form-container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">{{ __('Kérdésed van? Bátran írj nekünk') }}</div>
-
-                <div class="card-body">
-                  <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('send.message.admin') }}">
-                    @csrf
-                    <div class="form-group row">
-                      <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('Név') }}</label>
-                      <div class="col-md-10">
-                          <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
-                          @error('name')
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
-                          @enderror
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label for="email" class="col-md-2 col-form-label text-md-right">{{ __('Email') }}</label>
-                      <div class="col-md-10">
-                          <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
-                          @error('email')
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
-                          @enderror
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label for="subject" class="col-md-2 col-form-label text-md-right">{{ __('Tárgy') }}</label>
-                      <div class="col-md-10">
-                          <input id="subject" type="subject" class="form-control @error('subject') is-invalid @enderror" name="subject" value="{{ old('subject') }}">
-                          @error('subject')
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
-                          @enderror
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label for="message" class="col-md-2 col-form-label text-md-right">{{ __('Üzenet') }}</label>
-                      <div class="col-md-10">
-                        <textarea @error('message')class=" form-control is-invalid" @enderror id="message" rows="6" class="form-control" name="message">{{ old('message') }}</textarea>
-                        @error('message')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
+          <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('send.message.admin') }}">
+            @csrf
+            <div class="row">
+            
+              <div class="col-md-6">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                        <input 
+                          id="name" 
+                          placeholder="Név" 
+                          type="text" 
+                          class="contact_form_input remove-border form-control @error('name') is-invalid @enderror" 
+                          name="name" 
+                          value="{{ old('name') }}"
+                        >
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
-                      </div>
                     </div>
-
-                    <div class="mb-0 form-group">
-                      <div class="d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary d-block" onclick="validateContactForm(event)">
-                              {{ __('Üzenet küldése') }}
-                          </button>
-                      </div>
-                    </div>
-                  </form>
+                  <div class="form-group row">
+                    <input 
+                      id="email"
+                      placeholder="Email" 
+                      type="text" 
+                      class="contact_form_input remove-border form-control @error('email') is-invalid @enderror" 
+                      name="email" 
+                      value="{{ old('email') }}"
+                    >
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
+                
+                  <div class="form-group row">
+                        <input 
+                          id="subject" 
+                          placeholder="Tárgy"
+                          type="subject" 
+                          class="contact_form_input remove-border form-control @error('subject') is-invalid @enderror" 
+                          name="subject" 
+                          value="{{ old('subject') }}"
+                        >
+                        @error('subject')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                      <textarea 
+                        placeholder="Üzenet"  
+                        class="contact_form_textarea remove-border form-control w-100 @error('message') is-invalid @enderror" 
+                        id="message" 
+                        rows="5" 
+                        name="message"
+                      >{{ old('message') }}</textarea>
+                      @error('message')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                </div>
+              </div>
             </div>
+            <div class="row w-100">
+              <div class="col-md-12">
+                <div class="mt-3 mb-4 form-group w-100">
+                  <div class="d-flex justify-content-center">
+                      <button type="submit" class="p-2 contact_form_button btn btn-primary d-block w-50" onclick="validateContactForm(event)">
+                          {{ __('Üzenet küldése') }}
+                      </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
         </div>
     </div>
   </div>
-
-<style>
- 
-</style>
-
+</div>
 @endsection

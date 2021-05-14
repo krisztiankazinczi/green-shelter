@@ -33,6 +33,7 @@ const clearFormErrors = (htmlInputFields) => {
   htmlInputFields.forEach(input => {
     const parent = input.parentElement;
     input.classList.remove('is-invalid');
+    input.classList.add('remove-border');
     if (parent.childNodes[3]) {
       parent.removeChild(parent.childNodes[3]);    
     }
@@ -47,6 +48,7 @@ const clearFormErrors = (htmlInputFields) => {
 const createVisualErrors = (htmlInputFields) => {
   htmlInputFields.forEach(field => {
     field.field.classList.add('is-invalid');
+    field.field.classList.remove('remove-border');
     const node = document.createElement("SPAN");
     node.className = `invalid-feedback ${field.margin === 'big' ? 'ml-4' : 'ml-1'} subject-error`;                
     const textnode = document.createTextNode(field.error);         

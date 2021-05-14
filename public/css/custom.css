@@ -9,6 +9,14 @@
   z-index: 2;
 }
 
+.add-border {
+  border: 1;
+}
+
+.remove-border {
+  border: 0;
+}
+
 /* Global Messages From Server */
 #message-from-server > div:first-child {
   top: -30px; 
@@ -332,6 +340,37 @@ column-count:         1;
   -moz-column-count:    1;
   -webkit-column-count: 1;
   column-count:         1;
+  }
+}
+
+/* Contact Form on Contact Details */
+.contact_form_input {
+  height: 3rem;
+  font-size: 1.2rem;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border-radius: 8px;
+}
+.contact_form_input:focus {
+  box-shadow: 0 0 0 0.2rem rgb(120 194 173 / 25%);
+}
+
+.contact_form_textarea {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1.2rem;
+}
+.contact_form_textarea:focus {
+  box-shadow: 0 0 0 0.2rem rgb(120 194 173 / 25%);
+}
+.contact_form_button {
+  font-size: 1.2rem;
+  border-radius: 100px;
+}
+@media (max-width: 800px) {
+  .contact_form_button {
+    width: 100% !important;
+    margin-left: 22px;
   }
 }
 
