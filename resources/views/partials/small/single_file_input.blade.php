@@ -7,7 +7,7 @@
         type="file" 
         class="custom-file-input" 
         id={{ $field_name }} 
-        name="{{$field_name}}[]" 
+        name="{{$field_name}}" 
         accept="image/*" 
         @isset ($multiple) multiple @endisset
       >
@@ -22,7 +22,10 @@
 
   <div class="mt-4 mb-3 text-center row user-image">
     <div class="imgPreview">
-    
+      @isset ($image_uri_from_db)
+        <img src="/images/{{$image_uri_from_db}}" style="height: 200px; margin-right: 10px; margin-bottom:10px; max-width: 300px;" />
+        <p class="alert alert-warning" role="alert">Ezt a képet cseréled le, ha most új képet választasz ki.</p>
+      @endisset
     </div>
   </div>
 </div>
@@ -36,33 +39,24 @@
   };
 
   $(function() {
-    const multiImgPreview = function(input, imgPreviewPlaceholder) {
 
-        if (input.files) {
-            let filesAmount = input.files.length;
-            for (i = 0; i < filesAmount; i++) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    $($.parseHTML('<img>')).css(styles).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
-                }
-                reader.readAsDataURL(input.files[i]);
-            }
-        }
-    };
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      
+      reader.onload = function(e) {
+        $($.parseHTML('<img>')).css(styles).attr('src', event.target.result).appendTo('div.imgPreview');
+      }
+      
+      reader.readAsDataURL(input.files[0]); // convert to base64 string
+    }
+  }
 
     const fieldName = {!! json_encode($field_name) !!};
-
-    $('#' + fieldName).on('change', function(e) {
-        multiImgPreview(this, 'div.imgPreview');
-
-        let filenames = "";
-        for (i = 0; i < e.target.files.length; i++) {
-          filenames += e.target.files[i].name;
-          if (i !== e.target.files.length - 1) filenames += ', '; 
-        }
-        
-        $('#file-names').append(filenames);
+    $("#image").change(function(e) {
+      $("div.imgPreview").empty();
+      $('#file-names').text(e.target.files[0].name)
+      readURL(this);
     });
-
   });    
 </script>

@@ -12,5 +12,6 @@
 
 <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script>
-  CKEDITOR.replace( 'description' );
+  const ckeFieldName = {!! json_encode($field_name) !!}
+  CKEDITOR.replace( ckeFieldName );
 </script>

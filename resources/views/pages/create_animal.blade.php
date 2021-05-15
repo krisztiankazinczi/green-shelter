@@ -40,6 +40,7 @@
 
                     @include('partials.small.file_input', [
                       'field_name' => 'images',
+                      'placeholder' => 'Képek',
                       'multiple' => true
                     ])
 

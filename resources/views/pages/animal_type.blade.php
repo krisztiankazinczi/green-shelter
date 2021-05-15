@@ -16,7 +16,7 @@
     </div>
     <div class="mt-5 col-12 col-md-6">
         <h1 class="p-3 text-white animals-jumbotron-title w-75">{{ $animal_type->name }}</h1>
-        <h5 class="p-3 mt-4 mr-3 text-white animals-jumbotron-description">{{ $animal_type->description }}</h5>
+        <h5 class="p-3 mt-4 mr-3 text-white animals-jumbotron-description">{!! $animal_type->description !!}</h5>
     </div>
   </div>
   <div class="mt-5">

@@ -85,6 +85,7 @@
 
                 @include('partials.small.file_input', [
                   'field_name' => 'images',
+                  'placeholder' => 'Képek',
                   'multiple' => true
                 ])
 
@@ -101,19 +102,17 @@
       </div>
   </div>
 </div>
+<script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script>
+  // Change main image
+  function changeMainImage(id) {
+    document.getElementById(`main-image-${id}`).submit();
+  }
 
-    // Change main image
-    function changeMainImage(id) {
-      document.getElementById(`main-image-${id}`).submit();
-    }
+  // Delete image
+  function deleteImage(id) {
+    document.getElementById(`delete-image-${id}`).submit();
+  }
 
-    // Delete image
-    function deleteImage(id) {
-      document.getElementById(`delete-image-${id}`).submit();
-    }
-
-  </script>
+</script>
 @endsection
