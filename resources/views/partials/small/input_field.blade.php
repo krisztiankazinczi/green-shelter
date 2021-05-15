@@ -1,7 +1,7 @@
 <div class="form-group row">
   <input 
     id={{ $field_name }} 
-    placeholder={{ $placeholder }}
+    @isset ($placeholder) placeholder={{ $placeholder }} @endisset
     type={{ $type }} 
     class="contact_form_input form-control @error($field_name) is-invalid @else remove-border @enderror" 
     name={{ $field_name }} 

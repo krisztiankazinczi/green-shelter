@@ -53,7 +53,7 @@
 <div class="container mt-4 w-75 banner position-relative" id="contact-form-container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-          <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('send.message.admin') }}">
+          <form method="POST" id="contact_form" enctype="multipart/form-data" action="{{ route('send.message.admin') }}">
             @csrf
             <div class="row">
             

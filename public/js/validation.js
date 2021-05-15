@@ -86,22 +86,22 @@ const validateContactForm = (event) => {
   const email = document.getElementById('email');
   const message = document.getElementById('message');
   clearFormErrors([name, email, subject, message]);
-
+  
   const fields = [
     { field: name, margin: 'small', rules: {'max': 255, 'min': 5} },
     { field: email, margin: 'small', rules: {'max': 255, 'min': 5, 'email': 'email'} },
     { field: subject, margin: 'small', rules: {'max': 255, 'min': 5} },
     { field: message, margin: 'small', rules: {} }
   ];
-
+  
   const errors = validateFields(fields);
   createVisualErrors(errors);
-
+  
   if (errors.length) {
     return false;
   }
-
-  const form = subject.parentElement.parentElement.parentElement;
+  
+  const form = document.getElementById('contact_form');
   form.submit();
 }
 

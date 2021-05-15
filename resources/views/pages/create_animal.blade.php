@@ -7,48 +7,31 @@
 @endsection
 
 @section('content')
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">{{ __('Hirdetés feladása') }}</div>
-
-                <div class="card-body">
-                  <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('create.advertisement', $page) }}">
-                    @csrf
-                    <div class="form-group row">
-                      <label for="title" class="col-md-2 col-form-label text-md-right">{{ __('Cím') }}</label>
-                      <div class="col-md-10">
-                          <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" autocomplete="title" autofocus>
-                          @error('title')
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
-                          @enderror
-                      </div>
+    <div class="container-fluid gray-bg-color">
+      <div class="row outer-form-container" >
+          <div class="col-md-4"></div>
+          <div class="col-md-2 forms-bg-color form-fields-container" style="max-width: 200px;"></div>
+          <div class="p-4 col-md-6 forms-bg-color" >
+            <div>
+                <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('create.advertisement', $page) }}">
+                  @csrf
+                    <label for="title" class="custom-form-label col-form-label">{{ __('Cím') }}</label>
+                    <div class="col-12">
+                      @include('partials.small.input_field', [
+                        'field_name' => 'title',
+                        'type' => 'text',
+                      ])
                     </div>
 
-                    <div class="form-group row">
-                      <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Leírás') }}</label>
-                      <div class="col-md-10">
-                          <div class="@error('description') special-input-error @enderror">
-                            <textarea id="description" class="form-control" name="description">{{ old('description') }}</textarea>
-                          </div>
-                          <div>
-                            @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                          </div>
-                      </div>
-                    </div>
+                    @include('partials.small.ckeditor', [
+                      'field_name' => 'description',
+                      'placeholder' => 'Leírás'
+                    ])
 
                     @isset($animal_types)
-                      <div class="form-group row">
-                        <label for="animal_type" class="col-md-2 col-form-label text-md-right">{{ __('Kategória') }}</label>
-                        <div class="col-md-10">
-                          <select class="form-control w-100 @error('animal_type') is-invalid @enderror" name="animal_type" id="animal_type">
+                      <div class="form-group">
+                        <label for="animal_type" class="custom-form-label col-form-label">{{ __('Fajta') }}</label>
+                          <select class="contact_form_input form-control w-100 @error('animal_type') is-invalid @enderror" name="animal_type" id="animal_type">
                             <option value=""></option>
                             @foreach ($animal_types as $type)
                               <option value="{{ $type->id }}" {{ !strcmp($type->id, old('animal_type')) ? 'selected' : '' }}>{{ $type->name }}</option>
@@ -59,35 +42,12 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                           @enderror
-                        </div>
                       </div>
                     @endisset
 
+                      <div class="form-group">
+                        @include('partials.small.file_input')
 
-                    <div class="form-group row">
-                      <label for="images" class="col-md-2 col-form-label text-md-right">{{ __('Képek') }}</label>
-                      <div class="col-md-10">
-                          <div class="input-group @error('images') special-input-error @enderror">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="images" name="images[]" accept="image/*" multiple>
-                              <label class="custom-file-label" for="images" id="file-names"></label>
-                            </div>
-                          </div>
-                          @error('images')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                          @enderror
-                          {{-- @foreach ($errors->getMessages() as $key => $message)
-                              @if (str_starts_with((strval($key)), 'images'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                              @endif
-                          @endforeach --}}
-                           @foreach ($errors->getMessages() as $key => $message)
-                              {{$key}}
-                          @endforeach
                         <div class="mt-4 mb-3 text-center row user-image">
                           <div class="imgPreview">
                           
@@ -95,20 +55,19 @@
                           
                         </div>   
                       </div>
-                    </div>
-                    <div class="mb-0 form-group">
-                      <div class="d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary d-block">
-                              {{ __('Hirdetés feladása') }}
-                          </button>
+                      <div class="mb-0 form-group">
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-secondary d-block w-50 form_submit_button">
+                                {{ __('Hirdetés feladása') }}
+                            </button>
+                        </div>
                       </div>
-                    </div>
-                  </form>
-                </div>
+                    </form>
             </div>
-        </div>
+                  
+          </div>
+      </div>
     </div>
-  </div>
 
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script> --}}
