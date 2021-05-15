@@ -199,6 +199,40 @@
   color: #ff5700;
 }
 
+/* Home Page Jumbotron */
+.home-jumbotron-text {
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-inline-start: 1rem solid;  
+  border-inline-start-color: #78C2AD;
+  border-inline-end: 1rem solid; 
+  border-inline-end-color: #78C2AD;
+}
+
+.home-main-titles {
+  text-decoration: underline;
+  text-decoration-color: #78C2AD;
+  text-decoration-thickness: 5px;
+  margin-top: 50px;
+
+}
+
+@media (max-width: 800px) {
+  .home-jumbotron {
+    background: none !important;
+    height: 35vh !important;
+  }
+  .home-jumbotron-text {
+    height: auto !important;
+    width: 100% !important;
+  }
+  .home-jumbotron-text > h1 {
+    font-size: 3rem;
+  }
+  .home-main-titles {
+    font-size: 2.4rem;
+  }
+}
+
 /* Animals Jumbotron */
 .animals-jumbotron-title {
   background-color: rgba(0, 0, 0, 0.5); 

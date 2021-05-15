@@ -3,17 +3,17 @@
 @section('title', 'Kezdőlap')
 
 @section('content')
-  <div class="jumbotron jumbotron-fluid" style="margin-bottom: 0; background: url({{ URL::to('/') . '/images/home_banner.jpg' }}) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 70vh;">
-        <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-            <div class="w-50">
-              <h1 class="display-3">Zöld Menedék Állatvédő Alapítvány</h1>
-              <h5>Kiemelten Közhasznú szervezet</h5>
+  <div class="jumbotron jumbotron-fluid home-jumbotron" style="margin-bottom: 0; background: url({{ URL::to('/') . '/images/home_banner.jpg' }}) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 80vh;">
+        <div class="d-flex justify-content-center align-items-center position-relative">
+            <div class="p-3 w-50 home-jumbotron-text">
+              <h1 class="text-white display-3">Zöld Menedék Állatvédő Alapítvány</h1>
+              <h5 class="text-white">Kiemelten Közhasznú szervezet</h5>
             </div>
         </div>
     </div>
     <div class="d-flex justify-content-center flex-column align-items-center gray-bg-color">
     
-      <h1 class="mb-4 text-center display-4 border-bottom border-primary" style="border-width: 5px !important; margin-top: 50px;">Az örökbefogadás menete az oldalon</h1>
+      <h1 class="mb-4 text-center display-4 home-main-titles">Az örökbefogadás menete az oldalon</h1>
 
       <div class="home-timeline-container">
         <div class="timeline">
@@ -69,20 +69,21 @@
 
         </div>
       </div>
-      
+  </div>
+      <h1 class="mb-5 text-center display-4 home-main-titles">Fontos információk</h1>
 
-
-      <div>
+      <div class="mb-5 d-flex justify-content-around">
         <a href="http://localhost:8000/images/rendelkezo.pdf" target="_blank">
-        <img src="http://localhost:8000/images/ado_1_szazalek.jpg">
+          <img src="http://localhost:8000/images/ado_1_szazalek.jpg" width="530" height="750">
         </a>
-        <p></p>
-        <iframe src="http://www.youtube.com/embed/-e2Mdq7ucYg" width="560" height="315" frameborder="0"></iframe>
-        <p></p>
-          <img title="Támogassa a bővítést" src="http://localhost:8000/images/kerites-plakat.jpg" alt="Támogassa a bővítést" width="530" height="750">
-      
+        <img title="Támogassa a bővítést" src="http://localhost:8000/images/kerites-plakat.jpg" alt="Támogassa a bővítést" width="530" height="750">
       </div>
 
-    </div>
-
+      <div class="pt-1 gray-bg-color">
+        <h1 class="mb-5 text-center display-4 home-main-titles">Örökbefogadás előtt nézd meg</h1>
+        <div class="pb-5 d-flex justify-content-around">
+          <iframe src="http://www.youtube.com/embed/-e2Mdq7ucYg" width="560" height="315" frameborder="0"></iframe>
+        </div>
+      </div>
+    
 @endsection
