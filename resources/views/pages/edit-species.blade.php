@@ -12,8 +12,8 @@
   <div class="row outer-form-container" >
       <div class="col-md-4">
         <div class="d-flex flex-column justify-content-center align-items-center h-100">
-          <h1 class="mt-4 display-4 border-bottom border-primary" style="border-width: 5px !important;">{{ $animal_type->name }}</h1>
-          <h1 class="mt-4 mb-3">fajta módosítása</h1>
+          <h1 class="mt-4 text-center display-4 border-bottom border-primary" style="border-width: 5px !important;">{{ $animal_type->name }}</h1>
+          <h1 class="mt-4 mb-4 text-center">fajta módosítása</h1>
         </div>
       </div>
       <div class="col-md-2 forms-bg-color form-fields-container" style="max-width: 200px;"></div>

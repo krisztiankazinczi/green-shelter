@@ -11,8 +11,8 @@
   <div class="row outer-form-container" >
       <div class="col-md-4">
         <div class="d-flex flex-column justify-content-center align-items-center h-100">
-          <h1 class="mt-4 display-4 border-bottom border-primary" style="border-width: 5px !important;">Hirdetés módosítása</h1>
-          <h3 class="mt-5">Feltöltött képek módosítása</h3>
+          <h1 class="mt-4 text-center display-4 border-bottom border-primary" style="border-width: 5px !important;">Hirdetés módosítása</h1>
+          <h3 class="mt-5 text-center">Feltöltött képek módosítása</h3>
           <div class="mt-4 mb-3 ml-4 text-center row user-image">
             @foreach( $animal->images as $image )
               <div class="position-relative">
@@ -92,7 +92,7 @@
                 <div class="mb-0 form-group">
                   <div class="d-flex justify-content-center">
                       <button type="submit" class="btn btn-secondary d-block w-50 form_submit_button">
-                          {{ __('Hirdetés feladása') }}
+                          {{ __('Hirdetés módosítása') }}
                       </button>
                   </div>
                 </div>
