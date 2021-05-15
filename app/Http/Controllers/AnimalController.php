@@ -83,7 +83,8 @@ class AnimalController extends Controller
     public function create($page)
     {
         $animal_types = AnimalType::orderBy('name')->get();
-        return view('pages/create_animal', compact('animal_types', 'page'));
+        $category_name = Menu::where('route', $page)->select('name')->first()->name;
+        return view('pages/create_animal', compact('animal_types', 'category_name', 'page'));
     }
 
     /**

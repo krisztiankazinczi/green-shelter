@@ -5,7 +5,7 @@
     type={{ $type }} 
     class="contact_form_input form-control @error($field_name) is-invalid @else remove-border @enderror" 
     name={{ $field_name }} 
-    value="{{ old($field_name) }}"
+    value="{{ old($field_name, $db_value ?? '')}}"
   >
   @error($field_name)
       <span class="invalid-feedback" role="alert">
