@@ -7,120 +7,60 @@
 @endsection
 
 @section('content')
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">{{ __('Profil adatok módosítása') }}</div>
-        <div class="card-body">
-          <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('update.profile') }}">
-            @csrf
-            @method('PUT')
-            <div class="form-group row">
-              <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('Név') }}</label>
-              <div class="col-md-10">
-                  <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', Auth::user()->name) }}" autocomplete="name" autofocus>
-                  @error('name')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="email" class="col-md-2 col-form-label text-md-right">{{ __('Email') }}</label>
-              <div class="col-md-10">
-                  <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', Auth::user()->email) }}" autocomplete="email" autofocus>
-                  @error('email')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="bio" class="col-md-2 col-form-label text-md-right">{{ __('Bio') }}</label>
-              <div class="col-md-10">
-                  <div style="@error('bio') border: 1px solid red; @enderror">
-                    <textarea id="bio" class="form-control" name="bio">{{ old('bio', Auth::user()->bio) }}</textarea>
-                  </div>
-                  <div>
-                    @error('bio')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                  </div>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="image" class="col-md-2 col-form-label text-md-right">{{ __('Profilkép') }}</label>
-              <div class="col-md-10">
-                <div class="input-group @error('image') special-input-error @enderror">
-                  <div class="custom-file" style="@error('images') border: 1px solid red; @enderror">
-                    <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
-                    <label class="custom-file-label" for="image" id="file-name"></label>
-                  </div>
-                </div>
-                @error('image')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-                @enderror
-              <div class="mt-4 mb-3 text-center row user-image">
-                <div class="imgPreview">
-                  <img src="{{Auth::user()->avatar_uri ? 'images/' . Auth::user()->avatar_uri : 'images/users/default-profile-image.jpg'}}" style="height: 200px; margin-right: 10px; margin-bottom:10px; max-width: 400px;" />
-                  <p class="alert alert-warning" role="alert">Ezt a képet cseréled le, ha most új képet választasz ki.</p>
-                </div>
-                
-              </div>   
-              </div>
-            </div>
-            <div class="mb-0 form-group">
-              <div class="d-flex justify-content-end">
-                  <button type="submit" class="btn btn-primary d-block">
-                      {{ __('Profil Módosítása') }}
-                  </button>
-              </div>
-            </div>
-          </form>
+<div class="container-fluid gray-bg-color">
+  <div class="row outer-form-container" >
+      <div class="col-md-4">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100">
+          <h1 class="mt-4 display-4 border-bottom border-primary" style="border-width: 5px !important;">Profil módosítása</h1>
         </div>
       </div>
-    </div>
+      <div class="col-md-2 forms-bg-color form-fields-container" style="max-width: 200px;"></div>
+      <div class="p-4 col-md-6 forms-bg-color" >
+        <div>
+            <form method="POST" id="form" enctype="multipart/form-data" action="{{ route('update.profile') }}">
+              @csrf
+              @method('PUT')
+                <label for="name" class="custom-form-label col-form-label">{{ __('Profilnév') }}</label>
+                <div class="col-12">
+                  @include('partials.small.input_field', [
+                    'field_name' => 'name',
+                    'type' => 'text',
+                    'db_value' => Auth::user()->name
+                  ])
+                </div>
+
+                 <label for="email" class="custom-form-label col-form-label">{{ __('Email') }}</label>
+                  <div class="col-12">
+                    @include('partials.small.input_field', [
+                      'field_name' => 'email',
+                      'type' => 'text',
+                      'db_value' => Auth::user()->email
+                    ])
+                  </div>
+
+                @include('partials.small.ckeditor', [
+                  'field_name' => 'bio',
+                  'placeholder' => 'Bio',
+                  'db_value' => Auth::user()->bio
+                ])
+
+                @include('partials.small.single_file_input', [
+                  'field_name' => 'image',
+                  'placeholder' => 'Profilkép',
+                  'image_uri_from_db' => Auth::user()->avatar_uri ? 'images/' . Auth::user()->avatar_uri : 'images/users/default-profile-image.jpg'
+                ])
+
+                <div class="mb-0 form-group">
+                  <div class="d-flex justify-content-center">
+                      <button type="submit" class="btn btn-secondary d-block w-50 form_submit_button">
+                          {{ __('Profil módosítása') }}
+                      </button>
+                  </div>
+                </div>
+              </form>
+        </div>
+              
+      </div>
   </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script>
-  CKEDITOR.replace( 'bio' );
-
-  const styles= {
-    height: "200px",
-    marginRight: "10px",
-    marginBottom: "10px",
-    maxWidth: "400px",
-  };
-
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      
-      reader.onload = function(e) {
-        $($.parseHTML('<img>')).css(styles).attr('src', event.target.result).appendTo('div.imgPreview');
-      }
-      
-      reader.readAsDataURL(input.files[0]); // convert to base64 string
-    }
-  }
-
-  $("#image").change(function(e) {
-    $("div.imgPreview").empty();
-    $('#file-name').text(e.target.files[0].name)
-    readURL(this);
-  });
-</script>
-
 @endsection

@@ -40,7 +40,7 @@
                 @include('partials.small.single_file_input', [
                   'field_name' => 'image',
                   'placeholder' => 'Kép',
-                  'image_uri_from_db' => $animal_type->image_uri
+                  'image_uri_from_db' => '/images/' . $animal_type->image_uri
                 ])
 
                 <div class="mb-0 form-group">

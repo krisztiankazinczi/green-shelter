@@ -23,7 +23,7 @@
   <div class="mt-4 mb-3 text-center row user-image">
     <div class="imgPreview">
       @isset ($image_uri_from_db)
-        <img src="/images/{{$image_uri_from_db}}" style="height: 200px; margin-right: 10px; margin-bottom:10px; max-width: 300px;" />
+        <img src="{{$image_uri_from_db}}" style="height: 200px; margin-right: 10px; margin-bottom:10px; max-width: 300px;" />
         <p class="alert alert-warning" role="alert">Ezt a képet cseréled le, ha most új képet választasz ki.</p>
       @endisset
     </div>
