@@ -72,11 +72,11 @@
   </div>
       <h1 class="mb-5 text-center display-4 home-main-titles">Fontos információk</h1>
 
-      <div class="mb-5 d-flex justify-content-around">
+      <div class="mb-5 d-flex justify-content-around poster-container">
         <a href="http://localhost:8000/images/rendelkezo.pdf" target="_blank">
-          <img src="http://localhost:8000/images/ado_1_szazalek.jpg" width="530" height="750">
+          <img src="http://localhost:8000/images/ado_1_szazalek.jpg">
         </a>
-        <img title="Támogassa a bővítést" src="http://localhost:8000/images/kerites-plakat.jpg" alt="Támogassa a bővítést" width="530" height="750">
+        <img title="Támogassa a bővítést" src="http://localhost:8000/images/kerites-plakat.jpg" alt="Támogassa a bővítést">
       </div>
 
       <div class="pt-1 gray-bg-color">

@@ -8,7 +8,7 @@
           <div class="col-md-4">
             <div class="d-flex flex-column justify-content-center align-items-center h-100">
               <h1 class="mt-3 text-center">Hirdetés feladása</h1>
-              <h1 class="mt-4 text-center display-4 border-bottom border-primary" style="border-width: 5px !important;">{{ $category_name }}</h1>
+              <h1 class="mt-4 text-center display-4 thick-underline">{{ $category_name }}</h1>
               <h1 class="mt-4 text-center">Kategóriában</h1>
             </div>
           </div>
