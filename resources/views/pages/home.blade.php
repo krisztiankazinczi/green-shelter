@@ -5,9 +5,9 @@
 @section('content')
   <div class="jumbotron jumbotron-fluid home-jumbotron" style="margin-bottom: 0; background: url({{ URL::to('/') . '/images/home_banner.jpg' }}) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 80vh;">
         <div class="d-flex justify-content-center align-items-center position-relative">
-            <div class="p-3 w-50 home-jumbotron-text">
-              <h1 class="text-white display-3">Zöld Menedék Állatvédő Alapítvány</h1>
-              <h5 class="text-white">Kiemelten Közhasznú szervezet</h5>
+            <div class="p-3 w-50 home-jumbotron-text" style="transform: skew(15deg);">
+              <h1 class="text-white display-3" style="transform: skew(-15deg);">Zöld Menedék Állatvédő Alapítvány</h1>
+              <h5 class="text-white" style="transform: skew(-15deg);">Kiemelten Közhasznú szervezet</h5>
             </div>
         </div>
     </div>

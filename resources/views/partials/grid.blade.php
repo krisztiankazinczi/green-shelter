@@ -1,4 +1,4 @@
-<div class="mt-5 row">
+<div class="mt-5 mb-4 row">
   @isset($animals)
     @if (@animals !== null)
       @foreach ($animals as $animal)

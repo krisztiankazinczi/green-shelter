@@ -25,7 +25,7 @@ class CategorySeeder extends Seeder
             [
                 'description' => 'Macskak macskak. Folyamatosan frissítjük az oldalunkat, mégis a személyes látogatást javasoljuk a felelosségteljes kiválasztáshoz.
                 Nagyon szeretnénk, ha a kutyáink sorsa jóra fordulna és szerető családra találnának. A képekre kattintva nagyobb méretben, külön ablakban megtekintheti őket.',
-                'image_uri' => 'cats.jpg',
+                'image_uri' => 'cats1.jpg',
                 'menu_id' => 5,
                 'text_location' => 'left'
             ],

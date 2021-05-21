@@ -1,4 +1,4 @@
-<div class="container-fluid bg-dark mt-4">
+<div class="container-fluid bg-dark">
   <div class="container bg-dark text-white">
     <div class="row p-3">
       <h2 class="text-primary mx-auto" style="letter-spacing: 5px;">Zöldmenedék</h2>
