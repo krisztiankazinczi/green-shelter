@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -15,6 +16,9 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+
+        $role3 = DB::table('roles')->where('name', '=', 'Admin')->select('id')->first();
+
         $users = [
             [
                 'name' => 'Test User',
@@ -45,7 +49,7 @@ class UserSeeder extends Seeder
                 'email' => 'admin@test.com',
                 'password' => Hash::make('12345678'),
                 'avatar_uri' => 'users/user4.jpeg',
-                'role_id' => 3
+                'role_id' => role3->id
             ],
         ];
 

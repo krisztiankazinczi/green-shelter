@@ -1,6 +1,6 @@
 <div class="mt-5 mb-4 row">
   @isset($animals)
-    @if (@animals !== null)
+    @if ($animals !== null)
       @foreach ($animals as $animal)
         <div class="mb-4 col-12 col-md-6 col-lg-4 col-xl-3">
           <div class="d-flex justify-content-center h-100">
