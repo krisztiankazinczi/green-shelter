@@ -8,7 +8,7 @@
   <header class="poligon-separator bluish-gradient">
     <div class="pt-4 d-flex justify-content-center align-items-center flex-column">
       <h1><span class="border-bottom border-primary text-white" style="border-width: 5px !important;">Elérhetőségeink</span></h1>
-      <h2 class="mt-4 text-primary text-bold"><span>Zöld Menedék Állatvédő Alapítvány</span></h2>
+      <h2 class="mt-4 text-primary text-bold text-center"><span>Zöld Menedék Állatvédő Alapítvány</span></h2>
     </div>
     <div class="mt-4 d-flex justify-content-around contact-details-container">
       <div class="p-5 rounded bg-primary">

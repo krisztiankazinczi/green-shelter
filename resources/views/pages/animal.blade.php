@@ -3,7 +3,7 @@
 @section('title', $animal->title)
 
 @section('content')
-<div class="mt-5 mb-5 d-flex justify-content-center">
+<div class="mt-5 mb-5 d-flex justify-content-center main-animal-container">
   <div class="mx-3 card animal-card">
     <div class="card-body">
       <div class="d-flex justify-content-center">

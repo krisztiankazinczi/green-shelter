@@ -39,6 +39,18 @@
   height: 10vw;
 }
 
+@media (max-width: 699px) {
+  .svg--lg {
+    display: none;
+  }
+}
+
+@media (min-width: 700px) {
+  .svg--sm {
+    display: none;
+  }
+}
+
 /* Global Messages From Server */
 #message-from-server > div:first-child {
   top: -30px; 
@@ -261,6 +273,19 @@
   }
 }
 
+@media (max-width: 400px) {
+  .home-jumbotron {
+    background: none !important;
+    height: 25vh !important;
+  }
+  .home-jumbotron-text > h1 {
+    font-size: 2rem;
+  }
+  .home-jumbotron-text > h5 {
+    font-size: 1rem;
+  }
+}
+
 /* Animals Jumbotron */
 .animals-jumbotron-title {
   background-color: rgba(0, 0, 0, 0.5); 
@@ -307,6 +332,13 @@
 @media (max-width: 700px) {
   .animal-action-container {
     flex-direction: column;
+  }
+  .animal-card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .main-animal-container {
+    margin-top: 5px !important;
   }
 }
 
@@ -487,6 +519,12 @@ column-count:         1;
   margin: 50px auto;
 }
 
+@media(max-width: 650px) {
+  .home-timeline-container {
+    max-width: 100%;
+  }
+}
+
 .timeline-text {
   font-weight: 300;
   line-height: 1.5;
@@ -567,6 +605,10 @@ column-count:         1;
   border-radius: 3px;
   font-size: 15px;
   font-weight: bold;
+  white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
 }
 
 .poster-container > a > img, .poster-container > img {
