@@ -1,6 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-primary py-0" >
-  <a class="navbar-brand" href="{{ route('home') }}"><img alt="logo" src="/images/logo.png"
-         width="30" height="30"></a>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary py-0 navbar-customization">
+  <a class="navbar-brand text-white text-decoration-none" style="font-size: 20px;" href="{{ route('home') }}">Zöldmenedék</a>
   <!-- Logot majd ide -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

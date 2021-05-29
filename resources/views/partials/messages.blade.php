@@ -6,6 +6,8 @@
   <style>
     .active-option > h5 {
       color: #f3969a;
+      background-color: #f1f1f1;
+      border-radius: 0 100px 100px 0;
     }
     .active-option > h5:hover {
       color: darkred;
@@ -25,8 +27,9 @@
     }
 
     .message-type:hover {
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       color: black;
+      background-color: #f1f1f1;
+      border-radius: 0 100px 100px 0;
     }
 
     .ellipsis-10 {
@@ -81,8 +84,8 @@
 @endsection
 
 @section('content')
-  <div class="container-fluid" style="height: 100%;">
-    <div class="row" style="height: 100%;">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
       <div class="mt-2 col-md-2 d-flex flex-column" style="max-width: 250px; border-right: 10px solid #f3969a;">
         <a 
           href="{{ route('show.messages', ['type' => 'inbox']) }}"

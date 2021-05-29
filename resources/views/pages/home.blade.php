@@ -6,8 +6,8 @@
   <div class="jumbotron jumbotron-fluid home-jumbotron" style="margin-bottom: 0; background: url({{ URL::to('/') . '/images/home_banner.jpg' }}) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 80vh;">
         <div class="d-flex justify-content-center align-items-center position-relative">
             <div class="p-3 w-50 home-jumbotron-text" style="transform: skew(15deg);">
-              <h1 class="text-white display-3" style="transform: skew(-15deg);">Zöld Menedék Állatvédő Alapítvány</h1>
-              <h5 class="text-white" style="transform: skew(-15deg);">Kiemelten Közhasznú szervezet</h5>
+              <h1 class="text-white display-3 pl-3" style="transform: skew(-15deg);">Zöld Menedék Állatvédő Alapítvány</h1>
+              <h5 class="text-white pl-3" style="transform: skew(-15deg);">Kiemelten Közhasznú szervezet</h5>
             </div>
         </div>
     </div>
@@ -73,10 +73,10 @@
       <h1 class="mb-5 text-center display-4 home-main-titles">Fontos információk</h1>
 
       <div class="mb-5 d-flex justify-content-around poster-container">
-        <a href="http://localhost:8000/images/rendelkezo.pdf" target="_blank">
-          <img src="http://localhost:8000/images/ado_1_szazalek.jpg">
+        <a href="/images/rendelkezo.pdf" target="_blank">
+          <img src="/images/ado_1_szazalek.jpg">
         </a>
-        <img title="Támogassa a bővítést" src="http://localhost:8000/images/kerites-plakat.jpg" alt="Támogassa a bővítést">
+        <img title="Támogassa a bővítést" src="/images/kerites-plakat.jpg" alt="Támogassa a bővítést">
       </div>
 
       <div class="pt-1 gray-bg-color">

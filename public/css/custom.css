@@ -245,9 +245,16 @@
   .home-jumbotron-text {
     height: auto !important;
     width: 100% !important;
+    transform: skew(0deg) !important;
   }
   .home-jumbotron-text > h1 {
     font-size: 3rem;
+    transform: skew(0deg) !important;
+    padding-left: 0;
+  }
+  .home-jumbotron-text > h5 {
+    transform: skew(0deg) !important;
+    padding-left: 0;
   }
   .home-main-titles {
     font-size: 2.4rem;
@@ -359,11 +366,11 @@ column-count:         1;
 
 #photos {
   line-height: 0;
-  -webkit-column-count: 4;
+  -webkit-column-count: 5;
   -webkit-column-gap:   20px;
-  -moz-column-count:    4;
+  -moz-column-count:    5;
   -moz-column-gap:      20px;
-  column-count:         4;
+  column-count:         5;
   column-gap:           20px;  
 }
 
@@ -373,6 +380,14 @@ column-count:         1;
   max-height: 500px;
   object-fit: cover;
   margin-bottom: 20px;  
+}
+
+@media (max-width: 1500px) {
+  #photos {
+  -moz-column-count:    4;
+  -webkit-column-count: 4;
+  column-count:         4;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -574,3 +589,23 @@ column-count:         1;
   }
 }
 
+
+/* Navbar mobile */
+
+@media(max-width: 1149px) {
+  .navbar {
+    min-height: 55px !important;
+  }
+  .navbar-collapse {
+    z-index: 1000;
+    border: 2px solid white;
+  }
+  .navbar-collapse > ul {
+    border-bottom: 2px solid white;
+  }
+  .navbar > div > ul > li > a {
+    text-align: center;
+    font-size: 20px;
+    padding: 0;
+  }
+}
