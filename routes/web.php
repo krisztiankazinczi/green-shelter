@@ -26,7 +26,7 @@ use App\Http\Controllers\ContactFormController;
 Route::group(['middleware' => 'getMenu'], function(){    
     Auth::routes();
 
-    Route::view('/home', 'pages/home')->name('home');
+    Route::view('/', 'pages/home')->name('home');
     Route::middleware('auth')->group(function () {
         Route::get('animals/{page}/create', [AnimalController::class, 'create'])->name('show.create.advertisement');
         Route::post('/animals/{page}/create', [AnimalController::class, 'store'])->name('create.advertisement');
