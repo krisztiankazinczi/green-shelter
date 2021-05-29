@@ -16,12 +16,15 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+
+        $menu_dog = DB::table('menus')->where('route', '=', 'dogs')->select('id')->first();
+
         $categories = [
             [
                 'description' => 'Folyamatosan frissítjük az oldalunkat, mégis a személyes látogatást javasoljuk a felelosségteljes kiválasztáshoz.
                 Nagyon szeretnénk, ha a kutyáink sorsa jóra fordulna és szerető családra találnának. A képekre kattintva nagyobb méretben, külön ablakban megtekintheti őket.',
                 'image_uri' => 'dog1.jpg',
-                'menu_id' => 3,
+                'menu_id' => $menu_dog->id,
                 'text_location' => 'left'
             ],
             [
@@ -51,7 +54,7 @@ class CategorySeeder extends Seeder
                 'description' => 'Lakossagi hirdetesek blablabla',
                 'image_uri' => 'dog2.jpeg',
                 'menu_id' => 11,
-                'text_location' => 'left'
+                'text_location' => 'right'
             ],
             [
                 'description' => 'Folyamatosan frissítjük az oldalunkat, kérjük küldjék el e-mailcímünkre sikeres örökbefogadásaik képes-szöveges beszámolóikat!
