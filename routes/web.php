@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::group(['middleware' => 'getMenu'], function(){
     Auth::routes();
 
     Route::view('/', 'pages/home')->name('home');
+    Route::post('/login-as-user', [UserController::class, 'loginAsUser'])->name('login.as.user');
+    Route::post('/login-as-admin', [UserController::class, 'loginAsAdmin'])->name('login.as.admin');
     Route::middleware('auth')->group(function () {
         Route::get('animals/{page}/create', [AnimalController::class, 'create'])->name('show.create.advertisement');
         Route::post('/animals/{page}/create', [AnimalController::class, 'store'])->name('create.advertisement');

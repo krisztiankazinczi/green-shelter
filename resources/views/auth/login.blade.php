@@ -65,6 +65,29 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="mt-3">
+                        <a 
+                            href="{{ route('login.as.user') }}" 
+                            onclick="event.preventDefault(); document.getElementById('login-as-user-form').submit();">
+                            Bejelentkezés egy felhasználóként
+                        </a>
+                        <form id="login-as-user-form" action="{{ route('login.as.user') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form> 
+                    </div>
+
+                    <div class="mt-1">
+                        <a 
+                            href="{{ route('login.as.admin') }}" 
+                            onclick="event.preventDefault(); document.getElementById('login-as-admin-form').submit();">
+                            Bejelentkezés egy adminként
+                        </a>
+                        <form id="login-as-admin-form" action="{{ route('login.as.admin') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form> 
+                    </div>
+
                 </div>
             </div>
         </div>

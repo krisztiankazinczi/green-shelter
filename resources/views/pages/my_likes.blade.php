@@ -4,7 +4,7 @@
 
 @section('content')
   <div class="mb-4 d-flex justify-content-center">
-    <h1 class="mt-4">Kedvelt hirdetéseim</h1>
+    <h1 class="mt-4 text-center">Kedvelt hirdetéseim</h1>
   </div>
   @include('partials.search_order')
   @include('partials.grid', ['animals' => $animals])

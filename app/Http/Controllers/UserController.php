@@ -70,4 +70,16 @@ class UserController extends Controller
 
         return redirect('profile')->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
     }
+
+    public function loginAsUser () {
+        $user = User::where('email', '=', 'orsi@test.com')->first();
+        Auth::login($user);
+        return redirect()->back();
+    }
+
+    public function loginAsAdmin () {
+        $user = User::where('email', '=', 'admin@test.com')->first();
+        Auth::login($user);
+        return redirect()->back();
+    }
 }
