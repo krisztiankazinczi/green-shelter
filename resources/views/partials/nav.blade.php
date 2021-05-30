@@ -59,7 +59,7 @@
             <a class="nav-link" style="cursor: pointer;" href="{{ route('show.messages', ['type' => 'inbox']) }}">
               <i class="mb-0 far fa-envelope h4 text-white"></i>
               @if (Auth::user()->unreadMessages())
-                <span class="badge badge-danger position-absolute" style="bottom: 17px; right: 2px;">
+                <span class="badge badge-danger position-absolute unread-messages-number">
                   {{ Auth::user()->unreadMessages() }}
                 </span>
               @endif

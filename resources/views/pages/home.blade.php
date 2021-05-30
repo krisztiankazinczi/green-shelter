@@ -80,7 +80,7 @@
 
     
     <div class="poligon-separator bluish-gradient">
-      <h1 class="mb-5 mt-0 pt-3 text-center display-4 home-main-titles text-white">Fontos információk</h1>
+      <h1 class="mb-5 mt-0 pt-5 text-center display-4 home-main-titles text-white">Fontos információk</h1>
       <div class="d-flex justify-content-around poster-container" style="padding-bottom: 150px;">
         <a href="/images/rendelkezo.pdf" target="_blank">
           <img src="/images/ado_1_szazalek.jpg">
@@ -98,7 +98,7 @@
       <div class="pt-1 gray-bg-color">
         <h1 class="mb-5 text-center display-4 home-main-titles">Örökbefogadás előtt nézd meg</h1>
         <div class="pb-5 d-flex justify-content-around">
-          <iframe src="http://www.youtube.com/embed/-e2Mdq7ucYg" width="560" height="315" frameborder="0"></iframe>
+          <iframe src="https://www.youtube.com/embed/-e2Mdq7ucYg" width="560" height="315" frameborder="0"></iframe>
         </div>
       </div>
     

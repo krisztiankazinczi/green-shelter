@@ -546,7 +546,7 @@ column-count:         1;
 
 @media(max-width: 650px) {
   .home-timeline-container {
-    max-width: 100%;
+    max-width: 90%;
   }
 }
 
@@ -659,6 +659,11 @@ column-count:         1;
 
 /* Navbar mobile */
 
+.unread-messages-number {
+  bottom: 17px; 
+  right: 2px;
+}
+
 @media(max-width: 1149px) {
   .navbar {
     min-height: 55px !important;
@@ -674,5 +679,47 @@ column-count:         1;
     text-align: center;
     font-size: 20px;
     padding: 0;
+  }
+  li.dropdown {
+    padding-bottom: 0 !important;
+  }
+  .dropdown-menu {
+    border: none;
+    border-radius: 0;
+  }
+  .unread-messages-number {
+    bottom: 0; 
+    right: 47%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+  }
+}
+@media(max-width: 900px) {
+  .unread-messages-number {
+    right: 46%;
+  }
+}
+
+@media(max-width: 700px) {
+  .unread-messages-number {
+    right: 45%;
+  }
+}
+
+@media(max-width: 600px) {
+  .unread-messages-number {
+    right: 44%;
+  }
+}
+
+@media(max-width: 400px) {
+  .unread-messages-number {
+    right: 40%;
+  }
+}
+
+@media(max-width: 350px) {
+  .unread-messages-number {
+    right: 38%;
   }
 }
