@@ -4,11 +4,15 @@
 
 @section('content')
 
+<div class="pt-4 mb-4 d-flex justify-content-center align-items-center flex-column">
+  <h1><span class="border-bottom border-primary display-4" style="border-width: 5px !important;">Képgaléria</span></h1>
+</div>
+
 <div id="photos" class="mt-4">
   @isset($images)
     @foreach ($images as $data)
         <div
-        class="position-relative"
+          class="position-relative"
           style="cursor: pointer;"
           data-toggle="modal" 
           data-target="#{{ $data->animal_id . $data->id }}"
