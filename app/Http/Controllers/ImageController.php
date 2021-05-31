@@ -53,7 +53,7 @@ class ImageController extends Controller
             ->select('images.id', 'filename', 'animal_id', 'title', 'adopted', 'route')
             ->orderBy('animals.created_at', 'DESC')
             ->get();
-        // $images = Image::with('animal', 'animal.menu')->get();
+
         return view('pages/gallery', compact('images'));
     }
 }

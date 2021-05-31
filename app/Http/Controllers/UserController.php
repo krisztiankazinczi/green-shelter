@@ -46,11 +46,14 @@ class UserController extends Controller
         }
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->bio = $request->bio;
+        $user->bio = '';
+        if ($request->bio) {
+            $user->bio = $request->bio;
+        }
 
         if (!$request->image) {
             $user->save();
-            return redirect('profile')->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
+            return redirect()->route('show.profile')->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
         }
         
         if (Auth::user()->avatar_uri) {
@@ -68,7 +71,7 @@ class UserController extends Controller
         $user->avatar_uri = 'users/' . $new_image_name;
         $user->save();
 
-        return redirect('profile')->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
+        return redirect()->route('show.profile')->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
     }
 
     public function loginAsUser () {

@@ -167,9 +167,9 @@ class AnimalController extends Controller
                 }
             }
             // ez valamiert nem redirectel vissza
-            return redirect('animals/' . $page . '/create')->with('error', 'Sajnos nem tudtuk létrehozni a hirdetést, kérünk próbálkozz később.');
+            return redirect()->route('show.create.advertisement', ['page' => $page])->with('error', 'Sajnos nem tudtuk létrehozni a hirdetést, kérünk próbálkozz később.');
         }            
-        return redirect('animals/' . $page . '/create')->with('success', 'Sikeresen feladtad a hirdetést, reméljük hamarosan gazdira talál.');
+        return redirect()->route('show.create.advertisement', ['page' => $page])->with('success', 'Sikeresen feladtad a hirdetést, reméljük hamarosan gazdira talál.');
     }
 
     /**
@@ -233,7 +233,7 @@ class AnimalController extends Controller
         // Get the relationship ids
         $animal = Animal::where('id', $id)->first();
         if (!$animal) {
-            return redirect('animals/' . $page . '/' . $id . '/edit')->with('error', 'A módosítani kívánt hirdetés nem létezik az adatbázisunkban');
+            return redirect()->back()->with('error', 'A módosítani kívánt hirdetés nem létezik az adatbázisunkban');
         }
         //File upload to server
         $files = $request->images;
@@ -280,9 +280,9 @@ class AnimalController extends Controller
                 }
             }
             // ez valamiert nem redirectel vissza
-            return redirect('animals/' . $page . '/' . $id . '/edit')->with('error', 'Sajnos nem tudtuk módosítani a hirdetést, kérünk próbálkozz később.');
+            return redirect()->back()->with('error', 'Sajnos nem tudtuk módosítani a hirdetést, kérünk próbálkozz később.');
         }            
-        return redirect('animals/' . $page . '/' . $id)->with('success', 'Sikeresen módosítottad a hirdetést.');
+        return redirect()->back()->with('success', 'Sikeresen módosítottad a hirdetést.');
     }
 
     public function destroy($id)

@@ -80,7 +80,7 @@ class AnimalTypeController extends Controller
             }
             return redirect()->back()->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
-        return redirect('/admin-dashboard/species-list')->with('success', 'Sikeresen elmentettük az adatbázisban az új fajtát.');
+        return redirect()->route('animal.types')->with('success', 'Sikeresen elmentettük az adatbázisban az új fajtát.');
     }
 
     public function show($id) {
@@ -115,7 +115,7 @@ class AnimalTypeController extends Controller
 
         if (!$request->image) {
             $animal_type->save();
-            return redirect('type/' . $animal_type->id)->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
+            return redirect()->route('animal.types')->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
         }
         
         $previous_image_path = base_path() . '/public/images/' . $animal_type->image_uri;
@@ -131,7 +131,7 @@ class AnimalTypeController extends Controller
         $animal_type->image_uri = 'types/' . $new_image_name;
         $animal_type->save();
 
-        return redirect('type/' . $animal_type->id)->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
+        return redirect()->route('animal.types')->with('success', 'Sikeresen mentettük a módosítást az adatbázisban.');
     }
 
     public function destroy ($id) {

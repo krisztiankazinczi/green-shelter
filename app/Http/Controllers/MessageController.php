@@ -60,7 +60,7 @@ class MessageController extends Controller
         Date::setLocale('hu');
         $message = Message::with('from', 'to', 'animal', 'animal.menu')->where('id', $id)->first();
         if (!$message) {
-            return redirect('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
+            return redirect()->route('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
         }
 
         return view('pages.message', compact('message'));
@@ -69,31 +69,31 @@ class MessageController extends Controller
     public function archiveMessage ($id) {
         $message = Message::where('id', $id)->first();
         if (!$message) {
-            return redirect('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
+            return redirect()->route('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
         }
         $message->archived = true;
         $message->save();
-        return redirect('messages/inbox')->with('success', 'Az üzenet archiválva.');
+        return redirect()->route('show.messages', ['type' => 'inbox'])->with('success', 'Az üzenet archiválva.');
     }
 
     public function revertArchiveMessage ($id) {
         $message = Message::where('id', $id)->first();
         if (!$message) {
-            return redirect('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
+            return redirect()->route('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
         }
         $message->archived = false;
         $message->save();
-        return redirect('messages/inbox')->with('success', 'Sikeresen áthelyezted a bejövő üzenetekhez.');
+        return redirect()->route('show.messages', ['type' => 'inbox'])->with('success', 'Sikeresen áthelyezted a bejövő üzenetekhez.');
     }
 
     public function trashMessage($id) {
         $message = Message::where('id', $id)->first();
         if (!$message) {
-            return redirect('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
+            return redirect()->route('home')->with('error', 'Az üzenet nem létezik az adatbázisban');
         }
         $message->inTrash = true;
         $message->save();
-        return redirect('messages/inbox')->with('success', 'Az üzenetet áthelyeztük a kukába.');
+        return redirect()->route('show.messages', ['type' => 'inbox'])->with('success', 'Az üzenetet áthelyeztük a kukába.');
     }
 
     public function revertTrashMessage ($id) {
@@ -103,7 +103,7 @@ class MessageController extends Controller
         }
         $message->inTrash = false;
         $message->save();
-        return redirect('messages/inbox')->with('success', 'Sikeresen áthelyezted a bejövő üzenetekhez.');
+        return redirect()->route('show.messages', ['type' => 'inbox'])->with('success', 'Sikeresen áthelyezted a bejövő üzenetekhez.');
     }
 
     public function readMessage($id) {
