@@ -27,7 +27,7 @@ class AdminController extends Controller
     public function adoptions($type, $days) {
         $acceptable_types = array('requested', 'rejected', 'adopted');
         if (!in_array($type, $acceptable_types)) {
-            return redirect('home')->with('error', 'Nem megfelelő típus');
+            return redirect()->route('home')->with('error', 'Nem megfelelő típus');
         }
         $last7DaysCount = $this->adoption->filteredAdoptionsByDays($type, 7 - 1);
         $last30DaysCount = $this->adoption->filteredAdoptionsByDays($type, 30 - 1);
@@ -65,7 +65,7 @@ class AdminController extends Controller
     public function contactMessages($type, $days) {
         $acceptable_types = array('all', 'unread', 'completed', 'uncomplete');
         if (!in_array($type, $acceptable_types)) {
-            return redirect('home')->with('error', 'Nem megfelelő típus');
+            return redirect()->route('home')->with('error', 'Nem megfelelő típus');
         }
 
         $last7DaysCount = $this->contact_messages->filteredMessagesByDays(7 - 1);

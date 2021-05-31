@@ -38,14 +38,15 @@ class AnimalController extends Controller
         $filter_by = $request->query('filter');
         $order = $request->query('order');
 
-        // if (($filter_by && ($filter_by != 'created_at' || $filter_by != 'title')) && 
-        // ($order && ($order != 'desc' || $order != 'asc'))) {
-        //     return redirect('home')->with('error', 'Érvénytelen url');
-        // }
+        $filter_options = array('created_at', 'title', null);
+        $order_options = array('asc', 'desc', null);
+        if (!in_array($filter_by, $filter_options) || !in_array($order, $order_options)) {
+            return redirect()->route('home')->with('error', 'Érvénytelen url');
+        }
 
         $menu = Menu::where('route', $page)->first();
         if (!$menu) {
-            return redirect('home')->with('error', 'A megnyitni próbált oldal nem létezik, ezért visszairányítottunk a főoldalra');
+            return redirect()->route('home')->with('error', 'A megnyitni próbált oldal nem létezik, ezért visszairányítottunk a főoldalra');
         }
         // in front-end I will check if user has access to create this kind of advertisement or not
         $create_menu = Menu::where('route', $page . '/create')->first();
@@ -64,12 +65,12 @@ class AnimalController extends Controller
         }
         if ($filter_by) {
             if ($order) {
-                $animals = $animals->orderBy($filter_by, $order)->get();
+                $animals = $animals->orderBy($filter_by, strtoupper($order))->get();
             } else {
                 $animals = $animals->orderBy($filter_by, 'DESC')->get();
             }
         } elseif ($order) {
-            $animals = $animals->orderBy('updated_at', $order)->get();
+            $animals = $animals->orderBy('updated_at', strtoupper($order))->get();
         } else {
             $animals = $animals->orderBy('updated_at', 'DESC')->get();
         }
@@ -115,11 +116,11 @@ class AnimalController extends Controller
         // Get the relationship ids
         $menu = Menu::where('route', $page)->first();
         if (!$menu) {
-            return redirect('home/')->with('error', 'Érvénytelen url-ről érkezett kérés.');
+            return redirect()->route('home')->with('error', 'Érvénytelen url-ről érkezett kérés.');
         }
         if ($menu->role_id > Auth::user()->role_id) {
             // if this page is accessible only for admins
-            return redirect('home/')->with('error', 'Nincs jogosultságod ilyen hirdetést feltölteni');
+            return redirect()->route('home')->with('error', 'Nincs jogosultságod ilyen hirdetést feltölteni');
         }
         
         //File upload to server
@@ -308,7 +309,7 @@ class AnimalController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
             // ezt meg ki kell talalni hova redirectaljunk
-            return redirect('home')->with('error', 'Nem sikerült törölni a hirdetést, próbáld meg később.');
+            return redirect()->route('home')->with('error', 'Nem sikerült törölni a hirdetést, próbáld meg később.');
         }
 
         foreach ($file_names as $image_name) {
@@ -318,13 +319,19 @@ class AnimalController extends Controller
             }
         }
         // ezt meg ki kell talalni hova redirectaljunk
-        return redirect('home')->with('success', 'Sikeresen töröltük a hirdetést az adatbázisból.');
+        return redirect()->route('home')->with('success', 'Sikeresen töröltük a hirdetést az adatbázisból.');
     }
 
     public function successStories(Request $request) {
         $searchFor = $request->query('t');
         $filter_by = $request->query('filter');
         $order = $request->query('order');
+
+        $filter_options = array('created_at', 'title', null);
+        $order_options = array('asc', 'desc', null);
+        if (!in_array($filter_by, $filter_options) || !in_array($order, $order_options)) {
+            return redirect()->route('home')->with('error', 'Érvénytelen url');
+        }
 
         $animals = Animal::with('images', 'animalType', 'menu', 'likesCount')
             ->where('adopted', true);
@@ -350,7 +357,7 @@ class AnimalController extends Controller
 
         $category = Category::with('menu')->where('id', 6)->first();
         if (!$animals || !$category) {
-            return redirect('home')->with('error', 'Az oldal jelenleg nem elérhető, ezért visszairányítottunk a főoldalra..');
+            return redirect()->route('home')->with('error', 'Az oldal jelenleg nem elérhető, ezért visszairányítottunk a főoldalra..');
         }
         return view('pages/adopteds', compact('animals', 'category'));
     }
@@ -358,7 +365,7 @@ class AnimalController extends Controller
     public function successStory($id) {
         $animal = Animal::with('images')->where('id', $id)->first();
         if (!$animal) {
-            return redirect('home')->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
+            return redirect()->route('home')->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
         return view('pages/animal', compact('animal'));
     }
@@ -387,7 +394,7 @@ class AnimalController extends Controller
     public function animalOfWeek () {
         $animal = Animal::with('images', 'menu')->where('animal_of_the_week', true)->first();
         if (!$animal) {
-            return redirect('home')->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
+            return redirect()->route('home')->with('error', 'Adatbázis hiba, kérünk próbálkozz később.');
         }
         $split = explode('/',$animal->menu->route);
         $page = end($split);

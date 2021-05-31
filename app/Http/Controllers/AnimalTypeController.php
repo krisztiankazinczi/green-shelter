@@ -15,6 +15,12 @@ class AnimalTypeController extends Controller
         $filter_by = $request->query('filter');
         $order = $request->query('order');
 
+        $filter_options = array('created_at', 'title', null);
+        $order_options = array('asc', 'desc', null);
+        if (!in_array($filter_by, $filter_options) || !in_array($order, $order_options)) {
+            return redirect()->route('home')->with('error', 'Érvénytelen url');
+        }
+
         $animals = Animal::with('images', 'animalType', 'menu')
             ->where('animal_type_id', $type_id);
 

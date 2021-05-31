@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-center info-card-img-container position-relative">
         <img src="/images/{{ $image->filename }}" alt={{ $animal->title }}>
         <p class="px-2 py-1 m-0 text-white rounded position-absolute" style="bottom: 0px; right: 0; background-color: rgba(0, 0, 0, 0.4)">
-          {{ Date::parse($animal->updated_at)->format('Y F j.') }}
+          {{ Date::parse($animal->created_at)->format('Y F j.') }}
         </p>
       </div>
       @endif

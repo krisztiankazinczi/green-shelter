@@ -13,7 +13,7 @@ class AdoptionController extends Controller
     public function adoptionRequest($id) {
         $animal = Animal::where('id', $id)->first();
         if (!$animal) {
-            return redirect('home')->with('error', 'A befogadni kívánt hirdxetés nem létezik a rendszerünkben.');
+            return redirect()->route('home')->with('error', 'A befogadni kívánt hirdxetés nem létezik a rendszerünkben.');
         }
         Adoption::create([
             'user_id' => Auth::user()->id,
