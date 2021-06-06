@@ -17,11 +17,11 @@
         @endforeach
       @endisset
     </p>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center text-center">
       <h1>{{ $animal->title }}</h1>
     </div>
     <div class="mt-2 d-flex justify-content-end">
-      <h5 class="font-italic">Hirdetés feladása: <span class="font-weight-bold">{{ Date::parse($animal->updated_at)->format('Y F j.') }}</span></h5>
+      <h5 class="font-italic" style="font-size: 13px;">Hirdetés feladása: <span class="font-weight-bold">{{ Date::parse($animal->updated_at)->format('Y F j.') }}</span></h5>
     </div>
     <div class="d-flex justify-content-center animal-action-container">
       <div class="mt-4 d-flex justify-content-center align-items-center">
@@ -155,16 +155,14 @@
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <h4 class="mx-4 mt-5 text-justify" style="line-height: 30px;">{!! $animal->description !!}</h4>
+      <h4 class="mx-4 mt-5 w-100 animal-description">{!! $animal->description !!}</h4>
     </div>
-    <div class="mt-5 container-fluid">
+    <div class="mt-5">
       <div class="mt-4 mb-3 user-image animal-photos">
         @foreach ($animal->images as $image)
             <img 
               src="/images/{{$image->filename}}" 
               alt="{{ $animal->title }}" 
-              style="{{ $image->main ? 'border: 10px solid;' : '' }} box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;" 
-              class="{{ $image->main ? 'border-secondary' : '' }}"
             />
         @endforeach
       </div>
