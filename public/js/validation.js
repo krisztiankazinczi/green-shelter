@@ -57,10 +57,10 @@ const createVisualErrors = (htmlInputFields) => {
   })
 }
 
-const validateSendMessageForm = (event) => {
+const validateSendMessageForm = (event, advertisementId) => {
   event.preventDefault();
-  const subject = document.getElementById('subject');
-  const message = document.getElementById('message');
+  const subject = document.getElementById(`subject-${advertisementId}`);
+  const message = document.getElementById(`message-${advertisementId}`);
   clearFormErrors([subject, message]);
 
   const fields = [
@@ -70,12 +70,14 @@ const validateSendMessageForm = (event) => {
 
   const errors = validateFields(fields);
   createVisualErrors(errors);
+  subject.classList.remove('remove-border');
+  message.classList.remove('remove-border');
 
   if (errors.length) {
     return false;
   }
 
-  const form = subject.parentElement.parentElement;
+  const form = document.getElementById(`form-${advertisementId}`);
   form.submit();
 }
 
@@ -103,6 +105,18 @@ const validateContactForm = (event) => {
   
   const form = document.getElementById('contact_form');
   form.submit();
+}
+
+// Hide send message modal on Info_card component 
+const closeModal = (modal_id) => {
+  $(`#send-message-${modal_id}`).modal('hide');
+  const subject = document.getElementById(`subject-${modal_id}`);
+  const message = document.getElementById(`message-${modal_id}`);
+  subject.classList.remove('is-invalid');
+  message.classList.remove('is-invalid');
+  subject.value = '';
+  message.value = '';
+
 }
 
 // const validateCreateSpeciesForm = (event) => {

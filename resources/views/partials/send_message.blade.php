@@ -1,12 +1,12 @@
 <form 
   method="POST" 
-  id="form" 
+  id="form-{{ $animal_id }}" 
   enctype="multipart/form-data" 
   action="{{ route('send.message') }}"
 >
   @csrf
   <div class="form-group row d-flex justify-content-center">
-    <input style="width: 95%;" id="subject" placeholder="Tárgy" type="text" class="form-control @error('subject') is-invalid @enderror" name="subject" value="{{ old('subject') }}" autofocus>
+    <input style="width: 95%;" id="subject-{{ $animal_id }}" placeholder="Tárgy" type="text" class="form-control @error('subject') is-invalid @enderror" name="subject" value="{{ old('subject') }}" autofocus>
       @error('subject')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -19,7 +19,7 @@
     <input type="hidden" name="animal_id" value="{{ $animal_id }}" />
 
     <div style="@error('message') border: 1px solid red; @enderror">
-      <textarea placeholder="Üzenet" id="message" rows="6" class="form-control" name="message">{{ old('message') }}</textarea>
+      <textarea placeholder="Üzenet" id="message-{{ $animal_id }}" rows="6" class="form-control" name="message">{{ old('message') }}</textarea>
     </div>
     <div>
       @error('message')
@@ -31,8 +31,8 @@
   </div>
     <div class="form-group mb-0">
       <div class="d-flex justify-content-between">
-          <a class="card-link text-danger" style="cursor: pointer;" onclick="{{ $cbFunction }}" >Mégse</a>
-          <button type="submit" class="btn btn-primary btn-sm d-block" onclick="validateSendMessageForm(event)">
+          <a class="card-link text-danger" style="cursor: pointer;" onclick="closeModal('{{ $animal_id }}')" >Mégse</a>
+          <button type="submit" class="btn btn-primary btn-sm d-block" onclick="validateSendMessageForm(event, '{{$animal_id }}')">
               {{ __('Küldés') }}
           </button>
       </div>

@@ -12,8 +12,7 @@
           'from_id' => $from_id,
           'to_id' => $to_id,
           'animal_id' => $animal_id ,
-          'subject' => $subject,
-          'cbFunction' => $cbFunction,
+          'subject' => $subject
         ])
       </div>
     </div>

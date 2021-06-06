@@ -10,7 +10,7 @@
     @isset($images)
       @foreach($images as $image)
         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-          <img class="d-block img-fluid" style="height: 30rem; max-width: 100%; width: auto;" src="/images/{{ $image->filename }}">
+          <img class="carousel-image" class="d-block img-fluid" src="/images/{{ $image->filename }}">
         </div>
       @endforeach
     @endisset

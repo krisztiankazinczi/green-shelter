@@ -43,8 +43,7 @@
               'from_id' => Auth::user()->id,
               'to_id' => $animal->user_id,
               'animal_id' => $animal->id,
-              'subject' => '',
-              'cbFunction' => 'closeModal("{{send-message-$animal->id}}")'
+              'subject' => ''
             ])
           </div>
         @endauth

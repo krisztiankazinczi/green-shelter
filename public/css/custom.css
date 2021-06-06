@@ -757,3 +757,16 @@ column-count:         1;
     transform: skew(-20deg);
   }
 
+  /* Carousel */
+
+  .carousel-image {
+    height: 30rem; 
+    max-width: 100%; 
+    width: auto;
+  }
+
+  @media(max-width: 450px) {
+    .carousel-image {
+      height: 15rem;
+    }
+  }

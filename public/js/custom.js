@@ -20,10 +20,7 @@ const createUrlFromSearchParams = (searchFor, filter_by, order) => {
   return newUrl;
 }
 
-// Hide send message modal on Info_card component 
-const closeModal = (modal_id) => {
-  $(`#${modal_id}`).modal('hide');
-}
+
 
 const closeMessageFromServer = () => {
   const serverMessage = document.getElementById('message-from-server');
