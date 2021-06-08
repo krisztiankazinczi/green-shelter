@@ -1,5 +1,5 @@
 @isset($category)
-    <div class="mb-5" style="background: url({{ URL::to('/') . '/images/' . $category->image_uri }}) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 60vh;">
+    <div class="mb-5 overflow-hidden" style="background: url({{ URL::to('/') . '/images/' . $category->image_uri }}) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 60vh;">
         <div class="container-fluid">
             <div class="row pt-5">
                 <div class="col-md-6">
